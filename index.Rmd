@@ -1,0 +1,39 @@
+--- 
+title: "Data science for biology"
+author: "alena savachenko"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+
+
+output: 
+  bookdown::gitbook:
+    css: assets/css/style.css
+    includes:
+      after_body: assets/html/after.html 
+    config:
+      toc:
+        before: |
+          <li class="toc-logo"><a href="./"><img src="assets/img/logo_toc.png"></a></li>
+          <li><a href="./">Data science for biology </a></li>
+    
+---
+
+# Introduction
+
+<div class= "pd22">
+
+This is a  bookdown  written in Markdown for educational purposes inside the course
+Data science for biology (TLSC-DSFB26V-20). This portfolio covers reproducible science, version control, sharing code and data in different ways, collaboration, database. Portfolio assignment 
+starts with t CV.
+
+</div>
+
+
+<h3> Portfolio  assignment 1.1 CV </h3>
+
+````{=html}
+```{r, echo=FALSE, results='asis'}
+xfun::file_string('assets/html/cv_index.html')
+```
+````
+

@@ -1,0 +1,206 @@
+# Portfolio assignment 1.2   Looking ahead
+
+##  Portfolio assignment 1.2 Part 1
+
+<div class="azure">
+<h4> Looking ahead</h4>
+<h3>  Answer the following questions:  </h3>
+
+<li>  Where do I want to be in ~2 years time? </li>
+<li>  How am I doing now with respect to this goal?  </li>
+<li>  What would be the next skill to learn? </li>
+
+</div>
+
+
+<h3> Plan  to get a paid job in the Netherlands </h3>
+
+To do this I need to take the following steps: 
+<p> master the Dutch language, get a basic education. </p>
+<p>In my final year of education I plan to do an internship at inspection company NAK ( Randweg 14,Emmeloord). Presumably I will be doing work on detecting infection in potato seeds, using qPCR and data analyse of results. </p>
+
+<p>The current course TLSC-DSFB26V-20 is aimed at obtaining basic bio-medical and bioinformatics knowledge, which I need for your work position. <p>
+</div>
+
+<h3> What would be the next skill to learn </h3>
+
+<li> -Genomic Data Visualization and Interpretation (Ensemble, UCSC, IGV) </li>
+<li> -Visualize mutation profile patterns (GenVisR) </li>
+<li> -Visualize the genomic characterization of disease and response to therapy results (GenVisR) </li>
+<li> -Matplotlib & Seaborn PyData  </li>
+
+
+<div class="azure pd22"> Make a planning on how to start learning this new skill.
+
+Note the following points:
+
+    It has to be life sciences or useful for life sciences (no knitting, riding horses etc)
+    It has to be data science / bioinformatics
+    You have to show your plan in your portfolio, together with the result of the first few steps you took in trying to reach this goal.
+    You probably won’t learn this skill in a few days. Just get started.
+
+This assignment will show us whether you succeeded in reaching an overview of the field and possibilities in data science for biology</div>
+
+
+## Portfolio assignment 1.2 Looking ahead. Package GenVisR
+
+
+<h3> Visualizing genetic Mutations  with GenVisr  </h3>
+
+ <p> * this is the first approach. The extended analyse follows.
+
+
+<div class="pd22">
+
+```{r mutation_viz, echo=FALSE}
+
+
+library(GenVisR)
+library(data.table)
+
+mutation_data <-  fread("data/mutation_data.tsv")
+
+mutation_data <- mutation_data[,c('patient', 'gene name','trv type','amino acid change')]
+
+setnames(mutation_data, c("sample", "gene", "mutation", "aminoacid change"))
+
+myHierarchy <- data.table("mutation"=c("nonsense",
+                                       "frame_shift_del", "frame_shift_ins", "in_frame_del",
+                                       "splice_site_del", "splice_site", "missense",
+                                       "splice_region", "rna"), color=c("#FF0000", "#00A08A",
+                                                                        "#F2AD00", "#F98400", "#5BBCD6", "#046C9A", "#D69C4E",
+                                                                        "#000000", "#446455"))
+
+plotData <- Waterfall(mutation_data, mutationHierarchy = myHierarchy)
+
+```
+
+</div>
+
+
+
+```{r waterfall_plot}
+
+
+drawPlot(plotData)
+
+
+```
+
+<h3> visualization cancerogenic gene  PIK3CA  </h3>
+
+</br>
+</br>
+
+
+
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+library("g3viz")
+
+mutation_gene_hugo <- "PIK3CA"
+
+mutation.csv <- system.file("extdata", "ccle.csv", package = "g3viz")
+
+
+mutation.dat <- readMAF(mutation.csv,
+                        gene.symbol.col = "Hugo_Symbol",
+                        variant.class.col = "Variant_Classification",
+                        protein.change.col = "amino_acid_change",
+                        sep = ",")  # column-separator of csv file
+
+
+plot.options <- g3Lollipop.options(
+  # Chart settings
+  chart.width = 600,
+  chart.type = "pie",
+  chart.margin = list(left = 30, right = 20, top = 20, bottom = 30),
+  chart.background = "#d3d3d3",
+  transition.time = 300,
+  # Lollipop track settings
+  lollipop.track.height = 200,
+  lollipop.track.background = "#d3d3d3",
+  lollipop.pop.min.size = 1,
+  lollipop.pop.max.size = 8,
+  lollipop.pop.info.limit = 5.5,
+  lollipop.pop.info.dy = "0.24em",
+  lollipop.pop.info.color = "white",
+  lollipop.line.color = "#a9A9A9",
+  lollipop.line.width = 3,
+  lollipop.circle.color = "#ffdead",
+  lollipop.circle.width = 0.4,
+  lollipop.label.ratio = 2,
+  lollipop.label.min.font.size = 12,
+  lollipop.color.scheme = "dark2",
+  highlight.text.angle = 60,
+  # Domain annotation track settings
+  anno.height = 16,
+  anno.margin = list(top = 0, bottom = 0),
+  anno.background = "#d3d3d3",
+  anno.bar.fill = "#a9a9a9",
+  anno.bar.margin = list(top = 4, bottom = 4),
+  domain.color.scheme = "pie5",
+  domain.margin = list(top = 2, bottom = 2),
+  domain.text.color = "white",
+  domain.text.font = "italic 8px Serif",
+  # Y-axis label
+  y.axis.label = "# of PIK3CA gene mutations",
+  axis.label.color = "#303030",
+  axis.label.alignment = "end",
+  axis.label.font = "italic 12px Serif",
+  axis.label.dy = "-1.5em",
+  y.axis.line.color = "#303030",
+  y.axis.line.width = 0.5,
+  y.axis.line.style = "line",
+  y.max.range.ratio = 1.1,
+  # Chart title settings
+  title.color = "#303030",
+  title.text = "PIK3CA gene (customized chart options)",
+  title.font = "bold 12px monospace",
+  title.alignment = "start",
+  # Chart legend settings
+  legend = TRUE,
+  legend.margin = list(left=20, right = 0, top = 10, bottom = 5),
+  legend.interactive = TRUE,
+  legend.title = "Variant classification",
+  # Brush selection tool
+  brush = TRUE,
+  brush.selection.background = "#F8F8FF",
+  brush.selection.opacity = 0.3,
+  brush.border.color = "#a9a9a9",
+  brush.border.width = 1,
+  brush.handler.color = "#303030",
+  # tooltip and zoom
+  tooltip = TRUE,
+  zoom = TRUE
+)
+
+
+```
+
+```{r}
+
+g3Lollipop(mutation.dat,
+           gene.symbol = mutation_gene_hugo,
+           protein.change.col = "amino_acid_change",
+           btn.style = "blue", # blue-style chart download buttons
+           plot.options = plot.options,
+           output.filename = "customized_plot")
+```
+
+
+
+<p> </p>
+
+<div class="pd22">
+GenVisR is  focused on supporting of genomic visualizations. The library waterfall of GenViSR answers the question  what mutations are present in the sample. This type plot displays  in a heatmap-like structure with rows and columns denotating genes and samples. </div>
+
+
+The goal is to investigate Bioconductor package GenVisR and to apply it on a clinical dataset. The plan is to  conduct deeper research on  GenVisR, develop new data analysis techniques, and make contributions to the fields of mutational study in  biology and medicine.
+</p>
+
+<p> Dataset supposed to come from Ensemble  database
+
+
+
