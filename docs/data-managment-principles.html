@@ -52,6 +52,12 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/d3-4.13.0/./d3/d3.v4.min.js"></script>
+<link href="libs/g3viz-0.4.0/./g3viz/g3-lollipop.min.css" rel="stylesheet" />
+<script src="libs/g3viz-0.4.0/./g3viz/g3-lollipop.min.js"></script>
+<script src="libs/g3Lollipop-binding-1.2.0/g3Lollipop.js"></script>
 
 
 <style type="text/css">
@@ -185,9 +191,9 @@ Use the {fs} package to share a screenshot of your folder tree in your portfolio
 <h5>
 The portfolio directory:
 </h5>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="data-managment-principles.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(fs)</span>
-<span id="cb3-2"><a href="data-managment-principles.html#cb3-2" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="data-managment-principles.html#cb3-3" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(here<span class="sc">::</span><span class="fu">here</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="data-managment-principles.html#cb10-1" tabindex="-1"></a><span class="fu">library</span>(fs)</span>
+<span id="cb10-2"><a href="data-managment-principles.html#cb10-2" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="data-managment-principles.html#cb10-3" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(here<span class="sc">::</span><span class="fu">here</span>())</span></code></pre></div>
 <pre><code>## C:/Users/Mijn-PC/Documents/r/portfolio-master/portfolio-master
 ## ├── 01-looking_ahead_assign01.Rmd
 ## ├── 02-Agile_collaboration.Rmd
@@ -253,8 +259,10 @@ The portfolio directory:
 ## │   ├── assets
 ## │   │   ├── css
 ## │   │   │   └── style.css
-## │   │   └── img
-## │   │       └── logo_toc.png
+## │   │   ├── img
+## │   │   │   └── logo_toc.png
+## │   │   └── vignettes
+## │   │       └── readme_dataset.pdf
 ## │   ├── bookdownproj_files
 ## │   │   └── figure-html
 ## │   │       ├── unnamed-chunk-3-1.png
@@ -322,7 +330,7 @@ The portfolio directory:
 <h5>
 The workflow directory:
 </h5>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="data-managment-principles.html#cb5-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/r/worfklow_ds_2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="data-managment-principles.html#cb12-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/r/worfklow_ds_2&quot;</span>)</span></code></pre></div>
 <pre><code>## C:/Users/Mijn-PC/Documents/r/worfklow_ds_2
 ## ├── 02-Agile_collaboration.Rmd
 ## ├── 03-Data-management-principles.Rmd
@@ -412,7 +420,7 @@ The workflow directory:
 <h5>
 The Daur-2 directory:
 </h5>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="data-managment-principles.html#cb7-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/r/Daur2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="data-managment-principles.html#cb14-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/r/Daur2&quot;</span>)</span></code></pre></div>
 <pre><code>## C:/Users/Mijn-PC/Documents/r/Daur2
 ## ├── Daur2.Rproj
 ## ├── rnaseq_airway
@@ -443,7 +451,7 @@ The Daur-2 directory:
 <h5>
 The projecticum directory:
 </h5>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="data-managment-principles.html#cb9-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/r/projecticum&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="data-managment-principles.html#cb16-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/r/projecticum&quot;</span>)</span></code></pre></div>
 <pre><code>## C:/Users/Mijn-PC/Documents/r/projecticum
 ## └── projecticum
 ##     ├── data
