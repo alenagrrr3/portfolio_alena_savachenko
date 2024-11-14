@@ -9,6 +9,7 @@ git rm -rf _book
 
  git commit -m "remove _book"
 
+( or remove from file sysetem)
 
  git push origin master
 

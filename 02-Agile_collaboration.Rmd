@@ -1,0 +1,41 @@
+# Agile collaboration
+
+<div class= "azure"> 
+
+
+github pages
+
+    Execute the steps explained here (click) to setup a github-pages repository called myname-portfolio or something similar.
+
+NOTE: your github pages will be visible for everyone! Don’t put anything on there you do not want the world to see. Including but not restricted to: your address, e-mail etc, data you have no permission for, code you don’t want anyone to see (your teachers will still be able to see all code in your repo)
+
+Once you have successfully rendered your bookdown to a full website, hosting can be achieved by copying all html files to your Github-pages. The easiest way is to:
+
+    set your repo to private
+    add your teachers as collaborators on the repo
+    clone your github pages repo
+    copy all the html files rendered with bookdown to this folder
+    commit and push all changes to your github pages repo. The website will be automatically updated after some time.
+
+Make sure your portfolio looks professional, and flex your Rmarkdown and analysis skills: it is meant to be used with future job applications! (Also, it is part of your grade)
+
+    Put your portfolio on your github pages
+
+
+</div>
+
+
+<div class= "pd22"> 
+
+<h4> Links to  github pages/repo : </h4>
+
+[Portfolio source code](https://github.com/alenagrrr3/portfolio_alena_savachenko)
+<br>
+[Portfolio deployment](https://alenagrrr3.github.io/portfolio_alena_savachenko/)
+<br>
+[Workflow source code](https://github.com/alenagrrr3/worfklow_ds_2)
+<br>
+[Workflow deployment](https://alenagrrr3.github.io/worfklow_ds_2/)
+<br>
+
+</div>
