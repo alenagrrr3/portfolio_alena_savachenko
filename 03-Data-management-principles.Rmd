@@ -3,7 +3,6 @@
 
 
 
-
 <div class="azure"> 
 
 
@@ -22,3 +21,54 @@ hint: you had 3 datasets within the RNAseq project, one of them being the exam p
 For the projecticum folder, make sure you do this together with your lab partner.
 
 </div>
+
+
+
+
+
+<h5> The portfolio directory: </h5>
+
+```{r, warning=FALSE, message=FALSE}
+
+library(fs)
+
+fs::dir_tree(here::here())
+```
+
+<h5> The workflow directory: </h5>
+
+```{r}
+
+
+fs::dir_tree("C:/Users/Mijn-PC/Documents/r/worfklow_ds_2")
+```
+
+
+
+<h5> The Daur-2 directory: </h5>
+
+```{r}
+
+
+fs::dir_tree("C:/Users/Mijn-PC/Documents/r/Daur2")
+```
+
+
+
+<h5> The projecticum  directory: </h5>
+
+```{r}
+
+
+fs::dir_tree("C:/Users/Mijn-PC/Documents/r/projecticum")
+```
+
+Include readme to the projecticum dataset
+
+
+<object data="assets/vignettes/readme_dataset.pdf" type="application/pdf" width="100%" height="750px">
+  <embed src="assets/vignettes/readme_dataset.pdf">
+  </object>
+
+
+

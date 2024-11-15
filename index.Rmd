@@ -18,10 +18,6 @@ output:
           <li class="toc-logo"><a href="./"><img src="assets/img/logo_toc.png"></a></li>
           <li><a href="./">Data science for biology </a></li>
 
-params:
-  country: "Austria"
-  year: "2020"
-  period: "2022-01-01 2022-07-01"
       
 ---
 

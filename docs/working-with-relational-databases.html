@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Working with relational databases | Data science for biology</title>
+  <meta name="description" content="Chapter 8 Working with relational databases | Data science for biology" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Working with relational databases | Data science for biology" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Working with relational databases | Data science for biology" />
+  
+  
+  
+
+<meta name="author" content="alena savachenko" />
+
+
+<meta name="date" content="2024-11-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="reproducble-research.-part-2.html"/>
+<link rel="next" href="creating-r-packages.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/d3-4.13.0/./d3/d3.v4.min.js"></script>
+<link href="libs/g3viz-0.4.0/./g3viz/g3-lollipop.min.css" rel="stylesheet" />
+<script src="libs/g3viz-0.4.0/./g3viz/g3-lollipop.min.js"></script>
+<script src="libs/g3Lollipop-binding-1.2.0/g3Lollipop.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="./"><img src="assets/img/logo_toc.png"></a></li>
+<li><a href="./">Data science for biology </a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="the-guerrilla-data_management-principles.html"><a href="the-guerrilla-data_management-principles.html"><i class="fa fa-check"></i><b>2</b> The Guerrilla Data_management Principles</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="the-guerrilla-data_management-principles.html"><a href="the-guerrilla-data_management-principles.html#portfolio-assignment-1.2-part-1"><i class="fa fa-check"></i><b>2.1</b> Portfolio assignment 1.2 Part 1</a></li>
+<li class="chapter" data-level="2.2" data-path="the-guerrilla-data_management-principles.html"><a href="the-guerrilla-data_management-principles.html#portfolio-assignment-1.2-looking-ahead.-package-genvisr"><i class="fa fa-check"></i><b>2.2</b> Portfolio assignment 1.2 Looking ahead. Package GenVisR</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="agile-collaboration.html"><a href="agile-collaboration.html"><i class="fa fa-check"></i><b>3</b> Agile collaboration</a></li>
+<li class="chapter" data-level="4" data-path="data-managment-principles.html"><a href="data-managment-principles.html"><i class="fa fa-check"></i><b>4</b> Data managment principles</a></li>
+<li class="chapter" data-level="5" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>5</b> Reproducible research</a></li>
+<li class="chapter" data-level="6" data-path="reproducibility-issues-in-a-scientific-publication..html"><a href="reproducibility-issues-in-a-scientific-publication..html"><i class="fa fa-check"></i><b>6</b> Reproducibility issues in a scientific publication.</a></li>
+<li class="chapter" data-level="7" data-path="reproducble-research.-part-2.html"><a href="reproducble-research.-part-2.html"><i class="fa fa-check"></i><b>7</b> Reproducble research. Part 2</a></li>
+<li class="chapter" data-level="8" data-path="working-with-relational-databases.html"><a href="working-with-relational-databases.html"><i class="fa fa-check"></i><b>8</b> Working with relational databases</a></li>
+<li class="chapter" data-level="9" data-path="creating-r-packages.html"><a href="creating-r-packages.html"><i class="fa fa-check"></i><b>9</b> Creating R packages</a></li>
+<li class="chapter" data-level="10" data-path="parameterized-rmarkdown.html"><a href="parameterized-rmarkdown.html"><i class="fa fa-check"></i><b>10</b> parameterized RMarkdown</a></li>
+<li class="chapter" data-level="11" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>11</b> Introduction</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/alenagrrr3/portfolio_alena_savachenko" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data science for biology</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="working-with-relational-databases" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Working with relational databases<a href="working-with-relational-databases.html#working-with-relational-databases" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h3>
+Portfolio assignment 7.Relational databases
+</h3>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="working-with-relational-databases.html#cb40-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb40-2"><a href="working-with-relational-databases.html#cb40-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb40-3"><a href="working-with-relational-databases.html#cb40-3" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;dslabs&quot;</span>)</span></code></pre></div>
+<div class="azure">
+<p>Assignment</p>
+<pre><code>Load the flu (in the github repo for this course: https://github.com/DataScienceILC/tlsc-dsfb26v-20_workflows go to ./data/flu_data.csv), the dengue (“./data/dengue_data.csv) and the gapminder ({dslabs} package) into three separate dataframes in R
+
+Check if they are in the right shape. Is the data in the ‘tidy’ format? If not change the format to ‘tidy’
+
+Change the country and date variables of the three tables so that they coincide in terms of data type, class and values
+
+Store the three tables as separate (so six in total) .csv and .rds files.
+
+In Dbeaver create a new PostgreSQL database “workflowsdb”
+
+Using RPostgreSQL, insert the tables into the database.
+
+Inspect the contents of the tables with SQL (in DBeaver) and save the SQL script.
+
+Inspect the contents of the tables with dplyr (in R) and save a RMarkdown showing what you are doing.
+
+Load the gapminder data in R and change the dataframe in such as way that you could join it to dengue and flue.
+
+Save this clean gapminder data in the “workflowsdb” database
+
+Perform some joins (your choice) with SQL (can be done in DBeaver or with dplyr.
+
+Generate a joined table, and export this from the database to R.
+
+Show some descriptive statistics with this table, and at least 3 visualisations using ggplot2.
+
+Write a short report to show at least te actions listed in this assignment in a Rmd file for your portfolio. Include pictures and provide text explaining and showcasing your skills.</code></pre>
+</div>
+<h3>
+read in Flu dataset
+</h3>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="working-with-relational-databases.html#cb42-1" tabindex="-1"></a>flu <span class="ot">&lt;-</span>   <span class="fu">read.csv</span>(<span class="st">&quot;data/les5/flu_data.csv&quot;</span>, <span class="at">skip=</span><span class="dv">11</span>)</span>
+<span id="cb42-2"><a href="working-with-relational-databases.html#cb42-2" tabindex="-1"></a><span class="fu">colnames</span>(flu)</span></code></pre></div>
+<pre><code>##  [1] &quot;Date&quot;          &quot;Argentina&quot;     &quot;Australia&quot;     &quot;Austria&quot;      
+##  [5] &quot;Belgium&quot;       &quot;Bolivia&quot;       &quot;Brazil&quot;        &quot;Bulgaria&quot;     
+##  [9] &quot;Canada&quot;        &quot;Chile&quot;         &quot;France&quot;        &quot;Germany&quot;      
+## [13] &quot;Hungary&quot;       &quot;Japan&quot;         &quot;Mexico&quot;        &quot;Netherlands&quot;  
+## [17] &quot;New.Zealand&quot;   &quot;Norway&quot;        &quot;Paraguay&quot;      &quot;Peru&quot;         
+## [21] &quot;Poland&quot;        &quot;Romania&quot;       &quot;Russia&quot;        &quot;South.Africa&quot; 
+## [25] &quot;Spain&quot;         &quot;Sweden&quot;        &quot;Switzerland&quot;   &quot;Ukraine&quot;      
+## [29] &quot;United.States&quot; &quot;Uruguay&quot;</code></pre>
+<h3>
+read in Dengue dataset
+</h3>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="working-with-relational-databases.html#cb44-1" tabindex="-1"></a>dengue <span class="ot">&lt;-</span>  <span class="fu">read.csv</span>(<span class="st">&quot;data/les5/dengue_data.csv&quot;</span>, <span class="at">skip=</span><span class="dv">11</span>)</span>
+<span id="cb44-2"><a href="working-with-relational-databases.html#cb44-2" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="working-with-relational-databases.html#cb44-3" tabindex="-1"></a><span class="fu">colnames</span>(dengue)</span></code></pre></div>
+<pre><code>##  [1] &quot;Date&quot;        &quot;Argentina&quot;   &quot;Bolivia&quot;     &quot;Brazil&quot;      &quot;India&quot;      
+##  [6] &quot;Indonesia&quot;   &quot;Mexico&quot;      &quot;Philippines&quot; &quot;Singapore&quot;   &quot;Thailand&quot;   
+## [11] &quot;Venezuela&quot;</code></pre>
+<h3>
+Read in dslabs gapminder dataset
+</h3>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="working-with-relational-databases.html#cb46-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;dslabs&quot;</span>)</span>
+<span id="cb46-2"><a href="working-with-relational-databases.html#cb46-2" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="working-with-relational-databases.html#cb46-3" tabindex="-1"></a><span class="fu">head</span>(gapminder)</span></code></pre></div>
+<pre><code>##               country year infant_mortality life_expectancy fertility
+## 1             Albania 1960           115.40           62.87      6.19
+## 2             Algeria 1960           148.20           47.50      7.65
+## 3              Angola 1960           208.00           35.98      7.32
+## 4 Antigua and Barbuda 1960               NA           62.97      4.43
+## 5           Argentina 1960            59.87           65.39      3.11
+## 6             Armenia 1960               NA           66.86      4.55
+##   population          gdp continent          region
+## 1    1636054           NA    Europe Southern Europe
+## 2   11124892  13828152297    Africa Northern Africa
+## 3    5270844           NA    Africa   Middle Africa
+## 4      54681           NA  Americas       Caribbean
+## 5   20619075 108322326649  Americas   South America
+## 6    1867396           NA      Asia    Western Asia</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="working-with-relational-databases.html#cb48-1" tabindex="-1"></a><span class="fu">str</span>(gapminder)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    10545 obs. of  9 variables:
+##  $ country         : Factor w/ 185 levels &quot;Albania&quot;,&quot;Algeria&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
+##  $ year            : int  1960 1960 1960 1960 1960 1960 1960 1960 1960 1960 ...
+##  $ infant_mortality: num  115.4 148.2 208 NA 59.9 ...
+##  $ life_expectancy : num  62.9 47.5 36 63 65.4 ...
+##  $ fertility       : num  6.19 7.65 7.32 4.43 3.11 4.55 4.82 3.45 2.7 5.57 ...
+##  $ population      : num  1636054 11124892 5270844 54681 20619075 ...
+##  $ gdp             : num  NA 1.38e+10 NA NA 1.08e+11 ...
+##  $ continent       : Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 4 1 1 2 2 3 2 5 4 3 ...
+##  $ region          : Factor w/ 22 levels &quot;Australia and New Zealand&quot;,..: 19 11 10 2 15 21 2 1 22 21 ...</code></pre>
+<h3>
+Processing of FLU dataset
+</h3>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="working-with-relational-databases.html#cb50-1" tabindex="-1"></a>flu_longer <span class="ot">&lt;-</span>  <span class="fu">pivot_longer</span>(flu, <span class="at">cols=</span> <span class="sc">-</span>Date,  <span class="at">names_to =</span> <span class="st">&quot;country&quot;</span>, <span class="at">values_to =</span><span class="st">&quot;flu_cases&quot;</span>, <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb50-2"><a href="working-with-relational-databases.html#cb50-2" tabindex="-1"></a><span class="fu">head</span>(flu_longer)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##   Date       country flu_cases
+##   &lt;chr&gt;      &lt;chr&gt;       &lt;int&gt;
+## 1 2002-12-29 Brazil        174
+## 2 2002-12-29 Peru          329
+## 3 2003-01-05 Brazil        162
+## 4 2003-01-05 Peru          315
+## 5 2003-01-12 Brazil        174
+## 6 2003-01-12 Chile           1</code></pre>
+<h3>
+Fromat date, with year extraction
+</h3>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="working-with-relational-databases.html#cb52-1" tabindex="-1"></a>flu_longer<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">parse_integer</span>( <span class="fu">format</span>(<span class="fu">as.Date</span>(flu_longer<span class="sc">$</span>Date), <span class="at">format=</span><span class="st">&quot;%Y&quot;</span>) )</span>
+<span id="cb52-2"><a href="working-with-relational-databases.html#cb52-2" tabindex="-1"></a><span class="fu">head</span>(flu_longer<span class="sc">$</span>Date)</span></code></pre></div>
+<pre><code>## [1] 2002 2002 2003 2003 2003 2003</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="working-with-relational-databases.html#cb54-1" tabindex="-1"></a><span class="fu">head</span>(flu_longer)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##    Date country flu_cases
+##   &lt;int&gt; &lt;chr&gt;       &lt;int&gt;
+## 1  2002 Brazil        174
+## 2  2002 Peru          329
+## 3  2003 Brazil        162
+## 4  2003 Peru          315
+## 5  2003 Brazil        174
+## 6  2003 Chile           1</code></pre>
+<h3>
+Save unique rows
+</h3>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="working-with-relational-databases.html#cb56-1" tabindex="-1"></a>flu_longer2 <span class="ot">&lt;-</span>  flu_longer <span class="sc">%&gt;%</span>   <span class="fu">group_by</span>(Date, country)  <span class="sc">%&gt;%</span></span>
+<span id="cb56-2"><a href="working-with-relational-databases.html#cb56-2" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">sum_cases =</span> <span class="fu">sum</span>(flu_cases))</span>
+<span id="cb56-3"><a href="working-with-relational-databases.html#cb56-3" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="working-with-relational-databases.html#cb56-4" tabindex="-1"></a><span class="co">#View(flu_longer2)</span></span>
+<span id="cb56-5"><a href="working-with-relational-databases.html#cb56-5" tabindex="-1"></a></span>
+<span id="cb56-6"><a href="working-with-relational-databases.html#cb56-6" tabindex="-1"></a><span class="fu">head</span>( flu_longer2)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 4
+## # Groups:   Date, country [5]
+##    Date country flu_cases sum_cases
+##   &lt;int&gt; &lt;chr&gt;       &lt;int&gt;     &lt;int&gt;
+## 1  2002 Brazil        174       174
+## 2  2002 Peru          329       329
+## 3  2003 Brazil        162     12386
+## 4  2003 Peru          315     20441
+## 5  2003 Brazil        174     12386
+## 6  2003 Chile           1        86</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="working-with-relational-databases.html#cb58-1" tabindex="-1"></a><span class="fu">colnames</span>( flu_longer2)[<span class="dv">1</span>] <span class="ot">&lt;-</span>  <span class="st">&quot;year&quot;</span></span>
+<span id="cb58-2"><a href="working-with-relational-databases.html#cb58-2" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="working-with-relational-databases.html#cb58-3" tabindex="-1"></a><span class="fu">colnames</span>(flu_longer2)</span></code></pre></div>
+<pre><code>## [1] &quot;year&quot;      &quot;country&quot;   &quot;flu_cases&quot; &quot;sum_cases&quot;</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="working-with-relational-databases.html#cb60-1" tabindex="-1"></a>flu_longer_db <span class="ot">&lt;-</span>  flu_longer2 <span class="sc">%&gt;%</span>  <span class="fu">select</span> (year, country, sum_cases) <span class="sc">%&gt;%</span>  <span class="fu">unique</span>()</span></code></pre></div>
+<h3>
+Processing of Dengue dataset
+</h3>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="working-with-relational-databases.html#cb61-1" tabindex="-1"></a>dengue_longer <span class="ot">&lt;-</span>  <span class="fu">pivot_longer</span>(dengue, <span class="at">cols =</span> <span class="sc">-</span>Date, <span class="at">names_to =</span> <span class="st">&quot;country&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;dengue_cases&quot;</span>,</span>
+<span id="cb61-2"><a href="working-with-relational-databases.html#cb61-2" tabindex="-1"></a>                               <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb61-3"><a href="working-with-relational-databases.html#cb61-3" tabindex="-1"></a></span>
+<span id="cb61-4"><a href="working-with-relational-databases.html#cb61-4" tabindex="-1"></a><span class="fu">head</span>(dengue_longer)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##   Date       country   dengue_cases
+##   &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;
+## 1 2002-12-29 Bolivia          0.101
+## 2 2002-12-29 Brazil           0.073
+## 3 2002-12-29 India            0.062
+## 4 2002-12-29 Indonesia        0.101
+## 5 2002-12-29 Singapore        0.059
+## 6 2003-01-05 Bolivia          0.143</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="working-with-relational-databases.html#cb63-1" tabindex="-1"></a>dengue_longer<span class="sc">$</span>Date <span class="ot">&lt;-</span>  <span class="fu">parse_integer</span>( <span class="fu">format</span>(<span class="fu">as.Date</span>(dengue_longer<span class="sc">$</span>Date), <span class="at">format=</span><span class="st">&quot;%Y&quot;</span>) )</span>
+<span id="cb63-2"><a href="working-with-relational-databases.html#cb63-2" tabindex="-1"></a></span>
+<span id="cb63-3"><a href="working-with-relational-databases.html#cb63-3" tabindex="-1"></a></span>
+<span id="cb63-4"><a href="working-with-relational-databases.html#cb63-4" tabindex="-1"></a><span class="fu">head</span>(dengue_longer)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##    Date country   dengue_cases
+##   &lt;int&gt; &lt;chr&gt;            &lt;dbl&gt;
+## 1  2002 Bolivia          0.101
+## 2  2002 Brazil           0.073
+## 3  2002 India            0.062
+## 4  2002 Indonesia        0.101
+## 5  2002 Singapore        0.059
+## 6  2003 Bolivia          0.143</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="working-with-relational-databases.html#cb65-1" tabindex="-1"></a>dengue_longer <span class="ot">&lt;-</span> dengue_longer <span class="sc">%&gt;%</span>  <span class="fu">group_by</span>(country, Date) <span class="sc">%&gt;%</span>  <span class="fu">mutate</span>(<span class="at">dengue_sum_cases =</span> <span class="fu">sum</span>(dengue_cases))</span>
+<span id="cb65-2"><a href="working-with-relational-databases.html#cb65-2" tabindex="-1"></a></span>
+<span id="cb65-3"><a href="working-with-relational-databases.html#cb65-3" tabindex="-1"></a><span class="fu">head</span>(dengue_longer)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 4
+## # Groups:   country, Date [6]
+##    Date country   dengue_cases dengue_sum_cases
+##   &lt;int&gt; &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1  2002 Bolivia          0.101            0.101
+## 2  2002 Brazil           0.073            0.073
+## 3  2002 India            0.062            0.062
+## 4  2002 Indonesia        0.101            0.101
+## 5  2002 Singapore        0.059            0.059
+## 6  2003 Bolivia          0.143            3.94</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="working-with-relational-databases.html#cb67-1" tabindex="-1"></a><span class="fu">colnames</span>(dengue_longer)[<span class="dv">1</span>]  <span class="ot">&lt;-</span>  <span class="st">&quot;year&quot;</span></span>
+<span id="cb67-2"><a href="working-with-relational-databases.html#cb67-2" tabindex="-1"></a></span>
+<span id="cb67-3"><a href="working-with-relational-databases.html#cb67-3" tabindex="-1"></a><span class="fu">colnames</span>(dengue_longer)</span></code></pre></div>
+<pre><code>## [1] &quot;year&quot;             &quot;country&quot;          &quot;dengue_cases&quot;     &quot;dengue_sum_cases&quot;</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="working-with-relational-databases.html#cb69-1" tabindex="-1"></a>dengue_db <span class="ot">&lt;-</span>  dengue_longer <span class="sc">%&gt;%</span>  <span class="fu">select</span> (year, country, dengue_sum_cases) <span class="sc">%&gt;%</span>  <span class="fu">unique</span>()</span>
+<span id="cb69-2"><a href="working-with-relational-databases.html#cb69-2" tabindex="-1"></a></span>
+<span id="cb69-3"><a href="working-with-relational-databases.html#cb69-3" tabindex="-1"></a>dengue_db</span></code></pre></div>
+<pre><code>## # A tibble: 130 × 3
+## # Groups:   country, year [130]
+##     year country   dengue_sum_cases
+##    &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;
+##  1  2002 Bolivia              0.101
+##  2  2002 Brazil               0.073
+##  3  2002 India                0.062
+##  4  2002 Indonesia            0.101
+##  5  2002 Singapore            0.059
+##  6  2003 Bolivia              3.94 
+##  7  2003 Brazil               4.34 
+##  8  2003 India                8.86 
+##  9  2003 Indonesia            3.15 
+## 10  2003 Singapore            6.85 
+## # ℹ 120 more rows</code></pre>
+<h3>
+export tables to csv and rds files
+</h3>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="working-with-relational-databases.html#cb71-1" tabindex="-1"></a><span class="fu">write.csv</span>(flu_longer_db, <span class="st">&quot;output/flu.csv&quot;</span>)</span>
+<span id="cb71-2"><a href="working-with-relational-databases.html#cb71-2" tabindex="-1"></a><span class="fu">write.csv</span>( dengue_db, <span class="st">&quot;output/ dengue.csv&quot;</span>)</span>
+<span id="cb71-3"><a href="working-with-relational-databases.html#cb71-3" tabindex="-1"></a><span class="fu">write.csv</span>( gapminder, <span class="st">&quot;output/gapminder.csv&quot;</span>)</span>
+<span id="cb71-4"><a href="working-with-relational-databases.html#cb71-4" tabindex="-1"></a></span>
+<span id="cb71-5"><a href="working-with-relational-databases.html#cb71-5" tabindex="-1"></a><span class="fu">saveRDS</span>(flu_longer_db, <span class="st">&quot;output/flu.rds&quot;</span>)</span>
+<span id="cb71-6"><a href="working-with-relational-databases.html#cb71-6" tabindex="-1"></a><span class="fu">saveRDS</span>( dengue_db, <span class="st">&quot;output/dengue.rds&quot;</span>)</span>
+<span id="cb71-7"><a href="working-with-relational-databases.html#cb71-7" tabindex="-1"></a><span class="fu">saveRDS</span>(gapminder, <span class="st">&quot;output/gapminde.rds&quot;</span>)</span></code></pre></div>
+<h3>
+Make connection to Postgres DB
+</h3>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="working-with-relational-databases.html#cb72-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;RPostgreSQL&#39;</span>)</span></code></pre></div>
+<pre><code>## Loading required package: DBI</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="working-with-relational-databases.html#cb74-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb74-2"><a href="working-with-relational-databases.html#cb74-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;RPostgres&quot;</span>)</span>
+<span id="cb74-3"><a href="working-with-relational-databases.html#cb74-3" tabindex="-1"></a></span>
+<span id="cb74-4"><a href="working-with-relational-databases.html#cb74-4" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RPostgres<span class="sc">::</span><span class="fu">Postgres</span>(),</span>
+<span id="cb74-5"><a href="working-with-relational-databases.html#cb74-5" tabindex="-1"></a>                 <span class="at">dbname =</span> <span class="st">&quot;workflowsdb&quot;</span>,</span>
+<span id="cb74-6"><a href="working-with-relational-databases.html#cb74-6" tabindex="-1"></a>                 <span class="at">host=</span><span class="st">&quot;localhost&quot;</span>,</span>
+<span id="cb74-7"><a href="working-with-relational-databases.html#cb74-7" tabindex="-1"></a>                 <span class="at">port=</span><span class="st">&quot;5432&quot;</span>,</span>
+<span id="cb74-8"><a href="working-with-relational-databases.html#cb74-8" tabindex="-1"></a>                 <span class="at">user=</span><span class="st">&quot;postgres&quot;</span>,</span>
+<span id="cb74-9"><a href="working-with-relational-databases.html#cb74-9" tabindex="-1"></a>                 <span class="at">password=</span><span class="st">&quot;admin&quot;</span>)</span></code></pre></div>
+<h3>
+write tables to DB
+</h3>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="working-with-relational-databases.html#cb75-1" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">&quot;flu&quot;</span>,flu_longer_db)</span>
+<span id="cb75-2"><a href="working-with-relational-databases.html#cb75-2" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="working-with-relational-databases.html#cb75-3" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">&quot;dengue&quot;</span>, dengue_db)</span>
+<span id="cb75-4"><a href="working-with-relational-databases.html#cb75-4" tabindex="-1"></a></span>
+<span id="cb75-5"><a href="working-with-relational-databases.html#cb75-5" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">&quot;gapminder&quot;</span>, gapminder)</span>
+<span id="cb75-6"><a href="working-with-relational-databases.html#cb75-6" tabindex="-1"></a></span>
+<span id="cb75-7"><a href="working-with-relational-databases.html#cb75-7" tabindex="-1"></a><span class="fu">dbListTables</span>(con)</span></code></pre></div>
+<p>inspect the contents of the tables with SQL</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb76-1"><a href="working-with-relational-databases.html#cb76-1" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> flu <span class="kw">limit</span> <span class="dv">10</span>;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-44">Table 8.1: </span>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th align="right">year</th>
+<th align="left">country</th>
+<th align="right">sum_cases</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2002</td>
+<td align="left">Brazil</td>
+<td align="right">174</td>
+</tr>
+<tr class="even">
+<td align="right">2002</td>
+<td align="left">Peru</td>
+<td align="right">329</td>
+</tr>
+<tr class="odd">
+<td align="right">2003</td>
+<td align="left">Brazil</td>
+<td align="right">12386</td>
+</tr>
+<tr class="even">
+<td align="right">2003</td>
+<td align="left">Peru</td>
+<td align="right">20441</td>
+</tr>
+<tr class="odd">
+<td align="right">2003</td>
+<td align="left">Chile</td>
+<td align="right">86</td>
+</tr>
+<tr class="even">
+<td align="right">2003</td>
+<td align="left">Argentina</td>
+<td align="right">9352</td>
+</tr>
+<tr class="odd">
+<td align="right">2003</td>
+<td align="left">Romania</td>
+<td align="right">32769</td>
+</tr>
+<tr class="even">
+<td align="right">2003</td>
+<td align="left">Bolivia</td>
+<td align="right">22563</td>
+</tr>
+<tr class="odd">
+<td align="right">2003</td>
+<td align="left">Uruguay</td>
+<td align="right">6445</td>
+</tr>
+<tr class="even">
+<td align="right">2003</td>
+<td align="left">Austria</td>
+<td align="right">10178</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb77-1"><a href="working-with-relational-databases.html#cb77-1" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> dengue <span class="kw">limit</span> <span class="dv">10</span>;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-45">Table 8.2: </span>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th align="right">year</th>
+<th align="left">country</th>
+<th align="right">dengue_sum_cases</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2002</td>
+<td align="left">Bolivia</td>
+<td align="right">0.101</td>
+</tr>
+<tr class="even">
+<td align="right">2002</td>
+<td align="left">Brazil</td>
+<td align="right">0.073</td>
+</tr>
+<tr class="odd">
+<td align="right">2002</td>
+<td align="left">India</td>
+<td align="right">0.062</td>
+</tr>
+<tr class="even">
+<td align="right">2002</td>
+<td align="left">Indonesia</td>
+<td align="right">0.101</td>
+</tr>
+<tr class="odd">
+<td align="right">2002</td>
+<td align="left">Singapore</td>
+<td align="right">0.059</td>
+</tr>
+<tr class="even">
+<td align="right">2003</td>
+<td align="left">Bolivia</td>
+<td align="right">3.945</td>
+</tr>
+<tr class="odd">
+<td align="right">2003</td>
+<td align="left">Brazil</td>
+<td align="right">4.344</td>
+</tr>
+<tr class="even">
+<td align="right">2003</td>
+<td align="left">India</td>
+<td align="right">8.856</td>
+</tr>
+<tr class="odd">
+<td align="right">2003</td>
+<td align="left">Indonesia</td>
+<td align="right">3.147</td>
+</tr>
+<tr class="even">
+<td align="right">2003</td>
+<td align="left">Singapore</td>
+<td align="right">6.854</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>
+Perform sql joins in DB:
+</h3>
+<ol style="list-style-type: decimal">
+<li>inner join flu and dengue:</li>
+</ol>
+<div class="sourceCode" id="cb78"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb78-1"><a href="working-with-relational-databases.html#cb78-1" tabindex="-1"></a></span>
+<span id="cb78-2"><a href="working-with-relational-databases.html#cb78-2" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> flu_joined_dengue</span>
+<span id="cb78-3"><a href="working-with-relational-databases.html#cb78-3" tabindex="-1"></a><span class="kw">AS</span> </span>
+<span id="cb78-4"><a href="working-with-relational-databases.html#cb78-4" tabindex="-1"></a><span class="kw">SELECT</span>  dengue.country, dengue.<span class="dt">year</span> , flu.sum_cases,  dengue.dengue_sum_cases   <span class="kw">from</span>  dengue  <span class="kw">join</span> flu  <span class="kw">on</span>   dengue.<span class="dt">year</span> <span class="op">=</span> flu.<span class="dt">year</span> <span class="kw">and</span> dengue.country <span class="op">=</span> flu.country;</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb79-1"><a href="working-with-relational-databases.html#cb79-1" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> flu_joined_dengue <span class="kw">limit</span> <span class="dv">10</span>;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-47">Table 8.3: </span>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th align="left">country</th>
+<th align="right">year</th>
+<th align="right">sum_cases</th>
+<th align="right">dengue_sum_cases</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Brazil</td>
+<td align="right">2002</td>
+<td align="right">174</td>
+<td align="right">0.073</td>
+</tr>
+<tr class="even">
+<td align="left">Bolivia</td>
+<td align="right">2003</td>
+<td align="right">22563</td>
+<td align="right">3.945</td>
+</tr>
+<tr class="odd">
+<td align="left">Brazil</td>
+<td align="right">2003</td>
+<td align="right">12386</td>
+<td align="right">4.344</td>
+</tr>
+<tr class="even">
+<td align="left">Mexico</td>
+<td align="right">2003</td>
+<td align="right">13233</td>
+<td align="right">4.414</td>
+</tr>
+<tr class="odd">
+<td align="left">Argentina</td>
+<td align="right">2003</td>
+<td align="right">9352</td>
+<td align="right">1.397</td>
+</tr>
+<tr class="even">
+<td align="left">Argentina</td>
+<td align="right">2004</td>
+<td align="right">8843</td>
+<td align="right">1.533</td>
+</tr>
+<tr class="odd">
+<td align="left">Bolivia</td>
+<td align="right">2004</td>
+<td align="right">22110</td>
+<td align="right">1.465</td>
+</tr>
+<tr class="even">
+<td align="left">Brazil</td>
+<td align="right">2004</td>
+<td align="right">12964</td>
+<td align="right">2.380</td>
+</tr>
+<tr class="odd">
+<td align="left">Mexico</td>
+<td align="right">2004</td>
+<td align="right">45978</td>
+<td align="right">3.832</td>
+</tr>
+<tr class="even">
+<td align="left">Argentina</td>
+<td align="right">2005</td>
+<td align="right">8627</td>
+<td align="right">1.035</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>
+Left join on gapminder to combined flu-dengue
+</h3>
+<div class="sourceCode" id="cb80"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb80-1"><a href="working-with-relational-databases.html#cb80-1" tabindex="-1"></a><span class="kw">select</span> gapminder.country, gapminder.<span class="dt">year</span>, gapminder.infant_mortality , gapminder.life_expectancy , gapminder.continent, flu_joined_dengue.sum_cases ,flu_joined_dengue.dengue_sum_cases  <span class="kw">from</span> gapminder   <span class="kw">left</span> <span class="kw">join</span>  flu_joined_dengue  <span class="kw">on</span> flu_joined_dengue.<span class="dt">year</span><span class="op">=</span> gapminder.<span class="dt">year</span> <span class="kw">and</span> flu_joined_dengue.country <span class="op">=</span>gapminder.country ;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-48">Table 8.4: </span>Displaying records 1 - 10</caption>
+<colgroup>
+<col width="21%" />
+<col width="5%" />
+<col width="17%" />
+<col width="16%" />
+<col width="10%" />
+<col width="10%" />
+<col width="17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">country</th>
+<th align="right">year</th>
+<th align="right">infant_mortality</th>
+<th align="right">life_expectancy</th>
+<th align="left">continent</th>
+<th align="right">sum_cases</th>
+<th align="right">dengue_sum_cases</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Albania</td>
+<td align="right">1960</td>
+<td align="right">115.40</td>
+<td align="right">62.87</td>
+<td align="left">Europe</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Algeria</td>
+<td align="right">1960</td>
+<td align="right">148.20</td>
+<td align="right">47.50</td>
+<td align="left">Africa</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Angola</td>
+<td align="right">1960</td>
+<td align="right">208.00</td>
+<td align="right">35.98</td>
+<td align="left">Africa</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Antigua and Barbuda</td>
+<td align="right">1960</td>
+<td align="right">NA</td>
+<td align="right">62.97</td>
+<td align="left">Americas</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Argentina</td>
+<td align="right">1960</td>
+<td align="right">59.87</td>
+<td align="right">65.39</td>
+<td align="left">Americas</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Armenia</td>
+<td align="right">1960</td>
+<td align="right">NA</td>
+<td align="right">66.86</td>
+<td align="left">Asia</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Aruba</td>
+<td align="right">1960</td>
+<td align="right">NA</td>
+<td align="right">65.66</td>
+<td align="left">Americas</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Australia</td>
+<td align="right">1960</td>
+<td align="right">20.30</td>
+<td align="right">70.87</td>
+<td align="left">Oceania</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Austria</td>
+<td align="right">1960</td>
+<td align="right">37.30</td>
+<td align="right">68.75</td>
+<td align="left">Europe</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Azerbaijan</td>
+<td align="right">1960</td>
+<td align="right">NA</td>
+<td align="right">61.33</td>
+<td align="left">Asia</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>
+Inspect data with R
+</h3>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="working-with-relational-databases.html#cb81-1" tabindex="-1"></a>flu_db <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">&quot;flu&quot;</span>)</span>
+<span id="cb81-2"><a href="working-with-relational-databases.html#cb81-2" tabindex="-1"></a><span class="fu">head</span>(flu_db)</span></code></pre></div>
+<pre><code>## # Source:   SQL [6 x 3]
+## # Database: postgres  [postgres@localhost:5432/workflowsdb]
+##    year country   sum_cases
+##   &lt;int&gt; &lt;chr&gt;         &lt;int&gt;
+## 1  2002 Brazil          174
+## 2  2002 Peru            329
+## 3  2003 Brazil        12386
+## 4  2003 Peru          20441
+## 5  2003 Chile            86
+## 6  2003 Argentina      9352</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="working-with-relational-databases.html#cb83-1" tabindex="-1"></a>debgue_db <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">&quot;dengue&quot;</span>)</span>
+<span id="cb83-2"><a href="working-with-relational-databases.html#cb83-2" tabindex="-1"></a><span class="fu">head</span>(debgue_db)</span></code></pre></div>
+<pre><code>## # Source:   SQL [6 x 3]
+## # Database: postgres  [postgres@localhost:5432/workflowsdb]
+##    year country   dengue_sum_cases
+##   &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;
+## 1  2002 Bolivia              0.101
+## 2  2002 Brazil               0.073
+## 3  2002 India                0.062
+## 4  2002 Indonesia            0.101
+## 5  2002 Singapore            0.059
+## 6  2003 Bolivia              3.94</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="working-with-relational-databases.html#cb85-1" tabindex="-1"></a>gapminder_db <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">&quot;gapminder&quot;</span>)</span>
+<span id="cb85-2"><a href="working-with-relational-databases.html#cb85-2" tabindex="-1"></a><span class="fu">head</span>(gapminder_db)</span></code></pre></div>
+<pre><code>## # Source:   SQL [6 x 9]
+## # Database: postgres  [postgres@localhost:5432/workflowsdb]
+##   country    year infant_mortality life_expectancy fertility population      gdp
+##   &lt;chr&gt;     &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Albania    1960            115.             62.9      6.19    1636054 NA      
+## 2 Algeria    1960            148.             47.5      7.65   11124892  1.38e10
+## 3 Angola     1960            208              36.0      7.32    5270844 NA      
+## 4 Antigua …  1960             NA              63.0      4.43      54681 NA      
+## 5 Argentina  1960             59.9            65.4      3.11   20619075  1.08e11
+## 6 Armenia    1960             NA              66.9      4.55    1867396 NA      
+## # ℹ 2 more variables: continent &lt;chr&gt;, region &lt;chr&gt;</code></pre>
+<h3>
+Descriptive statistics
+</h3>
+<ol style="list-style-type: decimal">
+<li>Join: flu and dengue”</li>
+</ol>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="working-with-relational-databases.html#cb87-1" tabindex="-1"></a>join2 <span class="ot">&lt;-</span>  <span class="fu">read.csv</span>(<span class="st">&quot;data/les5/join2.csv&quot;</span>)</span>
+<span id="cb87-2"><a href="working-with-relational-databases.html#cb87-2" tabindex="-1"></a></span>
+<span id="cb87-3"><a href="working-with-relational-databases.html#cb87-3" tabindex="-1"></a><span class="fu">colnames</span>(join2)[<span class="dv">3</span>] <span class="ot">&lt;-</span>  <span class="st">&quot;cases_flu&quot;</span></span>
+<span id="cb87-4"><a href="working-with-relational-databases.html#cb87-4" tabindex="-1"></a><span class="fu">colnames</span>(join2)[<span class="dv">4</span>] <span class="ot">&lt;-</span>  <span class="st">&quot;cases_dengue&quot;</span></span>
+<span id="cb87-5"><a href="working-with-relational-databases.html#cb87-5" tabindex="-1"></a></span>
+<span id="cb87-6"><a href="working-with-relational-databases.html#cb87-6" tabindex="-1"></a><span class="fu">head</span>(join2)</span></code></pre></div>
+<pre><code>##     country year cases_flu cases_dengue
+## 1    Brazil 2002       174        0.073
+## 2   Bolivia 2003     22563        3.945
+## 3    Brazil 2003     12386        4.344
+## 4    Mexico 2003     13233        4.414
+## 5 Argentina 2003      9352        1.397
+## 6 Argentina 2004      8843        1.533</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="working-with-relational-databases.html#cb89-1" tabindex="-1"></a>join2 <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Bolivia&quot;</span>, <span class="st">&quot;Brazil&quot;</span>, <span class="st">&quot;Argentina&quot;</span>)  )  <span class="sc">%&gt;%</span></span>
+<span id="cb89-2"><a href="working-with-relational-databases.html#cb89-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>cases_dengue, <span class="at">color=</span>country)) <span class="sc">+</span></span>
+<span id="cb89-3"><a href="working-with-relational-databases.html#cb89-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size=</span><span class="fl">2.5</span>)<span class="sc">+</span></span>
+<span id="cb89-4"><a href="working-with-relational-databases.html#cb89-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Comparing of dengue cases in Argentina, Bolivia and Brazil&quot;</span> ) </span></code></pre></div>
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in
+## ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see
+## where this warning was generated.</code></pre>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="working-with-relational-databases.html#cb91-1" tabindex="-1"></a>join2 <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Bolivia&quot;</span>, <span class="st">&quot;Brazil&quot;</span>, <span class="st">&quot;Argentina&quot;</span>)  )  <span class="sc">%&gt;%</span></span>
+<span id="cb91-2"><a href="working-with-relational-databases.html#cb91-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>cases_flu, <span class="at">color=</span>country)) <span class="sc">+</span></span>
+<span id="cb91-3"><a href="working-with-relational-databases.html#cb91-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size=</span><span class="fl">2.5</span>)<span class="sc">+</span></span>
+<span id="cb91-4"><a href="working-with-relational-databases.html#cb91-4" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Comparing of flu cases  in Argentina, Bolivia and Brazil&quot;</span> ) </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-52-2.png" width="672" /></p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="working-with-relational-databases.html#cb92-1" tabindex="-1"></a>summary_table <span class="ot">&lt;-</span> join2 <span class="sc">%&gt;%</span>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span>  <span class="fu">summarise</span>( <span class="at">max_flu=</span><span class="fu">max</span>(cases_flu), <span class="at">max_dengue=</span><span class="fu">max</span>(cases_dengue)  )</span>
+<span id="cb92-2"><a href="working-with-relational-databases.html#cb92-2" tabindex="-1"></a></span>
+<span id="cb92-3"><a href="working-with-relational-databases.html#cb92-3" tabindex="-1"></a></span>
+<span id="cb92-4"><a href="working-with-relational-databases.html#cb92-4" tabindex="-1"></a></span>
+<span id="cb92-5"><a href="working-with-relational-databases.html#cb92-5" tabindex="-1"></a>join2_longer <span class="ot">&lt;-</span>join2 <span class="sc">%&gt;%</span>  <span class="fu">pivot_longer</span>( <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;cases_flu&quot;</span>,<span class="st">&quot;cases_dengue&quot;</span>),</span>
+<span id="cb92-6"><a href="working-with-relational-databases.html#cb92-6" tabindex="-1"></a>                   <span class="at">names_to =</span> <span class="st">&quot;group&quot;</span>, <span class="at">values_to =</span><span class="st">&quot;cases&quot;</span> )</span>
+<span id="cb92-7"><a href="working-with-relational-databases.html#cb92-7" tabindex="-1"></a><span class="fu">head</span>(join2_longer)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 4
+##   country  year group            cases
+##   &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;            &lt;dbl&gt;
+## 1 Brazil   2002 cases_flu      174    
+## 2 Brazil   2002 cases_dengue     0.073
+## 3 Bolivia  2003 cases_flu    22563    
+## 4 Bolivia  2003 cases_dengue     3.94 
+## 5 Brazil   2003 cases_flu    12386    
+## 6 Brazil   2003 cases_dengue     4.34</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="working-with-relational-databases.html#cb94-1" tabindex="-1"></a><span class="co"># bar chart flu vs dengue</span></span>
+<span id="cb94-2"><a href="working-with-relational-databases.html#cb94-2" tabindex="-1"></a></span>
+<span id="cb94-3"><a href="working-with-relational-databases.html#cb94-3" tabindex="-1"></a></span>
+<span id="cb94-4"><a href="working-with-relational-databases.html#cb94-4" tabindex="-1"></a>summary_table <span class="ot">&lt;-</span> join2 <span class="sc">%&gt;%</span>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span>  <span class="fu">summarise</span>( <span class="at">max_flu=</span><span class="fu">max</span>(cases_flu), <span class="at">max_dengue=</span><span class="fu">max</span>(cases_dengue)  )</span>
+<span id="cb94-5"><a href="working-with-relational-databases.html#cb94-5" tabindex="-1"></a></span>
+<span id="cb94-6"><a href="working-with-relational-databases.html#cb94-6" tabindex="-1"></a>summary_table</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 3
+##   country   max_flu max_dengue
+##   &lt;chr&gt;       &lt;int&gt;      &lt;dbl&gt;
+## 1 Argentina   10267       16.7
+## 2 Bolivia     22563       10.4
+## 3 Brazil      13964       12.5
+## 4 Mexico      70979       14.2</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="working-with-relational-databases.html#cb96-1" tabindex="-1"></a>summary_table_polt  <span class="ot">&lt;-</span>  summary_table <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="fu">c</span>(<span class="st">&#39;max_flu&#39;</span>, <span class="st">&#39;max_dengue&#39;</span>),</span>
+<span id="cb96-2"><a href="working-with-relational-databases.html#cb96-2" tabindex="-1"></a>                           <span class="at">names_to=</span><span class="st">&#39;max_flu_dengue&#39;</span>,</span>
+<span id="cb96-3"><a href="working-with-relational-databases.html#cb96-3" tabindex="-1"></a>                           <span class="at">values_to=</span><span class="st">&#39;frequentie&#39;</span>)</span>
+<span id="cb96-4"><a href="working-with-relational-databases.html#cb96-4" tabindex="-1"></a></span>
+<span id="cb96-5"><a href="working-with-relational-databases.html#cb96-5" tabindex="-1"></a><span class="fu">head</span>(summary_table_polt)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##   country   max_flu_dengue frequentie
+##   &lt;chr&gt;     &lt;chr&gt;               &lt;dbl&gt;
+## 1 Argentina max_flu           10267  
+## 2 Argentina max_dengue           16.7
+## 3 Bolivia   max_flu           22563  
+## 4 Bolivia   max_dengue           10.4
+## 5 Brazil    max_flu           13964  
+## 6 Brazil    max_dengue           12.5</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="working-with-relational-databases.html#cb98-1" tabindex="-1"></a><span class="fu">ggplot</span> (summary_table_polt, <span class="fu">aes</span>(<span class="at">x=</span> max_flu_dengue, <span class="at">y=</span><span class="fu">log</span>(frequentie), <span class="at">fill=</span>country )) <span class="sc">+</span></span>
+<span id="cb98-2"><a href="working-with-relational-databases.html#cb98-2" tabindex="-1"></a>  <span class="fu">geom_bar</span> ( <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.5</span>))<span class="sc">+</span></span>
+<span id="cb98-3"><a href="working-with-relational-databases.html#cb98-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Maximum cases Flu and Dengue cases per country&quot;</span>)<span class="sc">+</span></span>
+<span id="cb98-4"><a href="working-with-relational-databases.html#cb98-4" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Frequentie, log based &quot;</span> )<span class="sc">+</span></span>
+<span id="cb98-5"><a href="working-with-relational-databases.html#cb98-5" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb98-6"><a href="working-with-relational-databases.html#cb98-6" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> frequentie), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.4</span>,<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="dv">1</span>) )</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="working-with-relational-databases.html#cb99-1" tabindex="-1"></a><span class="fu">ggplot</span> (summary_table_polt, <span class="fu">aes</span>(<span class="at">x=</span> country, <span class="at">y=</span><span class="fu">log</span>(frequentie), <span class="at">fill=</span>max_flu_dengue )) <span class="sc">+</span></span>
+<span id="cb99-2"><a href="working-with-relational-databases.html#cb99-2" tabindex="-1"></a>  <span class="fu">geom_bar</span> ( <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.5</span>))<span class="sc">+</span></span>
+<span id="cb99-3"><a href="working-with-relational-databases.html#cb99-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Maximum cases  Flu and  Dengue per country&quot;</span>)<span class="sc">+</span></span>
+<span id="cb99-4"><a href="working-with-relational-databases.html#cb99-4" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Frequentie, log based &quot;</span> )<span class="sc">+</span></span>
+<span id="cb99-5"><a href="working-with-relational-databases.html#cb99-5" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb99-6"><a href="working-with-relational-databases.html#cb99-6" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> frequentie), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.4</span>,<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="dv">1</span>) )</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-54-2.png" width="672" /></p>
+<p>
+Maximum dengue cases in Argenitina is : 16.739
+</p>
+<p>
+Maximum flu cases in Mexico is : 14.228
+</p>
+<p>
+Maximum flu cases in Brazil is: 12.524
+</p>
+<p>
+Maximum flu cases in Bolivia is :10.362
+</p>
+<p>
+There are thousands of times more cases of flu than dengue in all existing areas
+</p>
+<h3>
+Left join : gapminder and combined flu and dengue
+</h3>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="working-with-relational-databases.html#cb100-1" tabindex="-1"></a>join1 <span class="ot">&lt;-</span>  <span class="fu">read.csv</span>(<span class="st">&quot;data/les5/left_join_gapminder.csv&quot;</span>)</span>
+<span id="cb100-2"><a href="working-with-relational-databases.html#cb100-2" tabindex="-1"></a><span class="fu">summary</span>(join1)</span></code></pre></div>
+<pre><code>##    country               year      infant_mortality life_expectancy
+##  Length:10545       Min.   :1960   Min.   :  1.50   Min.   :13.20  
+##  Class :character   1st Qu.:1974   1st Qu.: 16.00   1st Qu.:57.50  
+##  Mode  :character   Median :1988   Median : 41.50   Median :67.54  
+##                     Mean   :1988   Mean   : 55.31   Mean   :64.81  
+##                     3rd Qu.:2002   3rd Qu.: 85.10   3rd Qu.:73.00  
+##                     Max.   :2016   Max.   :276.90   Max.   :83.90  
+##                                    NA&#39;s   :1453                    
+##   continent           sum_cases     dengue_sum_cases
+##  Length:10545       Min.   :  174   Min.   : 0.073  
+##  Class :character   1st Qu.: 8676   1st Qu.: 1.513  
+##  Mode  :character   Median :11752   Median : 4.344  
+##                     Mean   :21412   Mean   : 5.014  
+##                     3rd Qu.:22110   3rd Qu.: 7.848  
+##                     Max.   :70979   Max.   :16.739  
+##                     NA&#39;s   :10492   NA&#39;s   :10492</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="working-with-relational-databases.html#cb102-1" tabindex="-1"></a>join1 <span class="sc">%&gt;%</span> </span>
+<span id="cb102-2"><a href="working-with-relational-databases.html#cb102-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(sum_cases) , <span class="at">y=</span>dengue_sum_cases, <span class="at">color=</span>continent)) <span class="sc">+</span></span>
+<span id="cb102-3"><a href="working-with-relational-databases.html#cb102-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb102-4"><a href="working-with-relational-databases.html#cb102-4" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Scatterplot of flu and dengue cases &quot;</span>, <span class="at">y=</span> <span class="st">&quot;flu cases, natural log&quot;</span>, <span class="at">x=</span><span class="st">&quot;dengue cases&quot;</span>  )</span></code></pre></div>
+<pre><code>## Warning: Removed 10492 rows containing missing values or
+## values outside the scale range (`geom_point()`).</code></pre>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p>
+There is no positive or negative correlation between flu cases and dengue cases in all given countries (continent America )
+</p>
+<p>
+Flu cases are several thousand times higher than dengue cases , with a maximum of 70,000 flue cases in Mexica. While the maximum number of dengue cases is 16, in Argentina
+</p>
+
+</div>
+<div id="footer">Copyright &copy;  Hogeschool Utrecht   DSFB2  <i class="fa-solid fa-webhook"></i> 2024  		</footer>
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="reproducble-research.-part-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="creating-r-packages.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
