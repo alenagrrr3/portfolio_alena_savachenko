@@ -1,0 +1,121 @@
+# Reproducible research
+
+<h3>  C. elegans plate experiment  </h3>
+
+<div class="azure">
+<p>Open the file in R, using the {readxl} package.</p>
+<p>Inspect the data types of columns RawData, compName and compConcentration. What types would you expect from the experimental description above. Have the data types been correctly assigned during the importing of the data into R </p>
+
+<p> Inspect the data types of columns RawData, compName and compConcentration. What types would you expect from the experimental description above. Have the data types been correctly assigned during the importing of the data into R? </p>
+</div>
+
+
+
+
+
+```{r, warning=FALSE, message=FALSE}
+
+library("readxl") 
+library("tidyverse")
+
+file <-  read_excel("data/les3/CE.LIQ.FLOW.062_Tidydata.xlsx")
+
+colnames(file)
+
+head(file)
+
+```
+
+
+Concentration column is a string, It needs to be converted to numeric
+
+
+```{r}
+file$compConcentration <-  as.numeric(file$compConcentration)
+```
+
+<div class="azure">
+<p>  Create a graph displaying a scatterplot for the CE.LIQ.FLOW.062_Tidydata.xlsx data, for the different compounds and the varying concentrations. Put the compConcentration on the x-axis, the DataRaw counts on the y-axis and assign a colour to each level in compName. Assign a different symbol (shape =) to each level in the expType variable. Try fixing the labels of the x-axis so that we can read them.
+</p>
+<p>
+When creating the plot under C), what happened with the ordering of the x-axis labels. Explain why this happens. Look at the data-type of the compConcentration column in the data again to find a clue.
+
+Correct this and than look at the graph again. Use a log10 transformation on the x-axis to get a clear graph. Also, add a bit of jitter to the points in the graph so that points are not overlapping (Google “ggplot jitter” if needed). </p>
+</div>
+
+
+
+```{r, warning=FALSE}
+
+
+ggplot(file, aes(x = compConcentration, y = RawData, colour=compName, shape=expType)) +
+  geom_point()+
+  scale_x_continuous( trans= 'log10')+
+    ggtitle(" Scatterplot for the C.Elegance experiment data") 
+  
+```
+
+
+
+<div class="azure">
+
+Fill in: (G) The positive control for this experiments is ….. (H) The negative control for this experiment is …..
+
+    Think about how you would analyze this experiment to learn whether there is indeed an effect of different concentrations on offspring count and whether the different compounds have a different curve (IC50). Write down you analysis as a step-wise plan.
+
+    Normalize the data for the controlNegative in such a way that the mean value for controlNegative is exactly equal to 1 and that all other values are expressed as a fraction thereof. Rerun your graphs with the normalized data.
+    Why would you want to take the step under J?
+
+</div>
+
+
+```{r}
+
+compNamecontrolPositive<-  file$compName[file$expType == "controlPositive"][1] 
+compNamecontrolNegative <-  file$compName[file$expType == "controlNegative"][1] 
+
+```
+
+<p> The positive control for this experiments is  `r compNamecontrolPositive` </p>
+<p>  The negative control for this experiment is `r compNamecontrolNegative`</p> 
+
+
+```{r}
+
+controlNegative <- file$RawData[file$expType=="controlNegative"]
+controlNegative_scaled <-  scale(controlNegative, center = 1, scale = TRUE)
+
+controlNegative_scaled
+
+mean_controlNegatieve <-  round(mean(controlNegative_scaled))
+mean_controlNegatieve
+
+```
+
+<p> mean scaled control Negatieve : `r mean_controlNegatieve`  </p> 
+
+
+<p>  You would take this step to be able to analyse to analyze numerical values with different range of values and to be able to set them in one plot </p> 
+
+<p> IC50 curve steps: </p>
+
+<p> 
+1. Create a scatter plot of your data, with the x-axis representing the drug concentration and the y-axis representing the percentage of inhibition.
+
+2. Add a trendline to the scatter plot by right-clicking on a data point and selecting "Add Trendline."
+
+3. In the Trendline options, select "Logarithmic" as the Trendline type.
+
+4. Check the box next to "Display Equation on the chart" and "Display R-squared value on chart."
+
+5. The equation that appears on the chart represents the logarithmic curve that fits your data. Use this equation to calculate the IC50 value by solving for the x-value when the y-value equals 50%.
+
+6. To do this, set the equation equal to 50 and solve for x. You can use Excel's solver function or simply trial-and-error to find the x-value that corresponds to a y-value of 50%.
+
+7. The x-value you find is the IC50 value for your drug.
+
+</p>
+
+
+
+

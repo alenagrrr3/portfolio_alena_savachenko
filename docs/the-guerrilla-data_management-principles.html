@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 The Guerrilla Data_management Principles | Data science for biology</title>
+  <meta name="description" content="Chapter 2 The Guerrilla Data_management Principles | Data science for biology" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 The Guerrilla Data_management Principles | Data science for biology" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 The Guerrilla Data_management Principles | Data science for biology" />
+  
+  
+  
+
+<meta name="author" content="alena savachenko" />
+
+
+<meta name="date" content="2024-11-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="agile-collaboration.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/d3-4.13.0/./d3/d3.v4.min.js"></script>
+<link href="libs/g3viz-0.4.0/./g3viz/g3-lollipop.min.css" rel="stylesheet" />
+<script src="libs/g3viz-0.4.0/./g3viz/g3-lollipop.min.js"></script>
+<script src="libs/g3Lollipop-binding-1.2.0/g3Lollipop.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="./"><img src="assets/img/logo_toc.png"></a></li>
+<li><a href="./">Data science for biology </a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="the-guerrilla-data_management-principles.html"><a href="the-guerrilla-data_management-principles.html"><i class="fa fa-check"></i><b>2</b> The Guerrilla Data_management Principles</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="the-guerrilla-data_management-principles.html"><a href="the-guerrilla-data_management-principles.html#portfolio-assignment-1.2-part-1"><i class="fa fa-check"></i><b>2.1</b> Portfolio assignment 1.2 Part 1</a></li>
+<li class="chapter" data-level="2.2" data-path="the-guerrilla-data_management-principles.html"><a href="the-guerrilla-data_management-principles.html#portfolio-assignment-1.2-looking-ahead.-package-genvisr"><i class="fa fa-check"></i><b>2.2</b> Portfolio assignment 1.2 Looking ahead. Package GenVisR</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="agile-collaboration.html"><a href="agile-collaboration.html"><i class="fa fa-check"></i><b>3</b> Agile collaboration</a></li>
+<li class="chapter" data-level="4" data-path="data-managment-principles.html"><a href="data-managment-principles.html"><i class="fa fa-check"></i><b>4</b> Data managment principles</a></li>
+<li class="chapter" data-level="5" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>5</b> Reproducible research</a></li>
+<li class="chapter" data-level="6" data-path="reproducibility-issues-in-a-scientific-publication..html"><a href="reproducibility-issues-in-a-scientific-publication..html"><i class="fa fa-check"></i><b>6</b> Reproducibility issues in a scientific publication.</a></li>
+<li class="chapter" data-level="7" data-path="reproducble-research.-part-2.html"><a href="reproducble-research.-part-2.html"><i class="fa fa-check"></i><b>7</b> Reproducble research. Part 2</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/alenagrrr3/portfolio_alena_savachenko" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data science for biology</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="the-guerrilla-data_management-principles" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> The Guerrilla Data_management Principles<a href="the-guerrilla-data_management-principles.html#the-guerrilla-data_management-principles" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="portfolio-assignment-1.2-part-1" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Portfolio assignment 1.2 Part 1<a href="the-guerrilla-data_management-principles.html#portfolio-assignment-1.2-part-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="azure">
+<h4>
+Looking ahead
+</h4>
+<h3>
+Answer the following questions:
+</h3>
+<li>
+Where do I want to be in ~2 years time?
+</li>
+<li>
+How am I doing now with respect to this goal?
+</li>
+<li>
+What would be the next skill to learn?
+</li>
+</div>
+<h3>
+Plan to get a paid job in the Netherlands
+</h3>
+To do this I need to take the following steps:
+<p>
+master the Dutch language, get a basic education.
+</p>
+<p>
+In my final year of education I plan to do an internship at inspection company NAK ( Randweg 14,Emmeloord). Presumably I will be doing work on detecting infection in potato seeds, using qPCR and data analyse of results.
+</p>
+<p>
+The current course TLSC-DSFB26V-20 is aimed at obtaining basic bio-medical and bioinformatics knowledge, which I need for your work position.
+<p>
+</div>
+<h3>
+What would be the next skill to learn
+</h3>
+<li>
+-Genomic Data Visualization and Interpretation (Ensemble, UCSC, IGV)
+</li>
+<li>
+-Visualize mutation profile patterns (GenVisR)
+</li>
+<li>
+-Visualize the genomic characterization of disease and response to therapy results (GenVisR)
+</li>
+<li>
+-Matplotlib &amp; Seaborn PyData
+</li>
+<div class="azure pd22">
+<p>Make a planning on how to start learning this new skill.</p>
+<p>Note the following points:</p>
+<pre><code>It has to be life sciences or useful for life sciences (no knitting, riding horses etc)
+It has to be data science / bioinformatics
+You have to show your plan in your portfolio, together with the result of the first few steps you took in trying to reach this goal.
+You probably won’t learn this skill in a few days. Just get started.</code></pre>
+This assignment will show us whether you succeeded in reaching an overview of the field and possibilities in data science for biology
+</div>
+</div>
+<div id="portfolio-assignment-1.2-looking-ahead.-package-genvisr" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Portfolio assignment 1.2 Looking ahead. Package GenVisR<a href="the-guerrilla-data_management-principles.html#portfolio-assignment-1.2-looking-ahead.-package-genvisr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h3>
+Visualizing genetic Mutations with GenVisr
+</h3>
+<p>
+<ul>
+<li>this is the first approach. The extended analyse follows.</li>
+</ul>
+<div class="pd22">
+
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="the-guerrilla-data_management-principles.html#cb2-1" tabindex="-1"></a><span class="fu">drawPlot</span>(plotData)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/waterfall_plot-1.png" width="672" /></p>
+<h3>
+visualization cancerogenic gene PIK3CA
+</h3>
+<p></br>
+</br></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="the-guerrilla-data_management-principles.html#cb3-1" tabindex="-1"></a><span class="fu">g3Lollipop</span>(mutation.dat,</span>
+<span id="cb3-2"><a href="the-guerrilla-data_management-principles.html#cb3-2" tabindex="-1"></a>           <span class="at">gene.symbol =</span> mutation_gene_hugo,</span>
+<span id="cb3-3"><a href="the-guerrilla-data_management-principles.html#cb3-3" tabindex="-1"></a>           <span class="at">protein.change.col =</span> <span class="st">&quot;amino_acid_change&quot;</span>,</span>
+<span id="cb3-4"><a href="the-guerrilla-data_management-principles.html#cb3-4" tabindex="-1"></a>           <span class="at">btn.style =</span> <span class="st">&quot;blue&quot;</span>, <span class="co"># blue-style chart download buttons</span></span>
+<span id="cb3-5"><a href="the-guerrilla-data_management-principles.html#cb3-5" tabindex="-1"></a>           <span class="at">plot.options =</span> plot.options,</span>
+<span id="cb3-6"><a href="the-guerrilla-data_management-principles.html#cb3-6" tabindex="-1"></a>           <span class="at">output.filename =</span> <span class="st">&quot;customized_plot&quot;</span>)</span></code></pre></div>
+<pre><code>## Factor is set to Mutation_Class</code></pre>
+<div class="g3Lollipop html-widget html-fill-item" id="htmlwidget-85159dd4791e578b7807" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-85159dd4791e578b7807">{"x":{"domainData":{"symbol":"PIK3CA","uniprot":"P42336","length":1068,"pfam":[{"hmm.acc":"PF02192","hmm.name":"PI3K_p85B","start":32,"end":107,"type":"Family"},{"hmm.acc":"PF00794","hmm.name":"PI3K_rbd","start":173,"end":292,"type":"Domain"},{"hmm.acc":"PF00792","hmm.name":"PI3K_C2","start":350,"end":485,"type":"Domain"},{"hmm.acc":"PF00613","hmm.name":"PI3Ka","start":519,"end":704,"type":"Repeat"},{"hmm.acc":"PF00454","hmm.name":"PI3_PI4_kinase","start":796,"end":1015,"type":"Family"}]},"domainDataFormat":{"length":"length","domainType":"pfam","details":{"start":"start","end":"end","name":"hmm.name"}},"snvData":[{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916661,"End_Position":178916661,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.M16I","Mutation_Class":"Missense","AA_Position":16},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916673,"End_Position":178916673,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"G","amino_acid_change":"p.I20M","Mutation_Class":"Missense","AA_Position":20},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916725,"End_Position":178916725,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"T","amino_acid_change":"p.R38C","Mutation_Class":"Missense","AA_Position":38},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916725,"End_Position":178916725,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"T","amino_acid_change":"p.R38C","Mutation_Class":"Missense","AA_Position":38},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916824,"End_Position":178916824,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.V71I","Mutation_Class":"Missense","AA_Position":71},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916836,"End_Position":178916836,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"G","amino_acid_change":"p.Q75E","Mutation_Class":"Missense","AA_Position":75},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916876,"End_Position":178916876,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.R88Q","Mutation_Class":"Missense","AA_Position":88},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916876,"End_Position":178916876,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.R88Q","Mutation_Class":"Missense","AA_Position":88},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916876,"End_Position":178916876,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.R88Q","Mutation_Class":"Missense","AA_Position":88},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916876,"End_Position":178916876,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.R88Q","Mutation_Class":"Missense","AA_Position":88},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916890,"End_Position":178916890,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"T","amino_acid_change":"p.R93W","Mutation_Class":"Missense","AA_Position":93},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916924,"End_Position":178916924,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"G","amino_acid_change":"p.P104R","Mutation_Class":"Missense","AA_Position":104},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916929,"End_Position":178916937,"Strand":"+","Variant_Classification":"In_Frame_Del","Variant_Type":"DEL","Reference_Allele":"GGCAACCGT","Tumor_Seq_Allele1":"GGCAACCGT","Tumor_Seq_Allele2":"-","amino_acid_change":"p.GNR106del","Mutation_Class":"Inframe","AA_Position":106},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916936,"End_Position":178916936,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.R108H","Mutation_Class":"Missense","AA_Position":108},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916936,"End_Position":178916936,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.R108H","Mutation_Class":"Missense","AA_Position":108},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916938,"End_Position":178916940,"Strand":"+","Variant_Classification":"In_Frame_Del","Variant_Type":"DEL","Reference_Allele":"GAA","Tumor_Seq_Allele1":"GAA","Tumor_Seq_Allele2":"-","amino_acid_change":"p.E110del","Mutation_Class":"Inframe","AA_Position":110},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916946,"End_Position":178916946,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"C","amino_acid_change":"p.K111N","Mutation_Class":"Missense","AA_Position":111},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178916945,"End_Position":178916945,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.K111R","Mutation_Class":"Missense","AA_Position":111},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178917478,"End_Position":178917478,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.G118D","Mutation_Class":"Missense","AA_Position":118},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178917496,"End_Position":178917496,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"T","amino_acid_change":"p.P124L","Mutation_Class":"Missense","AA_Position":124},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178921365,"End_Position":178921365,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"T","amino_acid_change":"p.P283S","Mutation_Class":"Missense","AA_Position":283},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178921481,"End_Position":178921481,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"C","amino_acid_change":"p.E321D","Mutation_Class":"Missense","AA_Position":321},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178921549,"End_Position":178921549,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"T","Tumor_Seq_Allele1":"T","Tumor_Seq_Allele2":"G","amino_acid_change":"p.V344G","Mutation_Class":"Missense","AA_Position":344},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178921552,"End_Position":178921552,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.N345S","Mutation_Class":"Missense","AA_Position":345},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178921566,"End_Position":178921566,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.D350N","Mutation_Class":"Missense","AA_Position":350},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178922301,"End_Position":178922301,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.R357Q","Mutation_Class":"Missense","AA_Position":357},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178922324,"End_Position":178922324,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E365K","Mutation_Class":"Missense","AA_Position":365},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178927394,"End_Position":178927394,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"T","amino_acid_change":"p.W386L","Mutation_Class":"Missense","AA_Position":386},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178927980,"End_Position":178927980,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"T","Tumor_Seq_Allele1":"T","Tumor_Seq_Allele2":"C","amino_acid_change":"p.C420R","Mutation_Class":"Missense","AA_Position":420},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178927980,"End_Position":178927980,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"T","Tumor_Seq_Allele1":"T","Tumor_Seq_Allele2":"C","amino_acid_change":"p.C420R","Mutation_Class":"Missense","AA_Position":420},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178927980,"End_Position":178927980,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"T","Tumor_Seq_Allele1":"T","Tumor_Seq_Allele2":"C","amino_acid_change":"p.C420R","Mutation_Class":"Missense","AA_Position":420},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178927980,"End_Position":178927980,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"T","Tumor_Seq_Allele1":"T","Tumor_Seq_Allele2":"C","amino_acid_change":"p.C420R","Mutation_Class":"Missense","AA_Position":420},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178927980,"End_Position":178927985,"Strand":"+","Variant_Classification":"In_Frame_Del","Variant_Type":"DEL","Reference_Allele":"TGTCCA","Tumor_Seq_Allele1":"TGTCCA","Tumor_Seq_Allele2":"-","amino_acid_change":"p.CP420del","Mutation_Class":"Inframe","AA_Position":420},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178928067,"End_Position":178928067,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"A","amino_acid_change":"p.P449T","Mutation_Class":"Missense","AA_Position":449},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178928079,"End_Position":178928079,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E453K","Mutation_Class":"Missense","AA_Position":453},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178928229,"End_Position":178928229,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.C472Y","Mutation_Class":"Missense","AA_Position":472},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178928342,"End_Position":178928342,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"A","amino_acid_change":"p.H510N","Mutation_Class":"Missense","AA_Position":510},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936074,"End_Position":178936074,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"G","amino_acid_change":"p.P539R","Mutation_Class":"Missense","AA_Position":539},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936074,"End_Position":178936074,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"G","amino_acid_change":"p.P539R","Mutation_Class":"Missense","AA_Position":539},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936082,"End_Position":178936082,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E542K","Mutation_Class":"Missense","AA_Position":542},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936082,"End_Position":178936082,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E542K","Mutation_Class":"Missense","AA_Position":542},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936082,"End_Position":178936082,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E542K","Mutation_Class":"Missense","AA_Position":542},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936082,"End_Position":178936082,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E542K","Mutation_Class":"Missense","AA_Position":542},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936082,"End_Position":178936082,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E542K","Mutation_Class":"Missense","AA_Position":542},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936082,"End_Position":178936082,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E542K","Mutation_Class":"Missense","AA_Position":542},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936082,"End_Position":178936082,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E542K","Mutation_Class":"Missense","AA_Position":542},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936082,"End_Position":178936082,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E542K","Mutation_Class":"Missense","AA_Position":542},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936082,"End_Position":178936082,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E542K","Mutation_Class":"Missense","AA_Position":542},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936092,"End_Position":178936092,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"C","amino_acid_change":"p.E545A","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936092,"End_Position":178936092,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"C","amino_acid_change":"p.E545A","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936093,"End_Position":178936093,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"T","amino_acid_change":"p.E545D","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936092,"End_Position":178936092,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.E545G","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936092,"End_Position":178936092,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.E545G","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936092,"End_Position":178936092,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.E545G","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936092,"End_Position":178936092,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.E545G","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936091,"End_Position":178936091,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E545K","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936092,"End_Position":178936092,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"T","amino_acid_change":"p.E545V","Mutation_Class":"Missense","AA_Position":545},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936094,"End_Position":178936094,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"A","amino_acid_change":"p.Q546K","Mutation_Class":"Missense","AA_Position":546},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936095,"End_Position":178936095,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.Q546R","Mutation_Class":"Missense","AA_Position":546},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936095,"End_Position":178936095,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.Q546R","Mutation_Class":"Missense","AA_Position":546},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936103,"End_Position":178936103,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.D549N","Mutation_Class":"Missense","AA_Position":549},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178936103,"End_Position":178936103,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.D549N","Mutation_Class":"Missense","AA_Position":549},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178937019,"End_Position":178937019,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.K567R","Mutation_Class":"Missense","AA_Position":567},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178938778,"End_Position":178938778,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"C","amino_acid_change":"p.E674Q","Mutation_Class":"Missense","AA_Position":674},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178938836,"End_Position":178938836,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.R693H","Mutation_Class":"Missense","AA_Position":693},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178938932,"End_Position":178938932,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.D725G","Mutation_Class":"Missense","AA_Position":725},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178938934,"End_Position":178938934,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E726K","Mutation_Class":"Missense","AA_Position":726},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178941965,"End_Position":178941965,"Strand":"+","Variant_Classification":"Nonsense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"T","amino_acid_change":"p.G762*","Mutation_Class":"Truncating","AA_Position":762},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178942502,"End_Position":178942502,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.R770Q","Mutation_Class":"Missense","AA_Position":770},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178947162,"End_Position":178947162,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"C","amino_acid_change":"p.L866F","Mutation_Class":"Missense","AA_Position":866},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178947865,"End_Position":178947865,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.G914R","Mutation_Class":"Missense","AA_Position":914},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178948127,"End_Position":178948127,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.G967R","Mutation_Class":"Missense","AA_Position":967},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178948160,"End_Position":178948160,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"A","amino_acid_change":"p.E978K","Mutation_Class":"Missense","AA_Position":978},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952018,"End_Position":178952018,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.T1025A","Mutation_Class":"Missense","AA_Position":1025},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952018,"End_Position":178952018,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.T1025A","Mutation_Class":"Missense","AA_Position":1025},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952036,"End_Position":178952036,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.T1031A","Mutation_Class":"Missense","AA_Position":1031},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952046,"End_Position":178952046,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"C","amino_acid_change":"p.E1034A","Mutation_Class":"Missense","AA_Position":1034},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952074,"End_Position":178952074,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"T","amino_acid_change":"p.M1043I","Mutation_Class":"Missense","AA_Position":1043},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"T","amino_acid_change":"p.H1047L","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"T","amino_acid_change":"p.H1047L","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"T","amino_acid_change":"p.H1047L","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952085,"End_Position":178952085,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.H1047R","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952084,"End_Position":178952084,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"T","amino_acid_change":"p.H1047Y","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952084,"End_Position":178952084,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"T","amino_acid_change":"p.H1047Y","Mutation_Class":"Missense","AA_Position":1047},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952090,"End_Position":178952090,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"C","amino_acid_change":"p.G1049R","Mutation_Class":"Missense","AA_Position":1049},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952090,"End_Position":178952090,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"G","Tumor_Seq_Allele1":"G","Tumor_Seq_Allele2":"C","amino_acid_change":"p.G1049R","Mutation_Class":"Missense","AA_Position":1049},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952142,"End_Position":178952142,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"T","amino_acid_change":"p.A1066V","Mutation_Class":"Missense","AA_Position":1066},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952142,"End_Position":178952142,"Strand":"+","Variant_Classification":"Missense_Mutation","Variant_Type":"SNP","Reference_Allele":"C","Tumor_Seq_Allele1":"C","Tumor_Seq_Allele2":"T","amino_acid_change":"p.A1066V","Mutation_Class":"Missense","AA_Position":1066},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952152,"End_Position":178952152,"Strand":"+","Variant_Classification":"Nonstop_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.*1069W","Mutation_Class":"Truncating","AA_Position":1069},{"Hugo_Symbol":"PIK3CA","Chromosome":3,"Start_Position":178952152,"End_Position":178952152,"Strand":"+","Variant_Classification":"Nonstop_Mutation","Variant_Type":"SNP","Reference_Allele":"A","Tumor_Seq_Allele1":"A","Tumor_Seq_Allele2":"G","amino_acid_change":"p.*1069W","Mutation_Class":"Truncating","AA_Position":1069}],"snvDataFormat":{"x":"AA_Position","y":"amino_acid_change","factor":"Mutation_Class"},"plotSettings":{"chartWidth":600,"chartType":"pie","chartMargin":{"left":30,"right":20,"top":20,"bottom":30},"chartBackground":"#d3d3d3","transitionTime":300,"yAxisLabel":"# of PIK3CA gene mutations","axisLabelFont":"italic 12px Serif","axisLabelColor":"#303030","axisLabelAlignment":"end","axisLabelDy":"-1.5em","yAxisLineColor":"#303030","yAxisLineStyle":"line","yAxisLineWidth":0.5,"yMaxRangeRatio":1.1,"legendMargin":{"left":20,"right":0,"top":10,"bottom":5},"legendInteractive":true,"legendTitle":"Variant classification","lollipopTrackHeight":200,"lollipopTrackBackground":"#d3d3d3","lollipopPopMinSize":1,"lollipopPopMaxSize":8,"lollipopPopInfoLimit":5.5,"lollipopPopInfoColor":"white","lollipopPopInfoDy":"0.24em","lollipopLineColor":"#a9A9A9","lollipopLineWidth":3,"lollipopCircleColor":"#ffdead","lollipopCircleWidth":0.4,"lollipopLabelRatio":2,"lollipopLabelMinFontSize":12,"lollipopColorScheme":"dark2","titleText":"PIK3CA gene (customized chart options)","titleFont":"bold 12px monospace","titleColor":"#303030","titleAlignment":"start","titleDy":"0.35em","highlightTextAngle":60,"annoHeight":16,"annoMargin":{"top":0,"bottom":0},"annoBackground":"#d3d3d3","annoBarFill":"#a9a9a9","annoBarMargin":{"top":4,"bottom":4},"domainColorScheme":"pie5","domainMargin":{"top":2,"bottom":2},"domainTextFont":"italic 8px Serif","domainTextColor":"white","brush":true,"brushBackground":"#F8F8FF","brushOpacity":0.3,"brushBorderColor":"#a9a9a9","brushBorderWidth":1,"brushHandler":"#303030","legend":true,"tooltip":true,"zoom":true},"pngButton":true,"svgButton":true,"btnStyle":"blue","outputFN":"customized_plot"},"evals":[],"jsHooks":[]}</script>
+<p>
+</p>
+<div class="pd22">
+GenVisR is focused on supporting of genomic visualizations. The library waterfall of GenViSR answers the question what mutations are present in the sample. This type plot displays in a heatmap-like structure with rows and columns denotating genes and samples.
+</div>
+The goal is to investigate Bioconductor package GenVisR and to apply it on a clinical dataset. The plan is to conduct deeper research on GenVisR, develop new data analysis techniques, and make contributions to the fields of mutational study in biology and medicine.
+</p>
+<p>
+<p>Dataset supposed to come from Ensemble database</p>
+
+</div>
+</div>
+<div id="footer">Copyright &copy;  Hogeschool Utrecht   DSFB2  <i class="fa-solid fa-webhook"></i> 2024  		</footer>
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="agile-collaboration.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

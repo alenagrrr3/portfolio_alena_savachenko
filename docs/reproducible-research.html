@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Reproducible research | Data science for biology</title>
+  <meta name="description" content="Chapter 5 Reproducible research | Data science for biology" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Reproducible research | Data science for biology" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Reproducible research | Data science for biology" />
+  
+  
+  
+
+<meta name="author" content="alena savachenko" />
+
+
+<meta name="date" content="2024-11-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-managment-principles.html"/>
+<link rel="next" href="reproducibility-issues-in-a-scientific-publication..html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/d3-4.13.0/./d3/d3.v4.min.js"></script>
+<link href="libs/g3viz-0.4.0/./g3viz/g3-lollipop.min.css" rel="stylesheet" />
+<script src="libs/g3viz-0.4.0/./g3viz/g3-lollipop.min.js"></script>
+<script src="libs/g3Lollipop-binding-1.2.0/g3Lollipop.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="./"><img src="assets/img/logo_toc.png"></a></li>
+<li><a href="./">Data science for biology </a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="the-guerrilla-data_management-principles.html"><a href="the-guerrilla-data_management-principles.html"><i class="fa fa-check"></i><b>2</b> The Guerrilla Data_management Principles</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="the-guerrilla-data_management-principles.html"><a href="the-guerrilla-data_management-principles.html#portfolio-assignment-1.2-part-1"><i class="fa fa-check"></i><b>2.1</b> Portfolio assignment 1.2 Part 1</a></li>
+<li class="chapter" data-level="2.2" data-path="the-guerrilla-data_management-principles.html"><a href="the-guerrilla-data_management-principles.html#portfolio-assignment-1.2-looking-ahead.-package-genvisr"><i class="fa fa-check"></i><b>2.2</b> Portfolio assignment 1.2 Looking ahead. Package GenVisR</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="agile-collaboration.html"><a href="agile-collaboration.html"><i class="fa fa-check"></i><b>3</b> Agile collaboration</a></li>
+<li class="chapter" data-level="4" data-path="data-managment-principles.html"><a href="data-managment-principles.html"><i class="fa fa-check"></i><b>4</b> Data managment principles</a></li>
+<li class="chapter" data-level="5" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>5</b> Reproducible research</a></li>
+<li class="chapter" data-level="6" data-path="reproducibility-issues-in-a-scientific-publication..html"><a href="reproducibility-issues-in-a-scientific-publication..html"><i class="fa fa-check"></i><b>6</b> Reproducibility issues in a scientific publication.</a></li>
+<li class="chapter" data-level="7" data-path="reproducble-research.-part-2.html"><a href="reproducble-research.-part-2.html"><i class="fa fa-check"></i><b>7</b> Reproducble research. Part 2</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/alenagrrr3/portfolio_alena_savachenko" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data science for biology</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="reproducible-research" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Reproducible research<a href="reproducible-research.html#reproducible-research" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h3>
+C. elegans plate experiment
+</h3>
+<div class="azure">
+<p>
+Open the file in R, using the {readxl} package.
+</p>
+<p>
+Inspect the data types of columns RawData, compName and compConcentration. What types would you expect from the experimental description above. Have the data types been correctly assigned during the importing of the data into R
+</p>
+<p>
+Inspect the data types of columns RawData, compName and compConcentration. What types would you expect from the experimental description above. Have the data types been correctly assigned during the importing of the data into R?
+</p>
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="reproducible-research.html#cb7-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readxl&quot;</span>) </span>
+<span id="cb7-2"><a href="reproducible-research.html#cb7-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</span>
+<span id="cb7-3"><a href="reproducible-research.html#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="reproducible-research.html#cb7-4" tabindex="-1"></a>file <span class="ot">&lt;-</span>  <span class="fu">read_excel</span>(<span class="st">&quot;data/les3/CE.LIQ.FLOW.062_Tidydata.xlsx&quot;</span>)</span>
+<span id="cb7-5"><a href="reproducible-research.html#cb7-5" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="reproducible-research.html#cb7-6" tabindex="-1"></a><span class="fu">colnames</span>(file)</span></code></pre></div>
+<pre><code>##  [1] &quot;plateRow&quot;            &quot;plateColumn&quot;         &quot;vialNr&quot;             
+##  [4] &quot;dropCode&quot;            &quot;expType&quot;             &quot;expReplicate&quot;       
+##  [7] &quot;expName&quot;             &quot;expDate&quot;             &quot;expResearcher&quot;      
+## [10] &quot;expTime&quot;             &quot;expUnit&quot;             &quot;expVolumeCounted&quot;   
+## [13] &quot;RawData&quot;             &quot;compCASRN&quot;           &quot;compName&quot;           
+## [16] &quot;compConcentration&quot;   &quot;compUnit&quot;            &quot;compDelivery&quot;       
+## [19] &quot;compVehicle&quot;         &quot;elegansStrain&quot;       &quot;elegansInput&quot;       
+## [22] &quot;bacterialStrain&quot;     &quot;bacterialTreatment&quot;  &quot;bacterialOD600&quot;     
+## [25] &quot;bacterialConcX&quot;      &quot;bacterialVolume&quot;     &quot;bacterialVolUnit&quot;   
+## [28] &quot;incubationVial&quot;      &quot;incubationVolume&quot;    &quot;incubationUnit&quot;     
+## [31] &quot;incubationMethod&quot;    &quot;incubationRPM&quot;       &quot;bubble&quot;             
+## [34] &quot;incubateTemperature&quot;</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="reproducible-research.html#cb9-1" tabindex="-1"></a><span class="fu">head</span>(file)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 34
+##   plateRow plateColumn vialNr dropCode expType    expReplicate expName        
+##   &lt;lgl&gt;    &lt;lgl&gt;        &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;          
+## 1 NA       NA               1 a        experiment            3 CE.LIQ.FLOW.062
+## 2 NA       NA               1 b        experiment            3 CE.LIQ.FLOW.062
+## 3 NA       NA               1 c        experiment            3 CE.LIQ.FLOW.062
+## 4 NA       NA               1 d        experiment            3 CE.LIQ.FLOW.062
+## 5 NA       NA               1 e        experiment            3 CE.LIQ.FLOW.062
+## 6 NA       NA               2 a        experiment            3 CE.LIQ.FLOW.062
+## # ℹ 27 more variables: expDate &lt;dttm&gt;, expResearcher &lt;chr&gt;, expTime &lt;dbl&gt;,
+## #   expUnit &lt;chr&gt;, expVolumeCounted &lt;dbl&gt;, RawData &lt;dbl&gt;, compCASRN &lt;chr&gt;,
+## #   compName &lt;chr&gt;, compConcentration &lt;chr&gt;, compUnit &lt;chr&gt;,
+## #   compDelivery &lt;chr&gt;, compVehicle &lt;chr&gt;, elegansStrain &lt;chr&gt;,
+## #   elegansInput &lt;dbl&gt;, bacterialStrain &lt;chr&gt;, bacterialTreatment &lt;chr&gt;,
+## #   bacterialOD600 &lt;dbl&gt;, bacterialConcX &lt;dbl&gt;, bacterialVolume &lt;dbl&gt;,
+## #   bacterialVolUnit &lt;chr&gt;, incubationVial &lt;chr&gt;, incubationVolume &lt;dbl&gt;, …</code></pre>
+<p>Concentration column is a string, It needs to be converted to numeric</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="reproducible-research.html#cb11-1" tabindex="-1"></a>file<span class="sc">$</span>compConcentration <span class="ot">&lt;-</span>  <span class="fu">as.numeric</span>(file<span class="sc">$</span>compConcentration)</span></code></pre></div>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<div class="azure">
+<p>
+Create a graph displaying a scatterplot for the CE.LIQ.FLOW.062_Tidydata.xlsx data, for the different compounds and the varying concentrations. Put the compConcentration on the x-axis, the DataRaw counts on the y-axis and assign a colour to each level in compName. Assign a different symbol (shape =) to each level in the expType variable. Try fixing the labels of the x-axis so that we can read them.
+</p>
+<p>
+<p>When creating the plot under C), what happened with the ordering of the x-axis labels. Explain why this happens. Look at the data-type of the compConcentration column in the data again to find a clue.</p>
+Correct this and than look at the graph again. Use a log10 transformation on the x-axis to get a clear graph. Also, add a bit of jitter to the points in the graph so that points are not overlapping (Google “ggplot jitter” if needed).
+</p>
+</div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="reproducible-research.html#cb13-1" tabindex="-1"></a><span class="fu">ggplot</span>(file, <span class="fu">aes</span>(<span class="at">x =</span> compConcentration, <span class="at">y =</span> RawData, <span class="at">colour=</span>compName, <span class="at">shape=</span>expType)) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="reproducible-research.html#cb13-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb13-3"><a href="reproducible-research.html#cb13-3" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>( <span class="at">trans=</span> <span class="st">&#39;log10&#39;</span>)<span class="sc">+</span></span>
+<span id="cb13-4"><a href="reproducible-research.html#cb13-4" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot; Scatterplot for the C.Elegance experiment data&quot;</span>) </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="azure">
+<p>Fill in: (G) The positive control for this experiments is ….. (H) The negative control for this experiment is …..</p>
+<pre><code>Think about how you would analyze this experiment to learn whether there is indeed an effect of different concentrations on offspring count and whether the different compounds have a different curve (IC50). Write down you analysis as a step-wise plan.
+
+Normalize the data for the controlNegative in such a way that the mean value for controlNegative is exactly equal to 1 and that all other values are expressed as a fraction thereof. Rerun your graphs with the normalized data.
+Why would you want to take the step under J?</code></pre>
+</div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="reproducible-research.html#cb15-1" tabindex="-1"></a>compNamecontrolPositive<span class="ot">&lt;-</span>  file<span class="sc">$</span>compName[file<span class="sc">$</span>expType <span class="sc">==</span> <span class="st">&quot;controlPositive&quot;</span>][<span class="dv">1</span>] </span>
+<span id="cb15-2"><a href="reproducible-research.html#cb15-2" tabindex="-1"></a>compNamecontrolNegative <span class="ot">&lt;-</span>  file<span class="sc">$</span>compName[file<span class="sc">$</span>expType <span class="sc">==</span> <span class="st">&quot;controlNegative&quot;</span>][<span class="dv">1</span>] </span></code></pre></div>
+<p>
+The positive control for this experiments is Ethanol
+</p>
+<p>
+The negative control for this experiment is S-medium
+</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="reproducible-research.html#cb16-1" tabindex="-1"></a>controlNegative <span class="ot">&lt;-</span> file<span class="sc">$</span>RawData[file<span class="sc">$</span>expType<span class="sc">==</span><span class="st">&quot;controlNegative&quot;</span>]</span>
+<span id="cb16-2"><a href="reproducible-research.html#cb16-2" tabindex="-1"></a>controlNegative_scaled <span class="ot">&lt;-</span>  <span class="fu">scale</span>(controlNegative, <span class="at">center =</span> <span class="dv">1</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-3"><a href="reproducible-research.html#cb16-3" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="reproducible-research.html#cb16-4" tabindex="-1"></a>controlNegative_scaled</span></code></pre></div>
+<pre><code>##            [,1]
+##  [1,] 1.0420913
+##  [2,] 1.1451552
+##  [3,] 1.2024130
+##  [4,] 1.1795099
+##  [5,] 1.0535428
+##  [6,] 0.8245118
+##  [7,] 1.0649944
+##  [8,] 1.1795099
+##  [9,] 0.8817695
+## [10,] 1.1680583
+## [11,] 0.7099962
+## [12,] 0.9619304
+## [13,] 0.6985447
+## [14,] 0.8474149
+## [15,] 0.9275757
+## [16,] 0.9962851
+## [17,] 0.9619304
+## [18,] 0.7558025
+## [19,] 0.7328994
+## [20,] 0.9161242
+## [21,] 0.9619304
+## [22,] 0.9390273
+## [23,] 0.8359633
+## [24,] 0.8474149
+## [25,] 0.9619304
+## [26,] 1.0764459
+## [27,] 1.1222521
+## [28,] 1.1337037
+## [29,] 1.1108006
+## [30,] 0.9275757
+## attr(,&quot;scaled:center&quot;)
+## [1] 1
+## attr(,&quot;scaled:scale&quot;)
+## [1] 87.32441</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="reproducible-research.html#cb18-1" tabindex="-1"></a>mean_controlNegatieve <span class="ot">&lt;-</span>  <span class="fu">round</span>(<span class="fu">mean</span>(controlNegative_scaled))</span>
+<span id="cb18-2"><a href="reproducible-research.html#cb18-2" tabindex="-1"></a>mean_controlNegatieve</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>
+mean scaled control Negatieve : 1
+</p>
+<p>
+You would take this step to be able to analyse to analyze numerical values with different range of values and to be able to set them in one plot
+</p>
+<p>
+IC50 curve steps:
+</p>
+<p>
+<ol style="list-style-type: decimal">
+<li><p>Create a scatter plot of your data, with the x-axis representing the drug concentration and the y-axis representing the percentage of inhibition.</p></li>
+<li><p>Add a trendline to the scatter plot by right-clicking on a data point and selecting “Add Trendline.”</p></li>
+<li><p>In the Trendline options, select “Logarithmic” as the Trendline type.</p></li>
+<li><p>Check the box next to “Display Equation on the chart” and “Display R-squared value on chart.”</p></li>
+<li><p>The equation that appears on the chart represents the logarithmic curve that fits your data. Use this equation to calculate the IC50 value by solving for the x-value when the y-value equals 50%.</p></li>
+<li><p>To do this, set the equation equal to 50 and solve for x. You can use Excel’s solver function or simply trial-and-error to find the x-value that corresponds to a y-value of 50%.</p></li>
+<li><p>The x-value you find is the IC50 value for your drug.</p></li>
+</ol>
+</p>
+
+</div>
+<div id="footer">Copyright &copy;  Hogeschool Utrecht   DSFB2  <i class="fa-solid fa-webhook"></i> 2024  		</footer>
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-managment-principles.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="reproducibility-issues-in-a-scientific-publication..html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
