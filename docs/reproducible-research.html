@@ -152,6 +152,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="2.1" data-path="the-guerrilla-data_management-principles.html"><a href="the-guerrilla-data_management-principles.html#portfolio-assignment-1.2-part-1"><i class="fa fa-check"></i><b>2.1</b> Portfolio assignment 1.2 Part 1</a></li>
 <li class="chapter" data-level="2.2" data-path="the-guerrilla-data_management-principles.html"><a href="the-guerrilla-data_management-principles.html#portfolio-assignment-1.2-looking-ahead.-package-genvisr"><i class="fa fa-check"></i><b>2.2</b> Portfolio assignment 1.2 Looking ahead. Package GenVisR</a></li>
+<li class="chapter" data-level="2.3" data-path="the-guerrilla-data_management-principles.html"><a href="the-guerrilla-data_management-principles.html#planing-for-portfolio-assignment-1.2-looking-ahead.-package-genvisr"><i class="fa fa-check"></i><b>2.3</b> Planing for portfolio assignment 1.2 Looking ahead. Package GenVisR</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="agile-collaboration.html"><a href="agile-collaboration.html"><i class="fa fa-check"></i><b>3</b> Agile collaboration</a></li>
 <li class="chapter" data-level="4" data-path="data-managment-principles.html"><a href="data-managment-principles.html"><i class="fa fa-check"></i><b>4</b> Data managment principles</a></li>
@@ -194,12 +195,12 @@ Inspect the data types of columns RawData, compName and compConcentration. What 
 Inspect the data types of columns RawData, compName and compConcentration. What types would you expect from the experimental description above. Have the data types been correctly assigned during the importing of the data into R?
 </p>
 </div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="reproducible-research.html#cb7-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readxl&quot;</span>) </span>
-<span id="cb7-2"><a href="reproducible-research.html#cb7-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</span>
-<span id="cb7-3"><a href="reproducible-research.html#cb7-3" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="reproducible-research.html#cb7-4" tabindex="-1"></a>file <span class="ot">&lt;-</span>  <span class="fu">read_excel</span>(<span class="st">&quot;data/les3/CE.LIQ.FLOW.062_Tidydata.xlsx&quot;</span>)</span>
-<span id="cb7-5"><a href="reproducible-research.html#cb7-5" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="reproducible-research.html#cb7-6" tabindex="-1"></a><span class="fu">colnames</span>(file)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="reproducible-research.html#cb18-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readxl&quot;</span>) </span>
+<span id="cb18-2"><a href="reproducible-research.html#cb18-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</span>
+<span id="cb18-3"><a href="reproducible-research.html#cb18-3" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="reproducible-research.html#cb18-4" tabindex="-1"></a>file <span class="ot">&lt;-</span>  <span class="fu">read_excel</span>(<span class="st">&quot;data/les3/CE.LIQ.FLOW.062_Tidydata.xlsx&quot;</span>)</span>
+<span id="cb18-5"><a href="reproducible-research.html#cb18-5" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="reproducible-research.html#cb18-6" tabindex="-1"></a><span class="fu">colnames</span>(file)</span></code></pre></div>
 <pre><code>##  [1] &quot;plateRow&quot;            &quot;plateColumn&quot;         &quot;vialNr&quot;             
 ##  [4] &quot;dropCode&quot;            &quot;expType&quot;             &quot;expReplicate&quot;       
 ##  [7] &quot;expName&quot;             &quot;expDate&quot;             &quot;expResearcher&quot;      
@@ -212,7 +213,7 @@ Inspect the data types of columns RawData, compName and compConcentration. What 
 ## [28] &quot;incubationVial&quot;      &quot;incubationVolume&quot;    &quot;incubationUnit&quot;     
 ## [31] &quot;incubationMethod&quot;    &quot;incubationRPM&quot;       &quot;bubble&quot;             
 ## [34] &quot;incubateTemperature&quot;</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="reproducible-research.html#cb9-1" tabindex="-1"></a><span class="fu">head</span>(file)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="reproducible-research.html#cb20-1" tabindex="-1"></a><span class="fu">head</span>(file)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 34
 ##   plateRow plateColumn vialNr dropCode expType    expReplicate expName        
 ##   &lt;lgl&gt;    &lt;lgl&gt;        &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;          
@@ -230,7 +231,7 @@ Inspect the data types of columns RawData, compName and compConcentration. What 
 ## #   bacterialOD600 &lt;dbl&gt;, bacterialConcX &lt;dbl&gt;, bacterialVolume &lt;dbl&gt;,
 ## #   bacterialVolUnit &lt;chr&gt;, incubationVial &lt;chr&gt;, incubationVolume &lt;dbl&gt;, …</code></pre>
 <p>Concentration column is a string, It needs to be converted to numeric</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="reproducible-research.html#cb11-1" tabindex="-1"></a>file<span class="sc">$</span>compConcentration <span class="ot">&lt;-</span>  <span class="fu">as.numeric</span>(file<span class="sc">$</span>compConcentration)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="reproducible-research.html#cb22-1" tabindex="-1"></a>file<span class="sc">$</span>compConcentration <span class="ot">&lt;-</span>  <span class="fu">as.numeric</span>(file<span class="sc">$</span>compConcentration)</span></code></pre></div>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
 <div class="azure">
 <p>
@@ -241,11 +242,11 @@ Create a graph displaying a scatterplot for the CE.LIQ.FLOW.062_Tidydata.xlsx da
 Correct this and than look at the graph again. Use a log10 transformation on the x-axis to get a clear graph. Also, add a bit of jitter to the points in the graph so that points are not overlapping (Google “ggplot jitter” if needed).
 </p>
 </div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="reproducible-research.html#cb13-1" tabindex="-1"></a><span class="fu">ggplot</span>(file, <span class="fu">aes</span>(<span class="at">x =</span> compConcentration, <span class="at">y =</span> RawData, <span class="at">colour=</span>compName, <span class="at">shape=</span>expType)) <span class="sc">+</span></span>
-<span id="cb13-2"><a href="reproducible-research.html#cb13-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb13-3"><a href="reproducible-research.html#cb13-3" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>( <span class="at">trans=</span> <span class="st">&#39;log10&#39;</span>)<span class="sc">+</span></span>
-<span id="cb13-4"><a href="reproducible-research.html#cb13-4" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot; Scatterplot for the C.Elegance experiment data&quot;</span>) </span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="reproducible-research.html#cb24-1" tabindex="-1"></a><span class="fu">ggplot</span>(file, <span class="fu">aes</span>(<span class="at">x =</span> compConcentration, <span class="at">y =</span> RawData, <span class="at">colour=</span>compName, <span class="at">shape=</span>expType)) <span class="sc">+</span></span>
+<span id="cb24-2"><a href="reproducible-research.html#cb24-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb24-3"><a href="reproducible-research.html#cb24-3" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>( <span class="at">trans=</span> <span class="st">&#39;log10&#39;</span>)<span class="sc">+</span></span>
+<span id="cb24-4"><a href="reproducible-research.html#cb24-4" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot; Scatterplot for the C.Elegance experiment data&quot;</span>) </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <div class="azure">
 <p>Fill in: (G) The positive control for this experiments is ….. (H) The negative control for this experiment is …..</p>
 <pre><code>Think about how you would analyze this experiment to learn whether there is indeed an effect of different concentrations on offspring count and whether the different compounds have a different curve (IC50). Write down you analysis as a step-wise plan.
@@ -253,18 +254,18 @@ Correct this and than look at the graph again. Use a log10 transformation on the
 Normalize the data for the controlNegative in such a way that the mean value for controlNegative is exactly equal to 1 and that all other values are expressed as a fraction thereof. Rerun your graphs with the normalized data.
 Why would you want to take the step under J?</code></pre>
 </div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="reproducible-research.html#cb15-1" tabindex="-1"></a>compNamecontrolPositive<span class="ot">&lt;-</span>  file<span class="sc">$</span>compName[file<span class="sc">$</span>expType <span class="sc">==</span> <span class="st">&quot;controlPositive&quot;</span>][<span class="dv">1</span>] </span>
-<span id="cb15-2"><a href="reproducible-research.html#cb15-2" tabindex="-1"></a>compNamecontrolNegative <span class="ot">&lt;-</span>  file<span class="sc">$</span>compName[file<span class="sc">$</span>expType <span class="sc">==</span> <span class="st">&quot;controlNegative&quot;</span>][<span class="dv">1</span>] </span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="reproducible-research.html#cb26-1" tabindex="-1"></a>compNamecontrolPositive<span class="ot">&lt;-</span>  file<span class="sc">$</span>compName[file<span class="sc">$</span>expType <span class="sc">==</span> <span class="st">&quot;controlPositive&quot;</span>][<span class="dv">1</span>] </span>
+<span id="cb26-2"><a href="reproducible-research.html#cb26-2" tabindex="-1"></a>compNamecontrolNegative <span class="ot">&lt;-</span>  file<span class="sc">$</span>compName[file<span class="sc">$</span>expType <span class="sc">==</span> <span class="st">&quot;controlNegative&quot;</span>][<span class="dv">1</span>] </span></code></pre></div>
 <p>
 The positive control for this experiments is Ethanol
 </p>
 <p>
 The negative control for this experiment is S-medium
 </p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="reproducible-research.html#cb16-1" tabindex="-1"></a>controlNegative <span class="ot">&lt;-</span> file<span class="sc">$</span>RawData[file<span class="sc">$</span>expType<span class="sc">==</span><span class="st">&quot;controlNegative&quot;</span>]</span>
-<span id="cb16-2"><a href="reproducible-research.html#cb16-2" tabindex="-1"></a>controlNegative_scaled <span class="ot">&lt;-</span>  <span class="fu">scale</span>(controlNegative, <span class="at">center =</span> <span class="dv">1</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb16-3"><a href="reproducible-research.html#cb16-3" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="reproducible-research.html#cb16-4" tabindex="-1"></a>controlNegative_scaled</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="reproducible-research.html#cb27-1" tabindex="-1"></a>controlNegative <span class="ot">&lt;-</span> file<span class="sc">$</span>RawData[file<span class="sc">$</span>expType<span class="sc">==</span><span class="st">&quot;controlNegative&quot;</span>]</span>
+<span id="cb27-2"><a href="reproducible-research.html#cb27-2" tabindex="-1"></a>controlNegative_scaled <span class="ot">&lt;-</span>  <span class="fu">scale</span>(controlNegative, <span class="at">center =</span> <span class="dv">1</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-3"><a href="reproducible-research.html#cb27-3" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="reproducible-research.html#cb27-4" tabindex="-1"></a>controlNegative_scaled</span></code></pre></div>
 <pre><code>##            [,1]
 ##  [1,] 1.0420913
 ##  [2,] 1.1451552
@@ -300,8 +301,8 @@ The negative control for this experiment is S-medium
 ## [1] 1
 ## attr(,&quot;scaled:scale&quot;)
 ## [1] 87.32441</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="reproducible-research.html#cb18-1" tabindex="-1"></a>mean_controlNegatieve <span class="ot">&lt;-</span>  <span class="fu">round</span>(<span class="fu">mean</span>(controlNegative_scaled))</span>
-<span id="cb18-2"><a href="reproducible-research.html#cb18-2" tabindex="-1"></a>mean_controlNegatieve</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="reproducible-research.html#cb29-1" tabindex="-1"></a>mean_controlNegatieve <span class="ot">&lt;-</span>  <span class="fu">round</span>(<span class="fu">mean</span>(controlNegative_scaled))</span>
+<span id="cb29-2"><a href="reproducible-research.html#cb29-2" tabindex="-1"></a>mean_controlNegatieve</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>
 mean scaled control Negatieve : 1

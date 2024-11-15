@@ -2,6 +2,7 @@ introduction
 the-guerrilla-data_management-principles
 portfolio-assignment-1.2-part-1
 portfolio-assignment-1.2-looking-ahead.-package-genvisr
+planing-for-portfolio-assignment-1.2-looking-ahead.-package-genvisr
 agile-collaboration
 data-managment-principles
 reproducible-research

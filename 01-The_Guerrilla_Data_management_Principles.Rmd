@@ -202,5 +202,11 @@ The goal is to investigate Bioconductor package GenVisR and to apply it on a cli
 
 <p> Dataset supposed to come from Ensemble  database
 
+## Planing for portfolio assignment 1.2 Looking ahead. Package GenVisR
 
+day 1 : general information and introduction , search for dataset
+day 2 and 3 : own implementation of pakcage on the chosen dataset
+day 4 :  the repair of bugs and runing the application
 
+day 1,2,3 can be done at the free-lesson days
+day 4 can be done during the holiday 
