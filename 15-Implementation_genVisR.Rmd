@@ -1,4 +1,37 @@
-# Implementation  GenVisR
+
+# GenVisR
+
+
+## Introduction to dataset
+
+
+The scientists conducted a genome-wide association study and found mutations in specific regions of the genome that correlate with educational attainment. Found mutations are responsible for only two percent of the variation in the level of education and cognitive ability, but include “promising” for further research single-nucleotide polymorphisms (single-nucleotide polymorphisms, SNPs). Specifically, three independent mutations (rs9320913, rs11584700, rs4851266) are responsible for approximately 1 additional month of learning each.[@rietveldGWAS126559Individuals2013].
+
+Studies were performed on data from Utah residents with Northern and Western European ancestry ([@rietveldGWAS126559Individuals2013]).
+
+Daset comes form Supplementary Materials for
+GWAS of 126,559 Individuals Identifies Genetic Variants Associated
+with Educational Attainment  https://www.science.org/doi/abs/10.1126/science.1235488
+(Appendix)
+
+
+<object data="genVizR/docs/appendix.pdf" type="application/pdf" width="100%" height="750px">
+  <embed src="genVizR/docs/appendix.pdf">
+  </object>
+
+
+The normal functioning of each cell depends on thousands of proteins that need to be
+to be in the right place at the right time. Sometimes mutations in genes prevent one or
+one or more proteins from working properly. By making a change in a gene, the mutation thereby  changes the instructions for synthesizing the protein so that the protein no longer functions  properly or is not synthesized at all.The sequence of a gene in DNA can be altered in several ways. Mutations in  genes have different effects on health and depend on which genes they occurred in and whether the function of these proteins is altered.
+This type of Missense mutation is caused by the replacement of one
+ DNA base for another (e.g., replacing T for C, or G for A), resulting in the substitution of one amino acid for another in the protein encoded by the gene. Here is one example
+ of missene mutation from the study by Flint and Munafò[@rietveldGWAS126559Individuals2013]. 
+ 
+The mutation caused by the substitution of nucleotide A for G results in the substitution of amino acid Aspartic acid for Glutamic acid.This in turn changes the properties of the protein.  As Whole-Genom scientists have shown the mutation rs1056667 is  associated with cognitive performance [@eriksonWholeGenomeSequencingHealthy2016]
+Gene BTN1A1 is located on chromosome 6[@GeneBTN1A1ENSG00000124557].Some studies have shown that this chromosome is important in the development of normal intelligence[@Chromosome6Ring]. 
+
+
+## Implementation  GenVisR
 
 <h3>  Genomic Visualization and Interpretations Introduction to  GenVisR  </h3>
 

@@ -14,3 +14,11 @@ reproducibility-issues-in-a-scientific-publication.
 reproducble-research.-part-2
 working-with-relational-databases
 implementation-genvisr
+portfolio-assignment-1.2-looking-ahead
+portfolio-assignment-1.2-part-1-1
+portfolio-assignment-1.2-looking-ahead.-package-genvisr-1
+portfolio-assignment-1.2-looking-ahead-1
+portfolio-assignment-1.2-part-1-2
+portfolio-assignment-1.2-looking-ahead.-package-genvisr-2
+genvisr
+introduction-to-dataset
