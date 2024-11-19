@@ -1,0 +1,374 @@
+#  Working with relational databases
+
+
+<h3>  Portfolio assignment 7.Relational databases  </h3>
+
+
+```{r, warning=F, message=F}
+library(tidyverse)
+library(ggplot2)
+library("dslabs")
+```
+
+
+<div class="azure" >Assignment
+
+    Load the flu (in the github repo for this course: https://github.com/DataScienceILC/tlsc-dsfb26v-20_workflows go to ./data/flu_data.csv), the dengue (“./data/dengue_data.csv) and the gapminder ({dslabs} package) into three separate dataframes in R
+
+    Check if they are in the right shape. Is the data in the ‘tidy’ format? If not change the format to ‘tidy’
+
+    Change the country and date variables of the three tables so that they coincide in terms of data type, class and values
+
+    Store the three tables as separate (so six in total) .csv and .rds files.
+
+    In Dbeaver create a new PostgreSQL database “workflowsdb”
+
+    Using RPostgreSQL, insert the tables into the database.
+
+    Inspect the contents of the tables with SQL (in DBeaver) and save the SQL script.
+
+    Inspect the contents of the tables with dplyr (in R) and save a RMarkdown showing what you are doing.
+
+    Load the gapminder data in R and change the dataframe in such as way that you could join it to dengue and flue.
+
+    Save this clean gapminder data in the “workflowsdb” database
+
+    Perform some joins (your choice) with SQL (can be done in DBeaver or with dplyr.
+
+    Generate a joined table, and export this from the database to R.
+
+    Show some descriptive statistics with this table, and at least 3 visualisations using ggplot2.
+
+    Write a short report to show at least te actions listed in this assignment in a Rmd file for your portfolio. Include pictures and provide text explaining and showcasing your skills.
+ </div>
+
+
+<h3> read in Flu  dataset </h3>
+
+
+```{r}
+flu <-   read.csv("data_raw/les5/flu_data.csv", skip=11)
+colnames(flu)
+
+```
+
+<h3> read in  Dengue dataset  </h3>
+
+```{r}
+dengue <-  read.csv("data_raw/les5/dengue_data.csv", skip=11)
+
+colnames(dengue)
+```
+
+<h3>  Read in dslabs gapminder dataset  </h3>
+
+
+```{r}
+library("dslabs")
+
+head(gapminder)
+str(gapminder)
+```
+
+<h3> Processing of  FLU dataset   </h3>
+
+
+```{r}
+flu_longer <-  pivot_longer(flu, cols= -Date,  names_to = "country", values_to ="flu_cases", values_drop_na = TRUE)
+head(flu_longer)
+```
+ <h3>  Fromat date, with year extraction </h3>
+
+```{r}
+flu_longer$Date <- parse_integer( format(as.Date(flu_longer$Date), format="%Y") )
+head(flu_longer$Date)
+
+head(flu_longer)
+```
+
+<h3> Save unique rows </h3>
+
+
+```{r}
+flu_longer2 <-  flu_longer %>%   group_by(Date, country)  %>%
+  mutate( sum_cases = sum(flu_cases))
+
+#View(flu_longer2)
+
+head( flu_longer2)
+
+colnames( flu_longer2)[1] <-  "year"
+
+colnames(flu_longer2)
+
+
+flu_longer_db <-  flu_longer2 %>%  select (year, country, sum_cases) %>%  unique()
+
+```
+
+
+
+
+
+
+<h3>  Processing of  Dengue dataset  </h3>
+
+```{r}
+dengue_longer <-  pivot_longer(dengue, cols = -Date, names_to = "country", values_to = "dengue_cases",
+                               values_drop_na = TRUE)
+
+head(dengue_longer)
+
+dengue_longer$Date <-  parse_integer( format(as.Date(dengue_longer$Date), format="%Y") )
+
+
+head(dengue_longer)
+
+dengue_longer <- dengue_longer %>%  group_by(country, Date) %>%  mutate(dengue_sum_cases = sum(dengue_cases))
+
+head(dengue_longer)
+
+colnames(dengue_longer)[1]  <-  "year"
+
+colnames(dengue_longer)
+
+dengue_db <-  dengue_longer %>%  select (year, country, dengue_sum_cases) %>%  unique()
+
+dengue_db
+
+
+```
+
+
+<h3> export  tables to csv and rds files  </h3>
+
+
+
+```{r, eval=F}
+write.csv(flu_longer_db, "output/flu.csv")
+write.csv( dengue_db, "output/ dengue.csv")
+write.csv( gapminder, "output/gapminder.csv")
+
+saveRDS(flu_longer_db, "output/flu.rds")
+saveRDS( dengue_db, "output/dengue.rds")
+saveRDS(gapminder, "output/gapminde.rds")
+
+
+```
+
+
+<h3> Make connection to Postgres DB  </h3>
+
+
+```{r}
+library('RPostgreSQL')
+library("remotes")
+library("RPostgres")
+
+con <- dbConnect(RPostgres::Postgres(),
+                 dbname = "workflowsdb",
+                 host="localhost",
+                 port="5432",
+                 user="postgres",
+                 password="admin")
+```
+
+<h3> write tables to DB  </h3>
+
+
+```{r, eval=F}
+dbWriteTable(con, "flu",flu_longer_db)
+
+dbWriteTable(con, "dengue", dengue_db)
+
+dbWriteTable(con, "gapminder", gapminder)
+
+dbListTables(con)
+```
+
+inspect the contents of the tables with SQL
+
+
+```{sql connection=con}
+select * from flu limit 10;
+```
+
+```{sql connection=con}
+select * from dengue limit 10;
+```
+
+
+<h3> Perform sql joins in DB: </h3>
+
+1. inner join flu and dengue:
+
+```{sql connection=con, eval= FALSE}
+
+CREATE TABLE flu_joined_dengue
+AS 
+SELECT  dengue.country, dengue.year , flu.sum_cases,  dengue.dengue_sum_cases   from  dengue  join flu  on   dengue.year = flu.year and dengue.country = flu.country;
+```
+
+
+```{sql connection=con}
+select * from flu_joined_dengue limit 10;
+```
+
+<h3> Left join on gapminder to combined flu-dengue  </h3>
+
+
+```{sql connection=con}
+select gapminder.country, gapminder.year, gapminder.infant_mortality , gapminder.life_expectancy , gapminder.continent, flu_joined_dengue.sum_cases ,flu_joined_dengue.dengue_sum_cases  from gapminder   left join  flu_joined_dengue  on flu_joined_dengue.year= gapminder.year and flu_joined_dengue.country =gapminder.country ;
+
+```
+
+<h3> Inspect data with R </h3>
+
+```{r}
+
+
+flu_db <- tbl(con, "flu")
+head(flu_db)
+
+```
+
+```{r}
+debgue_db <- tbl(con, "dengue")
+head(debgue_db)
+```
+
+```{r}
+gapminder_db <- tbl(con, "gapminder")
+head(gapminder_db)
+```
+
+
+
+<h3> Descriptive statistics </h3>
+
+
+1. Join: flu and dengue"
+
+
+```{r}
+join2 <-  read.csv("data/les5/join2.csv")
+
+colnames(join2)[3] <-  "cases_flu"
+colnames(join2)[4] <-  "cases_dengue"
+
+head(join2)
+
+
+join2 %>%  filter(country %in% c("Bolivia", "Brazil", "Argentina")  )  %>%
+  ggplot(aes(x=year, y=cases_dengue, color=country)) +
+  geom_line(size=2.5)+
+  labs(title = "Comparing of dengue cases in Argentina, Bolivia and Brazil" ) 
+
+
+join2 %>%  filter(country %in% c("Bolivia", "Brazil", "Argentina")  )  %>%
+  ggplot(aes(x=year, y=cases_flu, color=country)) +
+  geom_line(size=2.5)+
+    labs(title = "Comparing of flu cases  in Argentina, Bolivia and Brazil" ) 
+
+
+```
+
+
+
+```{r}
+
+
+summary_table <- join2 %>%  group_by(country) %>%  summarise( max_flu=max(cases_flu), max_dengue=max(cases_dengue)  )
+
+
+
+join2_longer <-join2 %>%  pivot_longer( cols = c("cases_flu","cases_dengue"),
+                   names_to = "group", values_to ="cases" )
+head(join2_longer)
+
+
+
+# bar chart flu vs dengue
+
+
+summary_table <- join2 %>%  group_by(country) %>%  summarise( max_flu=max(cases_flu), max_dengue=max(cases_dengue)  )
+
+summary_table
+```
+
+
+```{r}
+
+
+
+
+summary_table_polt  <-  summary_table %>% pivot_longer(cols=c('max_flu', 'max_dengue'),
+                           names_to='max_flu_dengue',
+                           values_to='frequentie')
+
+head(summary_table_polt)
+
+ggplot (summary_table_polt, aes(x= max_flu_dengue, y=log(frequentie), fill=country )) +
+  geom_bar ( stat="identity", position = position_dodge(width = 0.5))+
+  labs(title="Maximum cases Flu and Dengue cases per country")+
+  ylab("Frequentie, log based " )+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  geom_text(aes(label = frequentie), size = 3, vjust = -0.4,position = position_dodge(width = 1) )
+
+
+
+ggplot (summary_table_polt, aes(x= country, y=log(frequentie), fill=max_flu_dengue )) +
+  geom_bar ( stat="identity", position = position_dodge(width = 0.5))+
+  labs(title="Maximum cases  Flu and  Dengue per country")+
+  ylab("Frequentie, log based " )+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  geom_text(aes(label = frequentie), size = 3, vjust = -0.4,position = position_dodge(width = 1) )
+```
+
+
+```{r, echo=FALSE}
+maxDengueArgenitina <-  summary_table_polt$frequentie[summary_table_polt$country=="Argentina" & summary_table_polt$max_flu_dengue=="max_dengue"]
+
+maxDengueBolivia <-  summary_table_polt$frequentie[summary_table_polt$country=="Bolivia" & summary_table_polt$max_flu_dengue=="max_dengue"]
+
+
+maxDengueBrazil <-  summary_table_polt$frequentie[summary_table_polt$country=="Brazil" & summary_table_polt$max_flu_dengue=="max_dengue"]
+ 
+
+maxDengueMexico <-  summary_table_polt$frequentie[summary_table_polt$country=="Mexico" & summary_table_polt$max_flu_dengue=="max_dengue"]
+
+```
+
+
+
+
+<p> Maximum dengue cases in Argenitina is : `r maxDengueArgenitina` </p>
+<p> Maximum flu cases in Mexico is : `r maxDengueMexico`  </p>
+<p> Maximum flu cases in Brazil is:  `r maxDengueBrazil`  </p>
+<p> Maximum flu cases in Bolivia is :`r maxDengueBolivia`  </p>
+
+<p> There are thousands of times more cases of flu than dengue in all existing areas </p>
+
+
+
+<h3> Left join : gapminder and combined flu and dengue </h3>
+
+
+```{r}
+join1 <-  read.csv("data/les5/left_join_gapminder.csv")
+summary(join1)
+
+
+join1 %>% 
+  ggplot(aes(x=log(sum_cases) , y=dengue_sum_cases, color=continent)) +
+  geom_point()+
+    labs(title = "Scatterplot of flu and dengue cases ", y= "flu cases, natural log", x="dengue cases"  )
+  
+
+```
+
+
+
+<p> There is  no positive or negative  correlation between flu cases and  dengue cases in all given countries (continent  America ) </p>
+<p> 
+Flu cases are several thousand times higher than dengue cases , with a maximum of 70,000 flue cases in Mexica. While the maximum number of dengue cases is 16, in Argentina  </p>

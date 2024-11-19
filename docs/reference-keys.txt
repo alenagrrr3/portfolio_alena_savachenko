@@ -8,3 +8,8 @@ data-managment-principles
 reproducible-research
 reproducibility-issues-in-a-scientific-publication.
 reproducble-research.-part-2
+tab:unnamed-chunk-12
+tab:unnamed-chunk-13
+tab:unnamed-chunk-15
+tab:unnamed-chunk-16
+working-with-relational-databases

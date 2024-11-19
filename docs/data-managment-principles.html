@@ -23,7 +23,7 @@
 <meta name="author" content="alena savachenko" />
 
 
-<meta name="date" content="2024-11-15" />
+<meta name="date" content="2024-11-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,12 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<script src="libs/d3-4.13.0/./d3/d3.v4.min.js"></script>
-<link href="libs/g3viz-0.4.0/./g3viz/g3-lollipop.min.css" rel="stylesheet" />
-<script src="libs/g3viz-0.4.0/./g3viz/g3-lollipop.min.js"></script>
-<script src="libs/g3Lollipop-binding-1.2.0/g3Lollipop.js"></script>
 
 
 <style type="text/css">
@@ -159,6 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>5</b> Reproducible research</a></li>
 <li class="chapter" data-level="6" data-path="reproducibility-issues-in-a-scientific-publication..html"><a href="reproducibility-issues-in-a-scientific-publication..html"><i class="fa fa-check"></i><b>6</b> Reproducibility issues in a scientific publication.</a></li>
 <li class="chapter" data-level="7" data-path="reproducble-research.-part-2.html"><a href="reproducble-research.-part-2.html"><i class="fa fa-check"></i><b>7</b> Reproducble research. Part 2</a></li>
+<li class="chapter" data-level="8" data-path="working-with-relational-databases.html"><a href="working-with-relational-databases.html"><i class="fa fa-check"></i><b>8</b> Working with relational databases</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/alenagrrr3/portfolio_alena_savachenko" target="blank">Published with bookdown</a></li>
@@ -195,231 +190,21 @@ Use the {fs} package to share a screenshot of your folder tree in your portfolio
 <h5>
 The portfolio directory:
 </h5>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="data-managment-principles.html#cb10-1" tabindex="-1"></a><span class="fu">library</span>(fs)</span>
-<span id="cb10-2"><a href="data-managment-principles.html#cb10-2" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="data-managment-principles.html#cb10-3" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(here<span class="sc">::</span><span class="fu">here</span>())</span></code></pre></div>
-<pre><code>## C:/Users/Mijn-PC/Documents/r/portfolio-master/portfolio-master
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="data-managment-principles.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(fs)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="data-managment-principles.html#cb4-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/hu_courses/worfklow_ds_2&quot;</span>)</span></code></pre></div>
+<pre><code>## C:/Users/Mijn-PC/Documents/hu_courses/worfklow_ds_2
 ## ├── 01-The_Guerrilla_Data_management_Principles.Rmd
 ## ├── 02-Agile_collaboration.Rmd
 ## ├── 03-Data-management-principles.Rmd
 ## ├── 04-Reproducible_Research.Rmd
 ## ├── 05-Reproducibility_part_1.Rmd
 ## ├── 06-Reproducible_Research_Part2.Rmd
-## ├── 99-references.Rmd
 ## ├── assets
-## │   ├── about.pdf
-## │   ├── apa.csl
 ## │   ├── css
-## │   │   └── style.css
 ## │   ├── html
-## │   │   ├── about-vignette.htm
-## │   │   ├── about-vignette_files
-## │   │   │   └── MathJax.js
-## │   │   ├── after.html
-## │   │   └── cv_index.html
-## │   ├── img
-## │   │   ├── about-vignette.png
-## │   │   ├── cortisol.png
-## │   │   ├── logo.png
-## │   │   ├── logo2.png
-## │   │   ├── logo_toc.png
-## │   │   ├── Screenshot_1.png
-## │   │   ├── Screenshot_2.png
-## │   │   ├── Screenshot_3.png
-## │   │   └── Screenshot_4.png
-## │   └── vignettes
-## │       ├── docs
-## │       ├── readme_dataset.pdf
-## │       ├── readme_dataset.txt
-## │       └── sql
-## ├── bib
-## │   ├── intro.bib
-## │   ├── min_seq.bib
-## │   └── ontheline.bib
-## ├── bookdownproj.Rmd
-## ├── bookdownproj_files
-## │   └── figure-html
-## │       ├── unnamed-chunk-12-1.png
-## │       ├── unnamed-chunk-13-1.png
-## │       ├── unnamed-chunk-24-1.png
-## │       ├── unnamed-chunk-25-1.png
-## │       ├── unnamed-chunk-3-1.png
-## │       ├── unnamed-chunk-32-1.png
-## │       ├── unnamed-chunk-52-1.png
-## │       ├── unnamed-chunk-52-2.png
-## │       ├── unnamed-chunk-54-1.png
-## │       ├── unnamed-chunk-54-2.png
-## │       ├── unnamed-chunk-56-1.png
-## │       ├── unnamed-chunk-6-1.png
-## │       ├── unnamed-chunk-67-1.png
-## │       ├── unnamed-chunk-9-1.png
-## │       └── waterfall_plot-1.png
-## ├── data
-## │   ├── les2
-## │   │   ├── BKM120_Mutation_Data.tsv
-## │   │   └── mart_export.txt
-## │   ├── les3
-## │   │   └── CE.LIQ.FLOW.062_Tidydata.xlsx
-## │   ├── les4
-## │   │   └── csv
-## │   │       ├── Church_et_al_2018_metaregression_acronyms.csv
-## │   │       ├── Church_et_al_2018_metaregression_footnotes.csv
-## │   │       ├── Church_et_al_2018_metaregression_input.csv
-## │   │       ├── Church_et_al_2018_plot_settings.csv
-## │   │       └── Church_et_al_2018_summary.csv
-## │   ├── les5
-## │   │   ├── ccle.csv
-## │   │   ├── dengue_data.csv
-## │   │   ├── flue_joined_dengue.csv
-## │   │   ├── flu_data.csv
-## │   │   ├── gdp.csv
-## │   │   ├── join1.csv
-## │   │   ├── join2.csv
-## │   │   └── left_join_gapminder.csv
-## │   └── mutation_data.tsv
-## ├── docs
-## │   ├── 404.html
-## │   ├── a-caucus-race-and-a-long-tale.html
-## │   ├── agile-collaboration.html
-## │   ├── appendix.html
-## │   ├── assets
-## │   │   ├── about.pdf
-## │   │   ├── apa.csl
-## │   │   ├── css
-## │   │   │   └── style.css
-## │   │   ├── img
-## │   │   │   ├── cortisol.png
-## │   │   │   └── logo_toc.png
-## │   │   └── vignettes
-## │   │       └── readme_dataset.pdf
-## │   ├── bookdownproj_files
-## │   │   └── figure-html
-## │   │       ├── unnamed-chunk-12-1.png
-## │   │       ├── unnamed-chunk-13-1.png
-## │   │       ├── unnamed-chunk-24-1.png
-## │   │       ├── unnamed-chunk-25-1.png
-## │   │       ├── unnamed-chunk-3-1.png
-## │   │       ├── unnamed-chunk-32-1.png
-## │   │       ├── unnamed-chunk-52-1.png
-## │   │       ├── unnamed-chunk-52-2.png
-## │   │       ├── unnamed-chunk-54-1.png
-## │   │       ├── unnamed-chunk-54-2.png
-## │   │       ├── unnamed-chunk-56-1.png
-## │   │       ├── unnamed-chunk-6-1.png
-## │   │       ├── unnamed-chunk-67-1.png
-## │   │       ├── unnamed-chunk-9-1.png
-## │   │       └── waterfall_plot-1.png
-## │   ├── creating-r-packages.html
-## │   ├── data-managment-principles.html
-## │   ├── index.html
-## │   ├── introduction-1.html
-## │   ├── introduction-2.html
-## │   ├── introduction.html
-## │   ├── libs
-## │   │   ├── anchor-sections-1.1.0
-## │   │   │   ├── anchor-sections-hash.css
-## │   │   │   ├── anchor-sections.css
-## │   │   │   └── anchor-sections.js
-## │   │   ├── crosstalk-1.2.1
-## │   │   │   ├── css
-## │   │   │   │   └── crosstalk.min.css
-## │   │   │   └── js
-## │   │   │       └── crosstalk.min.js
-## │   │   ├── d3-4.13.0
-## │   │   │   └── d3
-## │   │   │       └── d3.v4.min.js
-## │   │   ├── g3Lollipop-binding-1.2.0
-## │   │   │   └── g3Lollipop.js
-## │   │   ├── g3viz-0.4.0
-## │   │   │   └── g3viz
-## │   │   │       ├── g3-lollipop.min.css
-## │   │   │       └── g3-lollipop.min.js
-## │   │   ├── gitbook-2.6.7
-## │   │   │   ├── css
-## │   │   │   │   ├── fontawesome
-## │   │   │   │   │   └── fontawesome-webfont.ttf
-## │   │   │   │   ├── plugin-bookdown.css
-## │   │   │   │   ├── plugin-clipboard.css
-## │   │   │   │   ├── plugin-fontsettings.css
-## │   │   │   │   ├── plugin-highlight.css
-## │   │   │   │   ├── plugin-search.css
-## │   │   │   │   ├── plugin-table.css
-## │   │   │   │   └── style.css
-## │   │   │   └── js
-## │   │   │       ├── app.min.js
-## │   │   │       ├── clipboard.min.js
-## │   │   │       ├── jquery.highlight.js
-## │   │   │       ├── lunr.js
-## │   │   │       ├── plugin-bookdown.js
-## │   │   │       ├── plugin-clipboard.js
-## │   │   │       ├── plugin-fontsettings.js
-## │   │   │       ├── plugin-search.js
-## │   │   │       └── plugin-sharing.js
-## │   │   ├── htmltools-fill-0.5.8.1
-## │   │   │   └── fill.css
-## │   │   ├── htmlwidgets-1.6.4
-## │   │   │   └── htmlwidgets.js
-## │   │   ├── jquery-2.2.3
-## │   │   │   └── jquery.min.js
-## │   │   ├── jquery-3.6.0
-## │   │   │   └── jquery-3.6.0.min.js
-## │   │   ├── plotly-binding-4.10.4
-## │   │   │   └── plotly.js
-## │   │   ├── plotly-htmlwidgets-css-2.11.1
-## │   │   │   └── plotly-htmlwidgets.css
-## │   │   ├── plotly-main-2.11.1
-## │   │   │   └── plotly-latest.min.js
-## │   │   └── typedarray-0.1
-## │   │       └── typedarray.min.js
-## │   ├── parameterized-rmarkdown.html
-## │   ├── portfolio-assignment-1.2-looking-ahead-1.html
-## │   ├── portfolio-assignment-1.2-looking-ahead.html
-## │   ├── references-1.html
-## │   ├── references.html
-## │   ├── reproducble-research.-part-2.html
-## │   ├── reproducibility-issues-in-a-scientific-publication..html
-## │   ├── reproducible-research.html
-## │   ├── search_index.json
-## │   ├── style.css
-## │   ├── the-guerrilla-data_management-principles.html
-## │   ├── the-pool-of-tears.html
-## │   └── working-with-relational-databases.html
-## ├── index.Rmd
-## ├── LICENSE
-## ├── output
-## │   ├── dengue_db.csv
-## │   ├── dengue_db.rds
-## │   ├── flu_longer_db.csv
-## │   ├── flu_longer_db.rds
-## │   ├── gapminder.csv
-## │   ├── gapminder.rds
-## │   └── mutation_data_mart_export_202411132102.txt
-## ├── packages.bib
-## ├── portfolio-master.Rproj
-## ├── README.md
-## ├── src
-## │   ├── intro_text
-## │   └── set_wd.R
-## ├── _bookdown.yml
-## ├── _bookdown_files
-## └── _output.yml</code></pre>
-<h5>
-The workflow directory:
-</h5>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="data-managment-principles.html#cb12-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/r/worfklow_ds_2&quot;</span>)</span></code></pre></div>
-<pre><code>## C:/Users/Mijn-PC/Documents/r/worfklow_ds_2
-## ├── 02-Agile_collaboration.Rmd
-## ├── 03-Data-management-principles.Rmd
-## ├── 03-The_Guerrilla_Data_management_Principles.Rmd
-## ├── 04-Reproducible_Research.Rmd
-## ├── 07-Working_with_relational_data.Rmd
-## ├── 08-Creating_R_packages.Rmd
-## ├── 10-parameterized_RMarkdown.Rmd
-## ├── 12-intro.Rmd
-## ├── 13-r_mardown_syntax_output_formats.Rmd
+## │   └── img
 ## ├── data
 ## │   ├── les1
-## │   │   └── 2021.04.21.440736v1.full.pdf
 ## │   ├── les2
 ## │   ├── les3
 ## │   ├── les4
@@ -428,22 +213,24 @@ The workflow directory:
 ## │   ├── les7
 ## │   └── les8
 ## ├── data-raw
+## │   ├── BTN1A1_cov_chr6.V1.txt
+## │   ├── MATZO_p_TCGAb40_SNP_1N_GenomeWideSNP_6_E09_667812.grch38.seg.v1.txt
+## │   ├── MATZO_p_TCGAb40_SNP_1N_GenomeWideSNP_6_E09_667812.grch38.seg.v2.txt
 ## │   ├── MinionBenchmarkPaper.pdf
+## │   ├── output_object_results_mart.csv
 ## │   └── SupplementaryFiles
 ## │       ├── media-1 (1).xlsx
 ## │       ├── media-2 (2).xlsx
 ## │       ├── media-3 (1).xlsx
 ## │       ├── media-4 (1).xlsx
 ## │       └── media-5 (1).xlsx
-## ├── doc
-## │   └── GenExpressie1.PNG
 ## ├── docs
 ## │   ├── 404.html
-## │   ├── agile-collaboration.html
-## │   ├── creating-r-packages.html
-## │   ├── data-managment-principles.html
+## │   ├── a-caucus-race-and-a-long-tale.html
+## │   ├── bookdownproj_files
+## │   │   └── figure-html
+## │   │       └── draw_plot-1.png
 ## │   ├── index.html
-## │   ├── introduction.html
 ## │   ├── libs
 ## │   │   ├── anchor-sections-1.1.0
 ## │   │   │   ├── anchor-sections-hash.css
@@ -474,41 +261,58 @@ The workflow directory:
 ## │   │   │   └── jquery.min.js
 ## │   │   └── jquery-3.6.0
 ## │   │       └── jquery-3.6.0.min.js
-## │   ├── parameterized-rmarkdown.html
-## │   ├── r-markdown-syntax-output-formats.html
 ## │   ├── reference-keys.txt
-## │   ├── reproducible-research.html
 ## │   ├── search_index.json
 ## │   ├── style.css
-## │   ├── the-guerrilla-data_management-principles.html
-## │   └── working-with-relational-databases.html
-## ├── images
-## │   └── logo.png
+## │   ├── the-pool-of-tears.html
+## │   └── timplementation-genvisr.html
 ## ├── index.Rmd
 ## ├── LICENSE
-## ├── R
-## │   └── set_wd.R
+## ├── output
+## │   ├── BTN1A1_cov_chr6.txt
+## │   ├── BTN1A1_cov_chr6.V1.txt
+## │   ├── counts_gene.txt
+## │   ├── counts_transcript.txt
+## │   ├── CPM_transcript.txt
+## │   ├── extended_annotations.gtf
+## │   ├── fullLengthCounts_transcript.txt
+## │   ├── gencov.csv
+## │   ├── gencov_BTN1A1.txt
+## │   ├── myplot.pdf
+## │   ├── output_brcaMAF.csv
+## │   ├── output_BTN1A1.csv
+## │   ├── output_BTN1A2.csv
+## │   ├── output_d2.csv
+## │   ├── output_getBM.csv
+## │   ├── output_object_results_mart.csv
+## │   └── uniqueCounts_transcript.txt
 ## ├── README.md
 ## ├── style.css
-## ├── workflow.Rproj
+## ├── worflow_ds.Rproj
 ## ├── _bookdown.yml
 ## └── _output.yml</code></pre>
 <h5>
 The Daur-2 directory:
 </h5>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="data-managment-principles.html#cb14-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/r/Daur2&quot;</span>)</span></code></pre></div>
-<pre><code>## C:/Users/Mijn-PC/Documents/r/Daur2
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data-managment-principles.html#cb6-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/hu_courses/Daur2&quot;</span>)</span></code></pre></div>
+<pre><code>## C:/Users/Mijn-PC/Documents/hu_courses/Daur2
 ## ├── Daur2.Rproj
+## ├── README.md.txt
 ## ├── rnaseq_airway
 ## │   ├── airway_sampledata.csv
 ## │   ├── bam
 ## │   ├── counts
+## │   ├── data
+## │   ├── data_raw
 ## │   ├── fastq
 ## │   ├── fastqc_output
+## │   ├── New folder
 ## │   └── readme_airway
 ## ├── rnaseq_ipsq
 ## │   ├── bam
 ## │   ├── counts
+## │   ├── data
+## │   ├── data_raw
 ## │   ├── fastq
 ## │   ├── fastq_output
 ## │   ├── ipsc_sampledata.csv
@@ -516,6 +320,8 @@ The Daur-2 directory:
 ## ├── rnaseq_onecut
 ## │   ├── bam
 ## │   ├── counts
+## │   ├── data
+## │   ├── data_raw
 ## │   ├── fastq
 ## │   ├── fastqc_output
 ## │   ├── onecut_sampledata.csv
@@ -527,29 +333,109 @@ The Daur-2 directory:
 <h5>
 The projecticum directory:
 </h5>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="data-managment-principles.html#cb16-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/r/projecticum&quot;</span>)</span></code></pre></div>
-<pre><code>## C:/Users/Mijn-PC/Documents/r/projecticum
-## └── projecticum
-##     ├── data
-##     │   └── README.md
-##     ├── figures
-##     │   └── img
-##     │       └── logo.png
-##     ├── notebooks
-##     │   ├── dir_ls.R
-##     │   └── logs.txt
-##     ├── projecticum.Rproj
-##     ├── README.md
-##     ├── requirements.txt
-##     └── src
-##         └── package
-##             ├── MinionBenchmarkPaper.pdf
-##             └── SupplementaryFiles
-##                 ├── media-1 (1).xlsx
-##                 ├── media-2 (2).xlsx
-##                 ├── media-3 (1).xlsx
-##                 ├── media-4 (1).xlsx
-##                 └── media-5 (1).xlsx</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="data-managment-principles.html#cb8-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/hu_courses/projecticum&quot;</span>)</span></code></pre></div>
+<pre><code>## C:/Users/Mijn-PC/Documents/hu_courses/projecticum
+## ├── data
+## │   └── README.md
+## ├── data_raw
+## ├── figures
+## │   └── img
+## │       └── logo.png
+## ├── notebooks
+## │   ├── dir_ls.R
+## │   └── logs.txt
+## ├── projecticum.Rproj
+## ├── README.md
+## ├── requirements.txt
+## └── src
+##     └── package
+##         ├── MinionBenchmarkPaper.pdf
+##         └── SupplementaryFiles
+##             ├── media-1 (1).xlsx
+##             ├── media-2 (2).xlsx
+##             ├── media-3 (1).xlsx
+##             ├── media-4 (1).xlsx
+##             └── media-5 (1).xlsx</code></pre>
+<h5>
+The portfolio directory:
+</h5>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="data-managment-principles.html#cb10-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/hu_courses/portfolio&quot;</span>)</span></code></pre></div>
+<pre><code>## C:/Users/Mijn-PC/Documents/hu_courses/portfolio
+## ├── 01-The_Guerrilla_Data_management_Principles.Rmd
+## ├── 02-Agile_collaboration.Rmd
+## ├── 03-Data-management-principles.Rmd
+## ├── 04-Reproducible_Research.Rmd
+## ├── 05-Reproducibility_part_1.Rmd
+## ├── 06-Reproducible_Research_Part2.Rmd
+## ├── assets
+## │   ├── css
+## │   ├── html
+## │   └── img
+## ├── data
+## ├── data-raw
+## │   └── SupplementaryFiles
+## │       ├── media-1 (1).xlsx
+## │       ├── media-2 (2).xlsx
+## │       ├── media-3 (1).xlsx
+## │       ├── media-4 (1).xlsx
+## │       └── media-5 (1).xlsx
+## ├── docs
+## │   ├── bookdownproj_files
+## │   │   └── figure-html
+## │   │       ├── draw_plot-1.png
+## │   │       ├── plot_cortisol.png
+## │   │       └── plot_gen_cov.png
+## │   ├── index.html
+## │   ├── libs
+## │   │   └── gitbook-2.6.7
+## │   │       ├── css
+## │   │       │   ├── fontawesome
+## │   │       │   │   └── fontawesome-webfont.ttf
+## │   │       │   ├── plugin-bookdown.css
+## │   │       │   ├── plugin-clipboard.css
+## │   │       │   ├── plugin-fontsettings.css
+## │   │       │   ├── plugin-highlight.css
+## │   │       │   ├── plugin-search.css
+## │   │       │   ├── plugin-table.css
+## │   │       │   └── style.css
+## │   │       └── js
+## │   │           ├── app.min.js
+## │   │           ├── clipboard.min.js
+## │   │           ├── jquery.highlight.js
+## │   │           ├── lunr.js
+## │   │           ├── plugin-bookdown.js
+## │   │           ├── plugin-clipboard.js
+## │   │           ├── plugin-fontsettings.js
+## │   │           ├── plugin-search.js
+## │   │           └── plugin-sharing.js
+## │   ├── reference-keys.txt
+## │   ├── search_index.json
+## │   └── style.css
+## ├── index.Rmd
+## ├── LICENSE
+## ├── output
+## │   ├── BTN1A1_cov_chr6.txt
+## │   ├── BTN1A1_cov_chr6.V1.txt
+## │   ├── counts_gene.txt
+## │   ├── counts_transcript.txt
+## │   ├── CPM_transcript.txt
+## │   ├── extended_annotations.gtf
+## │   ├── fullLengthCounts_transcript.txt
+## │   ├── gencov.csv
+## │   ├── gencov_BTN1A1.txt
+## │   ├── myplot.pdf
+## │   ├── output_brcaMAF.csv
+## │   ├── output_BTN1A1.csv
+## │   ├── output_BTN1A2.csv
+## │   ├── output_d2.csv
+## │   ├── output_getBM.csv
+## │   ├── output_object_results_mart.csv
+## │   └── uniqueCounts_transcript.txt
+## ├── portfolio.Rproj
+## ├── README.md
+## ├── style.css
+## ├── _bookdown.yml
+## └── _output.yml</code></pre>
 <p>Include readme to the projecticum dataset</p>
 <object data="assets/vignettes/readme_dataset.pdf" type="application/pdf" width="100%" height="750px">
 <embed src="assets/vignettes/readme_dataset.pdf">
