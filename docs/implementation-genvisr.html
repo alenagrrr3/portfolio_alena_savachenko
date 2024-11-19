@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Implementation GenVisR | Data science for biology</title>
+  <meta name="description" content="Chapter 9 Implementation GenVisR | Data science for biology" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 Implementation GenVisR | Data science for biology" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 Implementation GenVisR | Data science for biology" />
+  
+  
+  
+
+<meta name="author" content="alena savachenko" />
+
+
+<meta name="date" content="2024-11-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="working-with-relational-databases.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/d3-4.13.0/./d3/d3.v4.min.js"></script>
+<link href="libs/g3viz-0.4.0/./g3viz/g3-lollipop.min.css" rel="stylesheet" />
+<script src="libs/g3viz-0.4.0/./g3viz/g3-lollipop.min.js"></script>
+<script src="libs/g3Lollipop-binding-1.2.0/g3Lollipop.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="./"><img src="assets/img/logo_toc.png"></a></li>
+<li><a href="./">Data science for biology </a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="the-guerrilla-data_management-principles.html"><a href="the-guerrilla-data_management-principles.html"><i class="fa fa-check"></i><b>2</b> The Guerrilla Data_management Principles</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="the-guerrilla-data_management-principles.html"><a href="the-guerrilla-data_management-principles.html#portfolio-assignment-1.2-part-1"><i class="fa fa-check"></i><b>2.1</b> Portfolio assignment 1.2 Part 1</a></li>
+<li class="chapter" data-level="2.2" data-path="the-guerrilla-data_management-principles.html"><a href="the-guerrilla-data_management-principles.html#portfolio-assignment-1.2-looking-ahead.-package-genvisr"><i class="fa fa-check"></i><b>2.2</b> Portfolio assignment 1.2 Looking ahead. Package GenVisR</a></li>
+<li class="chapter" data-level="2.3" data-path="the-guerrilla-data_management-principles.html"><a href="the-guerrilla-data_management-principles.html#planing-for-portfolio-assignment-1.2-looking-ahead.-package-genvisr"><i class="fa fa-check"></i><b>2.3</b> Planing for portfolio assignment 1.2 Looking ahead. Package GenVisR</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="agile-collaboration.html"><a href="agile-collaboration.html"><i class="fa fa-check"></i><b>3</b> Agile collaboration</a></li>
+<li class="chapter" data-level="4" data-path="data-managment-principles.html"><a href="data-managment-principles.html"><i class="fa fa-check"></i><b>4</b> Data managment principles</a></li>
+<li class="chapter" data-level="5" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>5</b> Reproducible research</a></li>
+<li class="chapter" data-level="6" data-path="reproducibility-issues-in-a-scientific-publication..html"><a href="reproducibility-issues-in-a-scientific-publication..html"><i class="fa fa-check"></i><b>6</b> Reproducibility issues in a scientific publication.</a></li>
+<li class="chapter" data-level="7" data-path="reproducble-research.-part-2.html"><a href="reproducble-research.-part-2.html"><i class="fa fa-check"></i><b>7</b> Reproducble research. Part 2</a></li>
+<li class="chapter" data-level="8" data-path="working-with-relational-databases.html"><a href="working-with-relational-databases.html"><i class="fa fa-check"></i><b>8</b> Working with relational databases</a></li>
+<li class="chapter" data-level="9" data-path="implementation-genvisr.html"><a href="implementation-genvisr.html"><i class="fa fa-check"></i><b>9</b> Implementation GenVisR</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/alenagrrr3/portfolio_alena_savachenko" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data science for biology</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="implementation-genvisr" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Implementation GenVisR<a href="implementation-genvisr.html#implementation-genvisr" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h3>
+Genomic Visualization and Interpretations Introduction to GenVisR
+</h3>
+<p>GenVisR is a package to interpret and visualize data received from NGS sequencing.There are many tools available for the analysis and visualization of these data. In this module we will focus on
+3 functions : waterfall, genCov, and cnSpec. For the last module another dataset is used.
+The dataset for the spectrum plot comes from the GDC data portal, <a href="https://portal.gdc.cancer.gov/analysis_page?app=Downloads" class="uri">https://portal.gdc.cancer.gov/analysis_page?app=Downloads</a>, file with name MATZO_p_TCGAb40_SNP_1N_GenomeWideSNP_6_E09_667812.grch38.seg.v2.txt.</p>
+<h4>
+Waterfall plots
+</h4>
+<p>The waterfall() function from the GenVisR package displays mutation in a heatmap-like structure with rows and columns denotating genes and samples.The function creates a plot of the mutational landscape from original data. <span class="citation">(<strong>WaterfallFunctionIntroduction?</strong>)</span></p>
+<p>First of all, we need to load the GenVisR library from bioconductor. We also need to load the mutation data. In the original dataset, only the gene name, mutation and position are present. We need to
+add some additional information from the Ensemble database, such as chromosome coordinates and gene annotation and to join this information to dataset.</p>
+<p>Install required libraries</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="implementation-genvisr.html#cb116-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb116-2"><a href="implementation-genvisr.html#cb116-2" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb116-3"><a href="implementation-genvisr.html#cb116-3" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;GenVisR&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="implementation-genvisr.html#cb117-1" tabindex="-1"></a><span class="fu">library</span>(GenVisR) </span>
+<span id="cb117-2"><a href="implementation-genvisr.html#cb117-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb117-3"><a href="implementation-genvisr.html#cb117-3" tabindex="-1"></a><span class="fu">library</span> (tidyverse)</span>
+<span id="cb117-4"><a href="implementation-genvisr.html#cb117-4" tabindex="-1"></a><span class="fu">library</span>(biomaRt)</span>
+<span id="cb117-5"><a href="implementation-genvisr.html#cb117-5" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<p>Data preproccesing. First we save all gene names from article to the list.</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="implementation-genvisr.html#cb118-1" tabindex="-1"></a>list_gen_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;AFF3&quot;</span>,<span class="st">&quot;BTN1A1&quot;</span>, <span class="st">&quot;H2AC6&quot;</span>, <span class="st">&quot;HMGN4&quot;</span>, <span class="st">&quot;MDM4&quot;</span>, <span class="st">&quot;LRRN2&quot;</span>, <span class="st">&quot;TANK&quot;</span> )</span>
+<span id="cb118-2"><a href="implementation-genvisr.html#cb118-2" tabindex="-1"></a>list_ensemble <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ENSG00000144218&quot;</span>, <span class="st">&quot;ENSG00000124557&quot;</span>,<span class="st">&quot;ENSG00000180573&quot;</span>, <span class="st">&quot;ENSG00000182952&quot;</span>, <span class="st">&quot;ENSG00000198625&quot;</span>,<span class="st">&quot;ENSG00000170382&quot;</span>, <span class="st">&quot;ENSG00000136560&quot;</span>)</span></code></pre></div>
+<p>Then we need to retrieve genomic coordinates and annotations for the further analyses. This is possible with biomaRt Bioconductor library</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="implementation-genvisr.html#cb119-1" tabindex="-1"></a>ensembl <span class="ot">&lt;-</span> <span class="fu">useMart</span>(<span class="st">&quot;ensembl&quot;</span>)</span>
+<span id="cb119-2"><a href="implementation-genvisr.html#cb119-2" tabindex="-1"></a>ensembl <span class="ot">&lt;-</span> <span class="fu">useDataset</span>(<span class="st">&quot;hsapiens_gene_ensembl&quot;</span>,<span class="at">mart=</span>ensembl)</span>
+<span id="cb119-3"><a href="implementation-genvisr.html#cb119-3" tabindex="-1"></a>object_results2 <span class="ot">&lt;-</span>  <span class="fu">getBM</span>(<span class="at">attributes=</span><span class="fu">c</span>(<span class="st">&#39;ensembl_gene_id&#39;</span>,<span class="st">&#39;chromosome_name&#39;</span>, <span class="st">&#39;start_position&#39;</span>, <span class="st">&#39;end_position&#39;</span>,<span class="st">&#39;gene_biotype&#39;</span>,<span class="st">&#39;hgnc_symbol&#39;</span>),</span>
+<span id="cb119-4"><a href="implementation-genvisr.html#cb119-4" tabindex="-1"></a>      <span class="at">filters=</span><span class="st">&#39;hgnc_symbol&#39;</span>,</span>
+<span id="cb119-5"><a href="implementation-genvisr.html#cb119-5" tabindex="-1"></a>      <span class="at">values=</span>list_gen_names,</span>
+<span id="cb119-6"><a href="implementation-genvisr.html#cb119-6" tabindex="-1"></a>      <span class="at">mart=</span>ensembl)  </span></code></pre></div>
+<p>Export Ensemble results to csv file.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="implementation-genvisr.html#cb120-1" tabindex="-1"></a>object_results2</span>
+<span id="cb120-2"><a href="implementation-genvisr.html#cb120-2" tabindex="-1"></a><span class="fu">write.csv</span>(object_results2 ,<span class="st">&quot;data_raw/genViz/output_object_results_mart.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="implementation-genvisr.html#cb121-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(object_results2,</span>
+<span id="cb121-2"><a href="implementation-genvisr.html#cb121-2" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;The biomart results cotaining the gene coordinates&quot;</span>)</span></code></pre></div>
+<table>
+<caption>(#tab:biomart_results)The biomart results cotaining the gene coordinates</caption>
+<colgroup>
+<col width="18%" />
+<col width="18%" />
+<col width="17%" />
+<col width="14%" />
+<col width="17%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">ensembl_gene_id</th>
+<th align="left">chromosome_name</th>
+<th align="right">start_position</th>
+<th align="right">end_position</th>
+<th align="left">gene_biotype</th>
+<th align="left">hgnc_symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ENSG00000144218</td>
+<td align="left">2</td>
+<td align="right">99545419</td>
+<td align="right">100192428</td>
+<td align="left">protein_coding</td>
+<td align="left">AFF3</td>
+</tr>
+<tr class="even">
+<td align="left">ENSG00000292177</td>
+<td align="left">HSCHR6_1_CTG1</td>
+<td align="right">46483</td>
+<td align="right">56605</td>
+<td align="left">protein_coding</td>
+<td align="left">BTN1A1</td>
+</tr>
+<tr class="odd">
+<td align="left">ENSG00000124557</td>
+<td align="left">6</td>
+<td align="right">26500303</td>
+<td align="right">26510425</td>
+<td align="left">protein_coding</td>
+<td align="left">BTN1A1</td>
+</tr>
+<tr class="even">
+<td align="left">ENSG00000180573</td>
+<td align="left">6</td>
+<td align="right">26124145</td>
+<td align="right">26139116</td>
+<td align="left">protein_coding</td>
+<td align="left">H2AC6</td>
+</tr>
+<tr class="odd">
+<td align="left">ENSG00000292175</td>
+<td align="left">HSCHR6_1_CTG1</td>
+<td align="right">84546</td>
+<td align="right">93113</td>
+<td align="left">protein_coding</td>
+<td align="left">HMGN4</td>
+</tr>
+<tr class="even">
+<td align="left">ENSG00000182952</td>
+<td align="left">6</td>
+<td align="right">26538366</td>
+<td align="right">26546933</td>
+<td align="left">protein_coding</td>
+<td align="left">HMGN4</td>
+</tr>
+<tr class="odd">
+<td align="left">ENSG00000170382</td>
+<td align="left">1</td>
+<td align="right">204617170</td>
+<td align="right">204685738</td>
+<td align="left">protein_coding</td>
+<td align="left">LRRN2</td>
+</tr>
+<tr class="even">
+<td align="left">ENSG00000198625</td>
+<td align="left">1</td>
+<td align="right">204516379</td>
+<td align="right">204558120</td>
+<td align="left">protein_coding</td>
+<td align="left">MDM4</td>
+</tr>
+<tr class="odd">
+<td align="left">ENSG00000136560</td>
+<td align="left">2</td>
+<td align="right">161136908</td>
+<td align="right">161236230</td>
+<td align="left">protein_coding</td>
+<td align="left">TANK</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="implementation-genvisr.html#cb122-1" tabindex="-1"></a>biomart_export <span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;output/genViz/output_object_results_mart.csv&quot;</span>) </span></code></pre></div>
+<p>Join dataset export from biomart with list of genes/mutations.</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="implementation-genvisr.html#cb123-1" tabindex="-1"></a>biomart_export <span class="ot">&lt;-</span> biomart_export[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb123-2"><a href="implementation-genvisr.html#cb123-2" tabindex="-1"></a><span class="fu">head</span>( biomart_export)</span></code></pre></div>
+<pre><code>##   ensembl_gene_id chromosome_name start_position end_position   gene_biotype
+## 1 ENSG00000144218               2       99545419    100192428 protein_coding
+## 2 ENSG00000292177   HSCHR6_1_CTG1          46483        56605 protein_coding
+## 3 ENSG00000124557               6       26500303     26510425 protein_coding
+## 4 ENSG00000180573               6       26124145     26139116 protein_coding
+## 5 ENSG00000292175   HSCHR6_1_CTG1          84546        93113 protein_coding
+## 6 ENSG00000182952               6       26538366     26546933 protein_coding
+##   hgnc_symbol
+## 1        AFF3
+## 2      BTN1A1
+## 3      BTN1A1
+## 4       H2AC6
+## 5       HMGN4
+## 6       HMGN4</code></pre>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="implementation-genvisr.html#cb125-1" tabindex="-1"></a>data_set_appendix<span class="ot">&lt;-</span><span class="fu">read.csv2</span>(<span class="st">&quot;output/genViz/output_BTN1A2.csv&quot;</span>)</span></code></pre></div>
+<p>Make column names fit to join the ensemble dataset</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="implementation-genvisr.html#cb126-1" tabindex="-1"></a><span class="fu">names</span>(data_set_appendix)[<span class="fu">names</span>(data_set_appendix) <span class="sc">==</span> <span class="st">&#39;Hugo_Symbol&#39;</span>] <span class="ot">&lt;-</span> <span class="st">&#39;hgnc_symbol&#39;</span></span>
+<span id="cb126-2"><a href="implementation-genvisr.html#cb126-2" tabindex="-1"></a><span class="fu">names</span>(data_set_appendix)[<span class="fu">names</span>(data_set_appendix) <span class="sc">==</span> <span class="st">&#39;X&#39;</span>] <span class="ot">&lt;-</span> <span class="st">&#39;sample&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="implementation-genvisr.html#cb127-1" tabindex="-1"></a>full_join <span class="ot">&lt;-</span>  <span class="fu">merge</span>(data_set_appendix,biomart_export,  <span class="at">by =</span><span class="st">&quot;hgnc_symbol&quot;</span>) </span>
+<span id="cb127-2"><a href="implementation-genvisr.html#cb127-2" tabindex="-1"></a><span class="fu">head</span>(full_join)</span></code></pre></div>
+<pre><code>##   hgnc_symbol sample Variant_Classification Position ensembl_gene_id
+## 1        AFF3     18                  3UTR  99545644 ENSG00000144218
+## 2        AFF3     19      Missense_Mutation 99545817 ENSG00000144218
+## 3        AFF3     20      Missense_Mutation 99545812 ENSG00000144218
+## 4        AFF3     17      Missense_Mutation 99545531 ENSG00000144218
+## 5      BTN1A1      3      Missense_Mutation 26505362 ENSG00000292177
+## 6      BTN1A1      3      Missense_Mutation 26505362 ENSG00000124557
+##   chromosome_name start_position end_position   gene_biotype
+## 1               2       99545419    100192428 protein_coding
+## 2               2       99545419    100192428 protein_coding
+## 3               2       99545419    100192428 protein_coding
+## 4               2       99545419    100192428 protein_coding
+## 5   HSCHR6_1_CTG1          46483        56605 protein_coding
+## 6               6       26500303     26510425 protein_coding</code></pre>
+<p>SNP mutation in the genome, such as single nucleotide variants, insertions, or deletions, play a significant role in the development of genetic diseases. Identifying and summarizing these variants is frequently the initial stage in forming hypotheses about how these events contribute to the development and advancement of diseases. The purpose of the waterfall function is to effectively consolidate small variant (SNVs/indels) data at a cohort level. It is usefull for gaining a comprehensive understanding of the types of variations seen in a group. Additionally, waterfall plots provide insight into the burden of mutations, genes that are frequently mutated, the mutual exclusivity or co-occurrence of genes, and the correlation between variants and clinical information. <span class="citation">(<strong>WaterfallFunctionIntroductiona?</strong>)</span></p>
+<h3>
+waterfall: function implementation on the chosen dataset
+</h3>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="implementation-genvisr.html#cb129-1" tabindex="-1"></a>myHierarchy <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="st">&quot;mutation&quot;</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;Missense_Mutation&quot;</span>, <span class="st">&quot;Silent&quot;</span>, <span class="st">&quot;3’UTR&quot;</span>, <span class="st">&quot;DEL&quot;</span>), <span class="at">color=</span><span class="fu">c</span>(<span class="st">&quot;#001ca4&quot;</span>, <span class="st">&quot;#A8F5C2&quot;</span>,</span>
+<span id="cb129-2"><a href="implementation-genvisr.html#cb129-2" tabindex="-1"></a>                                                                     <span class="st">&quot;#D69C4E&quot;</span>, <span class="st">&quot;#F4CCD0&quot;</span> ) )</span>
+<span id="cb129-3"><a href="implementation-genvisr.html#cb129-3" tabindex="-1"></a></span>
+<span id="cb129-4"><a href="implementation-genvisr.html#cb129-4" tabindex="-1"></a><span class="fu">colnames</span>(full_join)</span></code></pre></div>
+<pre><code>## [1] &quot;hgnc_symbol&quot;            &quot;sample&quot;                 &quot;Variant_Classification&quot;
+## [4] &quot;Position&quot;               &quot;ensembl_gene_id&quot;        &quot;chromosome_name&quot;       
+## [7] &quot;start_position&quot;         &quot;end_position&quot;           &quot;gene_biotype&quot;</code></pre>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="implementation-genvisr.html#cb131-1" tabindex="-1"></a><span class="fu">names</span>(full_join)[<span class="fu">names</span>(full_join) <span class="sc">==</span> <span class="st">&#39;hgnc_symbol&#39;</span>] <span class="ot">&lt;-</span> <span class="st">&#39;gene&#39;</span></span>
+<span id="cb131-2"><a href="implementation-genvisr.html#cb131-2" tabindex="-1"></a><span class="fu">names</span>(full_join)[<span class="fu">names</span>(full_join) <span class="sc">==</span> <span class="st">&#39;Variant_Classification&#39;</span>] <span class="ot">&lt;-</span> <span class="st">&#39;mutation&#39;</span></span>
+<span id="cb131-3"><a href="implementation-genvisr.html#cb131-3" tabindex="-1"></a><span class="fu">names</span>(full_join)[<span class="fu">names</span>(full_join) <span class="sc">==</span> <span class="st">&#39;X&#39;</span>] <span class="ot">&lt;-</span> <span class="st">&#39;sample&#39;</span></span>
+<span id="cb131-4"><a href="implementation-genvisr.html#cb131-4" tabindex="-1"></a></span>
+<span id="cb131-5"><a href="implementation-genvisr.html#cb131-5" tabindex="-1"></a>full_join <span class="ot">&lt;-</span>  full_join  <span class="sc">%&gt;%</span>  janitor <span class="sc">::</span> <span class="fu">clean_names</span>()</span>
+<span id="cb131-6"><a href="implementation-genvisr.html#cb131-6" tabindex="-1"></a></span>
+<span id="cb131-7"><a href="implementation-genvisr.html#cb131-7" tabindex="-1"></a></span>
+<span id="cb131-8"><a href="implementation-genvisr.html#cb131-8" tabindex="-1"></a>plotGenes<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;PIK3CA&quot;</span>, <span class="st">&quot;TP53&quot;</span>, <span class="st">&quot;USH2A&quot;</span>, <span class="st">&quot;MLL3&quot;</span>, <span class="st">&quot;BRCA1&quot;</span>)</span>
+<span id="cb131-9"><a href="implementation-genvisr.html#cb131-9" tabindex="-1"></a></span>
+<span id="cb131-10"><a href="implementation-genvisr.html#cb131-10" tabindex="-1"></a>plotData2 <span class="ot">&lt;-</span> <span class="fu">Waterfall</span>(full_join, <span class="at">mutationHierarchy =</span> myHierarchy)</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="implementation-genvisr.html#cb132-1" tabindex="-1"></a><span class="fu">drawPlot</span>(plotData2)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/draw_plot-1.png" width="672" /></p>
+<h3>
+cnSpec
+</h3>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="implementation-genvisr.html#cb133-1" tabindex="-1"></a><span class="fu">library</span>(GenVisR)</span>
+<span id="cb133-2"><a href="implementation-genvisr.html#cb133-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="implementation-genvisr.html#cb134-1" tabindex="-1"></a>file_ngs_part1 <span class="ot">&lt;-</span>  <span class="st">&quot;data_raw/genViz/MATZO_p_TCGAb40_SNP_1N_GenomeWideSNP_6_E09_667812.grch38.seg.v1.txt&quot;</span></span>
+<span id="cb134-2"><a href="implementation-genvisr.html#cb134-2" tabindex="-1"></a>file_ngs_part2 <span class="ot">&lt;-</span> <span class="st">&quot;data_raw/genViz/MATZO_p_TCGAb40_SNP_1N_GenomeWideSNP_6_E09_667812.grch38.seg.v2.txt&quot;</span></span>
+<span id="cb134-3"><a href="implementation-genvisr.html#cb134-3" tabindex="-1"></a></span>
+<span id="cb134-4"><a href="implementation-genvisr.html#cb134-4" tabindex="-1"></a>ngs_v1 <span class="ot">&lt;-</span>  readr<span class="sc">::</span><span class="fu">read_delim</span>(file_ngs_part1, <span class="at">delim =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 7464 Columns: 6
+## ── Column specification ────────────────────
+## Delimiter: &quot;\t&quot;
+## chr (2): GDC_Aliquot, Chromosome
+## dbl (4): Start, End, Num_Probes, Segment_Mean
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="implementation-genvisr.html#cb136-1" tabindex="-1"></a>ngs_v2 <span class="ot">&lt;-</span>  readr<span class="sc">::</span><span class="fu">read_delim</span>(file_ngs_part2, <span class="at">delim =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 7464 Columns: 6
+## ── Column specification ────────────────────
+## Delimiter: &quot;\t&quot;
+## chr (2): GDC_Aliquot, Chromosome
+## dbl (4): Start, End, Num_Probes, Segment_Mean
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="implementation-genvisr.html#cb138-1" tabindex="-1"></a>ngsv1<span class="fl">.2</span> <span class="ot">&lt;-</span>   <span class="fu">rbind</span>(ngs_v1,ngs_v2)</span>
+<span id="cb138-2"><a href="implementation-genvisr.html#cb138-2" tabindex="-1"></a><span class="fu">head</span>(ngsv1<span class="fl">.2</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 6
+##   GDC_Aliquot                   Chromosome  Start    End Num_Probes Segment_Mean
+##   &lt;chr&gt;                         &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;
+## 1 3573fb47-be73-4d7c-a9c9-b0ba… 1          6.29e4 9.86e4         13       0.632 
+## 2 3573fb47-be73-4d7c-a9c9-b0ba… 1          2.59e5 7.93e5         13       0.152 
+## 3 3573fb47-be73-4d7c-a9c9-b0ba… 1          8.05e5 3.30e6        714       0.338 
+## 4 3573fb47-be73-4d7c-a9c9-b0ba… 1          3.30e6 5.05e6       1321       0.0421
+## 5 3573fb47-be73-4d7c-a9c9-b0ba… 1          5.05e6 5.07e6         12       0.664 
+## 6 3573fb47-be73-4d7c-a9c9-b0ba… 1          5.08e6 5.19e6         87       0.0681</code></pre>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="implementation-genvisr.html#cb140-1" tabindex="-1"></a><span class="fu">colnames</span>(ngsv1<span class="fl">.2</span>) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;sample&quot;</span>, <span class="st">&quot;chromosome&quot;</span>,  <span class="st">&quot;start&quot;</span>, <span class="st">&quot;end&quot;</span>, <span class="st">&quot;probes&quot;</span>, <span class="st">&quot;segmean&quot;</span>)</span>
+<span id="cb140-2"><a href="implementation-genvisr.html#cb140-2" tabindex="-1"></a>ngsv1<span class="fl">.2</span>  <span class="ot">&lt;-</span>  <span class="fu">mutate</span>(ngsv1<span class="fl">.2</span>, <span class="at">sample=</span><span class="fu">str_sub</span>(sample, <span class="at">start=</span><span class="dv">32</span>, <span class="at">end=</span><span class="dv">36</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="implementation-genvisr.html#cb141-1" tabindex="-1"></a>genomeBoundaries <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(chromEnd <span class="sc">~</span> chrom, <span class="at">data=</span>cytoGeno[cytoGeno<span class="sc">$</span>genome<span class="sc">==</span><span class="st">&quot;hg38&quot;</span>,], max)</span>
+<span id="cb141-2"><a href="implementation-genvisr.html#cb141-2" tabindex="-1"></a>genomeBoundaries<span class="sc">$</span>chromStart <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb141-3"><a href="implementation-genvisr.html#cb141-3" tabindex="-1"></a><span class="fu">colnames</span>(genomeBoundaries) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;chromosome&quot;</span>, <span class="st">&quot;end&quot;</span>, <span class="st">&quot;start&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="implementation-genvisr.html#cb142-1" tabindex="-1"></a><span class="fu">cnSpec</span>(ngsv1<span class="fl">.2</span>, <span class="at">genome=</span><span class="st">&quot;hg38&quot;</span>,  <span class="at">CN_Loss_colour =</span> <span class="st">&quot;#add8e6&quot;</span>,</span>
+<span id="cb142-2"><a href="implementation-genvisr.html#cb142-2" tabindex="-1"></a>       <span class="at">CN_Gain_colour =</span> <span class="st">&quot;#A30000&quot;</span>, <span class="at">CNscale=</span><span class="st">&quot;relative&quot;</span>,  <span class="at">y=</span>genomeBoundaries )</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-68-1.png" width="100%" /></p>
+<h3>
+Gen cov
+</h3>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="implementation-genvisr.html#cb143-1" tabindex="-1"></a><span class="fu">library</span>(TxDb.Hsapiens.UCSC.hg19.knownGene)</span></code></pre></div>
+<pre><code>## Loading required package: GenomicFeatures</code></pre>
+<pre><code>## Loading required package: BiocGenerics</code></pre>
+<pre><code>## 
+## Attaching package: &#39;BiocGenerics&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:lubridate&#39;:
+## 
+##     intersect, setdiff, union</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     combine, intersect, setdiff, union</code></pre>
+<pre><code>## The following object is masked from &#39;package:fs&#39;:
+## 
+##     path</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     IQR, mad, sd, var, xtabs</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+##     colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+##     get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+##     match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+##     Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
+##     table, tapply, union, unique, unsplit, which.max, which.min</code></pre>
+<pre><code>## Loading required package: S4Vectors</code></pre>
+<pre><code>## Loading required package: stats4</code></pre>
+<pre><code>## 
+## Attaching package: &#39;S4Vectors&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:Matrix&#39;:
+## 
+##     expand, unname</code></pre>
+<pre><code>## The following objects are masked from &#39;package:lubridate&#39;:
+## 
+##     second, second&lt;-</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     first, rename</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     expand</code></pre>
+<pre><code>## The following objects are masked from &#39;package:data.table&#39;:
+## 
+##     first, second</code></pre>
+<pre><code>## The following object is masked from &#39;package:utils&#39;:
+## 
+##     findMatches</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     expand.grid, I, unname</code></pre>
+<pre><code>## Loading required package: IRanges</code></pre>
+<pre><code>## 
+## Attaching package: &#39;IRanges&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:lubridate&#39;:
+## 
+##     %within%</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     collapse, desc, slice</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     reduce</code></pre>
+<pre><code>## The following object is masked from &#39;package:data.table&#39;:
+## 
+##     shift</code></pre>
+<pre><code>## The following object is masked from &#39;package:grDevices&#39;:
+## 
+##     windows</code></pre>
+<pre><code>## Loading required package: GenomeInfoDb</code></pre>
+<pre><code>## Loading required package: GenomicRanges</code></pre>
+<pre><code>## Loading required package: AnnotationDbi</code></pre>
+<pre><code>## Loading required package: Biobase</code></pre>
+<pre><code>## Welcome to Bioconductor
+## 
+##     Vignettes contain introductory material; view with
+##     &#39;browseVignettes()&#39;. To cite Bioconductor, see
+##     &#39;citation(&quot;Biobase&quot;)&#39;, and for packages &#39;citation(&quot;pkgname&quot;)&#39;.</code></pre>
+<pre><code>## 
+## Attaching package: &#39;Biobase&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:checkmate&#39;:
+## 
+##     anyMissing</code></pre>
+<pre><code>## 
+## Attaching package: &#39;AnnotationDbi&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     select</code></pre>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="implementation-genvisr.html#cb178-1" tabindex="-1"></a>txdb <span class="ot">&lt;-</span> TxDb.Hsapiens.UCSC.hg19.knownGene</span>
+<span id="cb178-2"><a href="implementation-genvisr.html#cb178-2" tabindex="-1"></a><span class="fu">library</span>(BSgenome.Hsapiens.UCSC.hg19)</span></code></pre></div>
+<pre><code>## Loading required package: BSgenome</code></pre>
+<pre><code>## Loading required package: Biostrings</code></pre>
+<pre><code>## Loading required package: XVector</code></pre>
+<pre><code>## 
+## Attaching package: &#39;XVector&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     compact</code></pre>
+<pre><code>## 
+## Attaching package: &#39;Biostrings&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:grid&#39;:
+## 
+##     pattern</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     strsplit</code></pre>
+<pre><code>## Loading required package: BiocIO</code></pre>
+<pre><code>## Loading required package: rtracklayer</code></pre>
+<pre><code>## 
+## Attaching package: &#39;rtracklayer&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:BiocIO&#39;:
+## 
+##     FileForFormat</code></pre>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="implementation-genvisr.html#cb191-1" tabindex="-1"></a>genome <span class="ot">&lt;-</span> BSgenome.Hsapiens.UCSC.hg19</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="implementation-genvisr.html#cb192-1" tabindex="-1"></a><span class="fu">library</span>(BSgenome.Hsapiens.UCSC.hg19)</span>
+<span id="cb192-2"><a href="implementation-genvisr.html#cb192-2" tabindex="-1"></a><span class="fu">library</span>(TxDb.Hsapiens.UCSC.hg19.knownGene)</span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="implementation-genvisr.html#cb193-1" tabindex="-1"></a>url <span class="ot">&lt;-</span>  <span class="st">&quot;data_raw/genViz/BTN1A1_cov_chr6.V1.txt&quot;</span></span>
+<span id="cb193-2"><a href="implementation-genvisr.html#cb193-2" tabindex="-1"></a></span>
+<span id="cb193-3"><a href="implementation-genvisr.html#cb193-3" tabindex="-1"></a>covData <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">header=</span>T)</span>
+<span id="cb193-4"><a href="implementation-genvisr.html#cb193-4" tabindex="-1"></a></span>
+<span id="cb193-5"><a href="implementation-genvisr.html#cb193-5" tabindex="-1"></a><span class="fu">colnames</span>(covData) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;chromosome&quot;</span>, <span class="st">&quot;start&quot;</span>, <span class="st">&quot;end&quot;</span>, <span class="st">&quot;BTN1A1&quot;</span>, <span class="st">&quot;BTN2A1&quot;</span>)</span>
+<span id="cb193-6"><a href="implementation-genvisr.html#cb193-6" tabindex="-1"></a></span>
+<span id="cb193-7"><a href="implementation-genvisr.html#cb193-7" tabindex="-1"></a><span class="co"># create a function to split the data frame into lists of data frames</span></span>
+<span id="cb193-8"><a href="implementation-genvisr.html#cb193-8" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;BTN1A1&quot;</span>, <span class="st">&quot;BTN2A1&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="implementation-genvisr.html#cb194-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y){</span>
+<span id="cb194-2"><a href="implementation-genvisr.html#cb194-2" tabindex="-1"></a>  col_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;chromosome&quot;</span>, <span class="st">&quot;end&quot;</span>, x)</span>
+<span id="cb194-3"><a href="implementation-genvisr.html#cb194-3" tabindex="-1"></a>  y <span class="ot">&lt;-</span> y[,col_names]</span>
+<span id="cb194-4"><a href="implementation-genvisr.html#cb194-4" tabindex="-1"></a>  <span class="fu">colnames</span>(y) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;chromosome&quot;</span>, <span class="st">&quot;end&quot;</span>, <span class="st">&quot;cov&quot;</span>)</span>
+<span id="cb194-5"><a href="implementation-genvisr.html#cb194-5" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
+<span id="cb194-6"><a href="implementation-genvisr.html#cb194-6" tabindex="-1"></a>}</span>
+<span id="cb194-7"><a href="implementation-genvisr.html#cb194-7" tabindex="-1"></a>covData <span class="ot">&lt;-</span> <span class="fu">lapply</span>(samples, a, covData)</span>
+<span id="cb194-8"><a href="implementation-genvisr.html#cb194-8" tabindex="-1"></a></span>
+<span id="cb194-9"><a href="implementation-genvisr.html#cb194-9" tabindex="-1"></a><span class="fu">names</span>(covData) <span class="ot">&lt;-</span> samples</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="implementation-genvisr.html#cb195-1" tabindex="-1"></a>genomeObject <span class="ot">&lt;-</span>BSgenome.Hsapiens.UCSC.hg19</span>
+<span id="cb195-2"><a href="implementation-genvisr.html#cb195-2" tabindex="-1"></a>TxDbObject <span class="ot">&lt;-</span> TxDb.Hsapiens.UCSC.hg19.knownGene</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="implementation-genvisr.html#cb196-1" tabindex="-1"></a>chromosome <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">unique</span>(covData[[<span class="dv">1</span>]]<span class="sc">$</span>chromosome))</span>
+<span id="cb196-2"><a href="implementation-genvisr.html#cb196-2" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">min</span>(covData[[<span class="dv">1</span>]]<span class="sc">$</span>end))</span>
+<span id="cb196-3"><a href="implementation-genvisr.html#cb196-3" tabindex="-1"></a>end <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">max</span>(covData[[<span class="dv">1</span>]]<span class="sc">$</span>end))</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="implementation-genvisr.html#cb197-1" tabindex="-1"></a>grObject <span class="ot">&lt;-</span> <span class="fu">GRanges</span>(<span class="at">seqnames=</span><span class="fu">c</span>(<span class="st">&quot;chr6&quot;</span>), <span class="at">ranges=</span><span class="fu">IRanges</span>(<span class="at">start=</span>start, <span class="at">end=</span>end))</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="implementation-genvisr.html#cb198-1" tabindex="-1"></a><span class="fu">genCov</span>(<span class="at">x=</span>covData, <span class="at">txdb=</span>TxDbObject, <span class="at">gr=</span>grObject, <span class="at">genome=</span>genomeObject, <span class="at">cov_plotType=</span><span class="st">&quot;line&quot;</span>, <span class="at">label_txtSize =</span> <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## Obtaining CDS Coordinates</code></pre>
+<pre><code>## &#39;select()&#39; returned 1:many mapping between keys and columns</code></pre>
+<pre><code>## Obtaining UTR Coordinates</code></pre>
+<pre><code>## &#39;select()&#39; returned 1:many mapping between keys and columns</code></pre>
+<pre><code>## Calculating transform</code></pre>
+<pre><code>## Mapping coverage data onto transformed gene-space</code></pre>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<pre><code>## NULL</code></pre>
+
+</div>
+<div id="footer">Copyright &copy;  Hogeschool Utrecht   DSFB2  <i class="fa-solid fa-webhook"></i> 2024  		</footer>
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="working-with-relational-databases.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

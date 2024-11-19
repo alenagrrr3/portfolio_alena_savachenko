@@ -1,0 +1,250 @@
+# Implementation  GenVisR
+
+<h3>  Genomic Visualization and Interpretations Introduction to  GenVisR  </h3>
+
+GenVisR is a package to  interpret  and visualize data received from NGS sequencing.There are many tools available for the analysis and visualization of these data. In this module we will focus on 
+3 functions : waterfall, genCov, and cnSpec. For the last module another dataset is used. 
+The dataset for the spectrum plot comes from the GDC data portal,  https://portal.gdc.cancer.gov/analysis_page?app=Downloads, file with name  MATZO_p_TCGAb40_SNP_1N_GenomeWideSNP_6_E09_667812.grch38.seg.v2.txt.
+
+<h4> Waterfall plots</h4>
+
+The waterfall() function from the GenVisR package displays mutation  in a heatmap-like structure with rows and columns denotating genes and samples.The function creates a plot of the mutational landscape from original data. [@WaterfallFunctionIntroduction]
+
+First of all, we need to load the GenVisR library from bioconductor. We also need to load the mutation data. In the original dataset, only the gene name, mutation and position are present. We need to
+add some additional information from the Ensemble database, such as chromosome coordinates and gene annotation and to join this information to dataset.
+
+
+Install required libraries
+
+
+```{r, eval=FALSE, warning=FALSE, message=FALSE}
+
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+BiocManager::install("GenVisR")
+
+```
+
+
+```{r, warning=FALSE, message=FALSE}
+
+library(GenVisR) 
+library(data.table)
+library (tidyverse)
+library(biomaRt)
+library(tidyverse)
+```
+
+
+Data preproccesing. First we save  all  gene names from article to the list.
+
+
+```{r preprocess}
+list_gen_names <- c("AFF3","BTN1A1", "H2AC6", "HMGN4", "MDM4", "LRRN2", "TANK" )
+list_ensemble <- c("ENSG00000144218", "ENSG00000124557","ENSG00000180573", "ENSG00000182952", "ENSG00000198625","ENSG00000170382", "ENSG00000136560")
+```
+
+
+Then we need  to retrieve genomic coordinates and annotations for the further analyses. This is possible with biomaRt Bioconductor library
+
+```{r use_mart}
+
+ensembl <- useMart("ensembl")
+ensembl <- useDataset("hsapiens_gene_ensembl",mart=ensembl)
+object_results2 <-  getBM(attributes=c('ensembl_gene_id','chromosome_name', 'start_position', 'end_position','gene_biotype','hgnc_symbol'),
+      filters='hgnc_symbol',
+      values=list_gen_names,
+      mart=ensembl)  
+```
+Export Ensemble results to csv file.
+
+
+```{r results_mart, eval=FALSE}
+
+object_results2
+write.csv(object_results2 ,"data_raw/genViz/output_object_results_mart.csv")
+
+```
+
+```{r biomart_results}
+knitr::kable(object_results2,
+             caption = "The biomart results cotaining the gene coordinates")
+```
+
+
+
+```{r export_biomarts}
+biomart_export <-read.csv("output/genViz/output_object_results_mart.csv") 
+```
+
+Join dataset export from biomart with list of genes/mutations.
+
+
+```{r except_1_col}
+biomart_export <- biomart_export[,-1]
+head( biomart_export)
+```
+
+
+
+```{r}
+data_set_appendix<-read.csv2("output/genViz/output_BTN1A2.csv")
+```
+
+Make column names fit to join the ensemble dataset
+
+
+```{r recname_cols}
+names(data_set_appendix)[names(data_set_appendix) == 'Hugo_Symbol'] <- 'hgnc_symbol'
+names(data_set_appendix)[names(data_set_appendix) == 'X'] <- 'sample'
+
+```
+
+```{r  join_data}
+full_join <-  merge(data_set_appendix,biomart_export,  by ="hgnc_symbol") 
+head(full_join)
+```
+
+
+SNP mutation  in the genome, such as single nucleotide variants, insertions, or deletions, play a significant role in the development of genetic diseases. Identifying and summarizing these variants is frequently the initial stage in forming hypotheses about how these events contribute to the development and advancement of diseases. The purpose of the waterfall function is to effectively consolidate small variant (SNVs/indels) data at a cohort level.  It is usefull  for gaining a comprehensive understanding of the types of variations seen in a group. Additionally, waterfall plots provide insight into the burden of mutations, genes that are frequently mutated, the mutual exclusivity or co-occurrence of genes, and the correlation between variants and clinical information. [@WaterfallFunctionIntroductiona]
+
+
+<h3> waterfall: function implementation on the chosen dataset  </h3>
+
+
+```{r hierachy, warning=FALSE, message=FALSE}
+myHierarchy <- data.table("mutation"=c("Missense_Mutation", "Silent", "3’UTR", "DEL"), color=c("#001ca4", "#A8F5C2",
+                                                                     "#D69C4E", "#F4CCD0" ) )
+
+colnames(full_join)
+
+names(full_join)[names(full_join) == 'hgnc_symbol'] <- 'gene'
+names(full_join)[names(full_join) == 'Variant_Classification'] <- 'mutation'
+names(full_join)[names(full_join) == 'X'] <- 'sample'
+
+full_join <-  full_join  %>%  janitor :: clean_names()
+
+
+plotGenes=c("PIK3CA", "TP53", "USH2A", "MLL3", "BRCA1")
+
+plotData2 <- Waterfall(full_join, mutationHierarchy = myHierarchy)
+```
+
+
+```{r draw_plot}
+
+drawPlot(plotData2)
+```
+
+
+<h3> cnSpec</h3>
+
+
+```{r, warning=FALSE, message=FALSE}
+
+library(GenVisR)
+library(tidyverse)
+```
+
+
+```{r raw_data_matzo_genome_grch38}
+
+
+file_ngs_part1 <-  "data_raw/genViz/MATZO_p_TCGAb40_SNP_1N_GenomeWideSNP_6_E09_667812.grch38.seg.v1.txt"
+file_ngs_part2 <- "data_raw/genViz/MATZO_p_TCGAb40_SNP_1N_GenomeWideSNP_6_E09_667812.grch38.seg.v2.txt"
+
+ngs_v1 <-  readr::read_delim(file_ngs_part1, delim = "\t")
+ngs_v2 <-  readr::read_delim(file_ngs_part2, delim = "\t")
+```
+
+
+```{r}
+ngsv1.2 <-   rbind(ngs_v1,ngs_v2)
+head(ngsv1.2)
+colnames(ngsv1.2) <- c("sample", "chromosome",  "start", "end", "probes", "segmean")
+ngsv1.2  <-  mutate(ngsv1.2, sample=str_sub(sample, start=32, end=36))
+```
+
+```{r}
+genomeBoundaries <- aggregate(chromEnd ~ chrom, data=cytoGeno[cytoGeno$genome=="hg38",], max)
+genomeBoundaries$chromStart <- 0
+colnames(genomeBoundaries) <- c("chromosome", "end", "start")
+
+```
+
+
+```{r ,  out.width="100%", warning=FALSE, message=FALSE}
+
+cnSpec(ngsv1.2, genome="hg38",  CN_Loss_colour = "#add8e6",
+       CN_Gain_colour = "#A30000", CNscale="relative",  y=genomeBoundaries )
+```
+
+
+<h3> Gen cov </h3>
+
+```{r}
+library(TxDb.Hsapiens.UCSC.hg19.knownGene)
+txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene
+library(BSgenome.Hsapiens.UCSC.hg19)
+genome <- BSgenome.Hsapiens.UCSC.hg19
+```
+
+
+```{r}
+library(BSgenome.Hsapiens.UCSC.hg19)
+library(TxDb.Hsapiens.UCSC.hg19.knownGene)
+```
+
+
+
+```{r}
+url <-  "data_raw/genViz/BTN1A1_cov_chr6.V1.txt"
+
+covData <- read.csv(url, sep="\t", header=T)
+
+colnames(covData) <- c("chromosome", "start", "end", "BTN1A1", "BTN2A1")
+
+# create a function to split the data frame into lists of data frames
+samples <- c("BTN1A1", "BTN2A1")
+
+```
+
+
+```{r}
+a <- function(x, y){
+  col_names <- c("chromosome", "end", x)
+  y <- y[,col_names]
+  colnames(y) <- c("chromosome", "end", "cov")
+  return(y)
+}
+covData <- lapply(samples, a, covData)
+
+names(covData) <- samples
+
+```
+
+```{r}
+genomeObject <-BSgenome.Hsapiens.UCSC.hg19
+TxDbObject <- TxDb.Hsapiens.UCSC.hg19.knownGene
+```
+
+
+```{r}
+chromosome <- as.character(unique(covData[[1]]$chromosome))
+start <- as.numeric(min(covData[[1]]$end))
+end <- as.numeric(max(covData[[1]]$end))
+
+```
+
+
+```{r}
+grObject <- GRanges(seqnames=c("chr6"), ranges=IRanges(start=start, end=end))
+
+```
+
+
+```{r}
+genCov(x=covData, txdb=TxDbObject, gr=grObject, genome=genomeObject, cov_plotType="line", label_txtSize = 5)
+```
+
+

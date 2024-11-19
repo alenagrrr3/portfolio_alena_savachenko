@@ -52,6 +52,12 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/d3-4.13.0/./d3/d3.v4.min.js"></script>
+<link href="libs/g3viz-0.4.0/./g3viz/g3-lollipop.min.css" rel="stylesheet" />
+<script src="libs/g3viz-0.4.0/./g3viz/g3-lollipop.min.js"></script>
+<script src="libs/g3Lollipop-binding-1.2.0/g3Lollipop.js"></script>
 
 
 <style type="text/css">
@@ -154,6 +160,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6" data-path="reproducibility-issues-in-a-scientific-publication..html"><a href="reproducibility-issues-in-a-scientific-publication..html"><i class="fa fa-check"></i><b>6</b> Reproducibility issues in a scientific publication.</a></li>
 <li class="chapter" data-level="7" data-path="reproducble-research.-part-2.html"><a href="reproducble-research.-part-2.html"><i class="fa fa-check"></i><b>7</b> Reproducble research. Part 2</a></li>
 <li class="chapter" data-level="8" data-path="working-with-relational-databases.html"><a href="working-with-relational-databases.html"><i class="fa fa-check"></i><b>8</b> Working with relational databases</a></li>
+<li class="chapter" data-level="9" data-path="implementation-genvisr.html"><a href="implementation-genvisr.html"><i class="fa fa-check"></i><b>9</b> Implementation GenVisR</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/alenagrrr3/portfolio_alena_savachenko" target="blank">Published with bookdown</a></li>
@@ -190,8 +197,8 @@ Use the {fs} package to share a screenshot of your folder tree in your portfolio
 <h5>
 The portfolio directory:
 </h5>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="data-managment-principles.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(fs)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="data-managment-principles.html#cb4-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/hu_courses/worfklow_ds_2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="data-managment-principles.html#cb10-1" tabindex="-1"></a><span class="fu">library</span>(fs)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="data-managment-principles.html#cb11-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/hu_courses/worfklow_ds_2&quot;</span>)</span></code></pre></div>
 <pre><code>## C:/Users/Mijn-PC/Documents/hu_courses/worfklow_ds_2
 ## ├── 01-The_Guerrilla_Data_management_Principles.Rmd
 ## ├── 02-Agile_collaboration.Rmd
@@ -294,7 +301,7 @@ The portfolio directory:
 <h5>
 The Daur-2 directory:
 </h5>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data-managment-principles.html#cb6-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/hu_courses/Daur2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="data-managment-principles.html#cb13-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/hu_courses/Daur2&quot;</span>)</span></code></pre></div>
 <pre><code>## C:/Users/Mijn-PC/Documents/hu_courses/Daur2
 ## ├── Daur2.Rproj
 ## ├── README.md.txt
@@ -333,7 +340,7 @@ The Daur-2 directory:
 <h5>
 The projecticum directory:
 </h5>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="data-managment-principles.html#cb8-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/hu_courses/projecticum&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="data-managment-principles.html#cb15-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/hu_courses/projecticum&quot;</span>)</span></code></pre></div>
 <pre><code>## C:/Users/Mijn-PC/Documents/hu_courses/projecticum
 ## ├── data
 ## │   └── README.md
@@ -359,7 +366,7 @@ The projecticum directory:
 <h5>
 The portfolio directory:
 </h5>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="data-managment-principles.html#cb10-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/hu_courses/portfolio&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="data-managment-principles.html#cb17-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Mijn-PC/Documents/hu_courses/portfolio&quot;</span>)</span></code></pre></div>
 <pre><code>## C:/Users/Mijn-PC/Documents/hu_courses/portfolio
 ## ├── 01-The_Guerrilla_Data_management_Principles.Rmd
 ## ├── 02-Agile_collaboration.Rmd
