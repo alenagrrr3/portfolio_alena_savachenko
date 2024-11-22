@@ -3,7 +3,7 @@ title: "Data science for biology"
 author: "alena savachenko"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-bibliography: bib/min_seq.bib
+bibliography: [bib/min_seq.bib, bib/genvisr.bib] 
 csl: assets/apa.csl
 
 
