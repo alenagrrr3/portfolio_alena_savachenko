@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Agile collaboration | Data science for biology</title>
-  <meta name="description" content="Chapter 3 Agile collaboration | Data science for biology" />
+  <title>Chapter 9 Creating R packages | Data science for biology</title>
+  <meta name="description" content="Chapter 9 Creating R packages | Data science for biology" />
   <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Agile collaboration | Data science for biology" />
+  <meta property="og:title" content="Chapter 9 Creating R packages | Data science for biology" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Agile collaboration | Data science for biology" />
+  <meta name="twitter:title" content="Chapter 9 Creating R packages | Data science for biology" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="the-guerrilla-data_management-principles.html"/>
-<link rel="next" href="data-managment-principles.html"/>
+<link rel="prev" href="working-with-relational-databases.html"/>
+<link rel="next" href="genvisr.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -209,33 +209,80 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="agile-collaboration" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Agile collaboration<a href="agile-collaboration.html#agile-collaboration" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div class="azure">
-<p>github pages</p>
-<pre><code>Execute the steps explained here (click) to setup a github-pages repository called myname-portfolio or something similar.</code></pre>
-<p>NOTE: your github pages will be visible for everyone! Don’t put anything on there you do not want the world to see. Including but not restricted to: your address, e-mail etc, data you have no permission for, code you don’t want anyone to see (your teachers will still be able to see all code in your repo)</p>
-<p>Once you have successfully rendered your bookdown to a full website, hosting can be achieved by copying all html files to your Github-pages. The easiest way is to:</p>
-<pre><code>set your repo to private
-add your teachers as collaborators on the repo
-clone your github pages repo
-copy all the html files rendered with bookdown to this folder
-commit and push all changes to your github pages repo. The website will be automatically updated after some time.</code></pre>
-<p>Make sure your portfolio looks professional, and flex your Rmarkdown and analysis skills: it is meant to be used with future job applications! (Also, it is part of your grade)</p>
-<pre><code>Put your portfolio on your github pages</code></pre>
-</div>
-<div class="pd22">
+<div id="creating-r-packages" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Creating R packages<a href="creating-r-packages.html#creating-r-packages" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h3>
+Creating R packages
+</h3>
 <h4>
-Links to github pages/repo :
+Create your own package and publish it on Github
 </h4>
-<p><a href="https://github.com/alenagrrr3/portfolio_alena_savachenko">Portfolio source code</a>
-<br>
-<a href="https://alenagrrr3.github.io/portfolio_alena_savachenko/">Portfolio deployment</a>
-<br>
-<a href="https://github.com/alenagrrr3/worfklow_ds_2">Workflow source code</a>
-<br>
-<a href="https://alenagrrr3.github.io/worfklow_ds_2/">Workflow deployment</a>
-<br></p>
+<div class="azure">
+<p>To complete this portfolio assingment you need to perform the following steps:</p>
+<pre><code>From your collection of RMarkdown files, collect 1 or a few that you know contain duplication of code (which should be fixed by writing a function). If there are already functions in your RMarkdown files, you can also select those
+Setup a new RStudio project with an R package (think about a cool name* - cannot included special character and spaces), linked to a github repo in your Github account
+Transfer the RMarkdown files that you selected in step 1 (and all their dependencies like data and scripts) to your new package (put them in the appropriate folders).
+Using what you have learnt so far (and what you can read from https://r-pkgs.org/index.html and https://emilyriederer.netlify.app/post/rmarkdown-driven-development/), transform your RMarkdown files into one R package. Publish the link to this package in your portfolio:</code></pre>
+<p>*When choosing a name for a package, this quote from might help:</p>
+<p>“Side-note, if you are to create an R package, you need a name. It needs to be unique, especially if you plan on getting your package on CRAN. The {available} package can help you evaluate possible names to make sure they do not clash with other names and that they do not mean something rude.”</p>
+<p>We do not appreciate package names including offensive words</p>
+<p>Use this code to check the name you would like to use:</p>
+<p>library(available)
+available(“your_intended_package_name”)</p>
+<p>To pass this assignment, your new package should at least include:</p>
+<pre><code>A properly formatted DESCRIPTION file, with all the fields including relevant information (so change the default values)
+4 different functions that you wrote and with proper documentation, using roxygen2 comments
+A NAMESPACE file, generated with the command devtools::document()
+1 Raw dataset that is documented and cleaned into a clean dataset. This clean dataset should be accessible inside your package. This means that if I install your package from Github, I would be able to call data(&lt;dataset_name&gt;, &lt;package_name&gt;) to load the cleaned dataset of interest in the Global Environment.
+One vignette that is accessible via the command browseVignettes(&lt;package_name&gt;) or vignette(&lt;package_name&gt;)
+The package installs from Github without errors when I run: devtools::install_github(&quot;account_name/package_name&quot;)</code></pre>
+</div>
+<p><a href="https://github.com/alenagrrr3/dscurve">link to package source code :</a></p>
+<p>Install package from github. View dataset</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="creating-r-packages.html#cb118-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;devtools&quot;</span>)</span></code></pre></div>
+<pre><code>## Loading required package: usethis</code></pre>
+<pre><code>## 
+## Attaching package: &#39;devtools&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:remotes&#39;:
+## 
+##     dev_package_deps, install_bioc, install_bitbucket, install_cran,
+##     install_deps, install_dev, install_git, install_github,
+##     install_gitlab, install_local, install_svn, install_url,
+##     install_version, update_packages</code></pre>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="creating-r-packages.html#cb122-1" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;alenagrrr3/dscurve&quot;</span>)</span></code></pre></div>
+<pre><code>## Using GitHub PAT from the git credential store.</code></pre>
+<pre><code>## Skipping install of &#39;dscurve&#39; from a github remote, the SHA1 (b0238546) has not changed since last install.
+##   Use `force = TRUE` to force installation</code></pre>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="creating-r-packages.html#cb125-1" tabindex="-1"></a><span class="fu">library</span>(dscurve)</span>
+<span id="cb125-2"><a href="creating-r-packages.html#cb125-2" tabindex="-1"></a></span>
+<span id="cb125-3"><a href="creating-r-packages.html#cb125-3" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">data</span>(<span class="at">package =</span> <span class="st">&quot;dscurve&quot;</span>), <span class="at">silent =</span> <span class="cn">TRUE</span> )</span>
+<span id="cb125-4"><a href="creating-r-packages.html#cb125-4" tabindex="-1"></a></span>
+<span id="cb125-5"><a href="creating-r-packages.html#cb125-5" tabindex="-1"></a><span class="fu">data</span>(celegance)</span>
+<span id="cb125-6"><a href="creating-r-packages.html#cb125-6" tabindex="-1"></a></span>
+<span id="cb125-7"><a href="creating-r-packages.html#cb125-7" tabindex="-1"></a></span>
+<span id="cb125-8"><a href="creating-r-packages.html#cb125-8" tabindex="-1"></a><span class="fu">head</span>(celegance)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 34
+##   plateRow plateColumn vialNr dropCode expType    expReplicate expName        
+##   &lt;lgl&gt;    &lt;lgl&gt;        &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;          
+## 1 NA       NA               1 a        experiment            3 CE.LIQ.FLOW.062
+## 2 NA       NA               1 b        experiment            3 CE.LIQ.FLOW.062
+## 3 NA       NA               1 c        experiment            3 CE.LIQ.FLOW.062
+## 4 NA       NA               1 d        experiment            3 CE.LIQ.FLOW.062
+## 5 NA       NA               1 e        experiment            3 CE.LIQ.FLOW.062
+## 6 NA       NA               2 a        experiment            3 CE.LIQ.FLOW.062
+## # ℹ 27 more variables: expDate &lt;dttm&gt;, expResearcher &lt;chr&gt;, expTime &lt;dbl&gt;,
+## #   expUnit &lt;chr&gt;, expVolumeCounted &lt;dbl&gt;, RawData &lt;dbl&gt;, compCASRN &lt;chr&gt;,
+## #   compName &lt;chr&gt;, compConcentration &lt;dbl&gt;, compUnit &lt;chr&gt;,
+## #   compDelivery &lt;chr&gt;, compVehicle &lt;chr&gt;, elegansStrain &lt;chr&gt;,
+## #   elegansInput &lt;dbl&gt;, bacterialStrain &lt;chr&gt;, bacterialTreatment &lt;chr&gt;,
+## #   bacterialOD600 &lt;dbl&gt;, bacterialConcX &lt;dbl&gt;, bacterialVolume &lt;dbl&gt;,
+## #   bacterialVolUnit &lt;chr&gt;, incubationVial &lt;chr&gt;, incubationVolume &lt;dbl&gt;, …</code></pre>
+<object data="assets/about.pdf" type="application/pdf" width="100%" height="750px">
+<embed src="assets/about.pdf">
+</object>
+<div class="pd22">
+<p>Vignettes</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="creating-r-packages.html#cb127-1" tabindex="-1"></a><span class="fu">browseVignettes</span>(<span class="st">&quot;dscurve&quot;</span>)</span></code></pre></div>
 </div>
 
 </div>
@@ -249,8 +296,8 @@ Links to github pages/repo :
           </div>
         </div>
       </div>
-<a href="the-guerrilla-data_management-principles.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-managment-principles.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="working-with-relational-databases.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="genvisr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

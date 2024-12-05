@@ -23,7 +23,7 @@
 <meta name="author" content="alena savachenko" />
 
 
-<meta name="date" content="2024-11-22" />
+<meta name="date" content="2024-12-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="reproducble-research.-part-2.html"/>
-<link rel="next" href="genvisr.html"/>
+<link rel="next" href="creating-r-packages.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -183,10 +183,11 @@ div.csl-indent {
 <li class="chapter" data-level="6" data-path="reproducibility-issues-in-a-scientific-publication..html"><a href="reproducibility-issues-in-a-scientific-publication..html"><i class="fa fa-check"></i><b>6</b> Reproducibility issues in a scientific publication.</a></li>
 <li class="chapter" data-level="7" data-path="reproducble-research.-part-2.html"><a href="reproducble-research.-part-2.html"><i class="fa fa-check"></i><b>7</b> Reproducble research. Part 2</a></li>
 <li class="chapter" data-level="8" data-path="working-with-relational-databases.html"><a href="working-with-relational-databases.html"><i class="fa fa-check"></i><b>8</b> Working with relational databases</a></li>
-<li class="chapter" data-level="9" data-path="genvisr.html"><a href="genvisr.html"><i class="fa fa-check"></i><b>9</b> GenVisR</a>
+<li class="chapter" data-level="9" data-path="creating-r-packages.html"><a href="creating-r-packages.html"><i class="fa fa-check"></i><b>9</b> Creating R packages</a></li>
+<li class="chapter" data-level="10" data-path="genvisr.html"><a href="genvisr.html"><i class="fa fa-check"></i><b>10</b> GenVisR</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="genvisr.html"><a href="genvisr.html#introduction-to-dataset"><i class="fa fa-check"></i><b>9.1</b> Introduction to dataset</a></li>
-<li class="chapter" data-level="9.2" data-path="genvisr.html"><a href="genvisr.html#implementation-genvizr"><i class="fa fa-check"></i><b>9.2</b> Implementation genVizR</a></li>
+<li class="chapter" data-level="10.1" data-path="genvisr.html"><a href="genvisr.html#introduction-to-dataset"><i class="fa fa-check"></i><b>10.1</b> Introduction to dataset</a></li>
+<li class="chapter" data-level="10.2" data-path="genvisr.html"><a href="genvisr.html#implementation-genvizr"><i class="fa fa-check"></i><b>10.2</b> Implementation genVizR</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -852,13 +853,12 @@ Descriptive statistics
 <span id="cb101-2"><a href="working-with-relational-databases.html#cb101-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>cases_dengue, <span class="at">color=</span>country)) <span class="sc">+</span></span>
 <span id="cb101-3"><a href="working-with-relational-databases.html#cb101-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size=</span><span class="fl">2.5</span>)<span class="sc">+</span></span>
 <span id="cb101-4"><a href="working-with-relational-databases.html#cb101-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Comparing of dengue cases in Argentina, Bolivia and Brazil&quot;</span> ) </span></code></pre></div>
-<pre><code>## Warning: Using `size` aesthetic for lines was
-## deprecated in ggplot2 3.4.0.
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2
+## 3.4.0.
 ## ℹ Please use `linewidth` instead.
-## This warning is displayed once every 8
-## hours.
-## Call `lifecycle::last_lifecycle_warnings()`
-## to see where this warning was generated.</code></pre>
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this
+## warning was generated.</code></pre>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 <div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="working-with-relational-databases.html#cb103-1" tabindex="-1"></a>join2 <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Bolivia&quot;</span>, <span class="st">&quot;Brazil&quot;</span>, <span class="st">&quot;Argentina&quot;</span>)  )  <span class="sc">%&gt;%</span></span>
 <span id="cb103-2"><a href="working-with-relational-databases.html#cb103-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>cases_flu, <span class="at">color=</span>country)) <span class="sc">+</span></span>
@@ -962,9 +962,8 @@ Left join : gapminder and combined flu and dengue
 <span id="cb114-2"><a href="working-with-relational-databases.html#cb114-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(sum_cases) , <span class="at">y=</span>dengue_sum_cases, <span class="at">color=</span>continent)) <span class="sc">+</span></span>
 <span id="cb114-3"><a href="working-with-relational-databases.html#cb114-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
 <span id="cb114-4"><a href="working-with-relational-databases.html#cb114-4" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Scatterplot of flu and dengue cases &quot;</span>, <span class="at">y=</span> <span class="st">&quot;flu cases, natural log&quot;</span>, <span class="at">x=</span><span class="st">&quot;dengue cases&quot;</span>  )</span></code></pre></div>
-<pre><code>## Warning: Removed 10492 rows containing missing
-## values or values outside the scale range
-## (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 10492 rows containing missing values or values outside
+## the scale range (`geom_point()`).</code></pre>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
 <p>
 There is no positive or negative correlation between flu cases and dengue cases in all given countries (continent America )
@@ -985,7 +984,7 @@ Flu cases are several thousand times higher than dengue cases , with a maximum o
         </div>
       </div>
 <a href="reproducble-research.-part-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="genvisr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="creating-r-packages.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

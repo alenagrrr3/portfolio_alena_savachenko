@@ -2,7 +2,7 @@ tab:unnamed-chunk-49
 tab:unnamed-chunk-50
 tab:unnamed-chunk-52
 tab:unnamed-chunk-53
-fig:unnamed-chunk-62
+fig:unnamed-chunk-64
 introduction
 the-guerrilla-data_management-principles
 portfolio-assignment-1.2-part-1
@@ -14,6 +14,7 @@ reproducible-research
 reproducibility-issues-in-a-scientific-publication.
 reproducble-research.-part-2
 working-with-relational-databases
+creating-r-packages
 genvisr
 introduction-to-dataset
 implementation-genvizr
