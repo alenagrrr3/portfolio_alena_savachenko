@@ -1,0 +1,33 @@
+# Introduction
+
+<h3> Genome anotatie ab de novo. Introductie</h3> 
+
+Relevantie van het onderzoeksonderwerp 
+
+Dit onderzoeksonderwerp is van wezenlijk belang, omdat er in de experimentele wetenschap en de geneeskunde op dit moment wordt gestreefd naar alternatieven voor het gebruik van dieren bij diverse laboratoriumexperimenten. Vanwege de belangrijke rol die diverse wormsoorten spelen als modellen in medisch en biologisch onderzoek, is het essentieel om hun genetisch materiaal te bestuderen. Dit project richt zich specifiek op de analyse van het genetisch materiaal van de soort Lumbricidae [@LumbriBASE]. De soort Lumbricus Terresteris hoort tot de fylogenetische  familie Annelida,  Clitellata, Oligochaeta, Crassiclitellata,  Lumbricina,  Lumbricidae [@erxlebenGenomeAnnotation0000]. De soort ringwormen (Annelida) zijn de oudste evolutionaire groep. De musculatuur lijkt hier sterk op de dwarsgestreptte musculatuur van dieren. De soorten ringwormen (Annelida) zijn de oudste evolutionaire groep. In dit geval lijkt de musculatuur sterk op dwarsgestreepte spieren bij dieren[@giovannipilatoSignificanceMusculatureOrigin]Daarom is deze soort een van de mensrelevante modellen voor laboratoriumonderzoek.
+
+Genoomannotatie is het proces dat gericht is op het identificeren van functionele componenten binnen een DNA-sequentie. Dit proces van annotatie biedt inzicht in het genoom door de plaats en functie van genen te specificeren, waaronder genen die eiwitten coderen of andere functies vervullen, evenals de bijbehorende regulerende elementen. De assemblage is altijd gebaseerd op de reads die zijn gegenereerd tijdens het sequentieproces. Het proces van genoomassemblage houdt in dat het originele genoom wordt gereconstrueerd uit kleine stukjes DNA, verkregen door middel van sequenting[@colauttillabNovoAssemblyTutorial]. Deze reads zorgen ervoor dat het oorspronkelijke genoom meestal meerdere keren wordt gedekt. Bij het analyseren van genomische en metagenomische gegevens, is de gebruikelijke oplossing een verzameling contigs. Een contig is een aaneengeschakelde nucleotidesequentie. Deze contigs kunnen worden samengevoegd tot scaffolds, waarbij scaffolds bestaan uit een reeks contigs met een schatting van de afstanden tussen deze sequenties[@ncbi.nlm.nih.govNCBIEukaryoticGenome]De processen van genomassemblage en anatomie zijn geïntegreerd in een groter geheel dat zich richt op de identificatie van het genoom.
+Het annoteren van genoom is nog steeds een proces dat veel tijd kost en verschillende soorten sequentieanalyses samenbrengt. Gezien de grootte en complexiteit van genomen,  is de eerste stap naar volledige genoomassemblage meestal het verkrijgen van sequencinggegevens  om ruwe assemblage en voorspelling  van genmodellen  te verkrijgen.
+
+
+
+Het hele annotatieproces bestaat over het algemeen uit de volgende stappen   :
+1) Het maskeren van sterk repetitieve elementen in de genoomsequentie 
+2) het gebruik van transcripten en eiwitten van dezelfde of verwante soorten om ab initio te voorspellen . De bekende transcripten en eiwitten zijn opgeslagen in genetische databases zoals NCBI en BLAST. 
+3) gebruik van  genzoekalgoritmen om mogelijke genstructuren te identificeren;
+4) het combineren van deze gegevens om een eerste reeks genmodellen te creëren;
+5) filteren van de resultaten op kwaliteit  om de meest waarschijnlijke genmodellen te identificeren die volledige eiwitcoderende regio's.[@ncbi.nlm.nih.govNCBIEukaryoticGenome] . In eerste instantie wordt de kwaliteitsselectie uitgevoerd met behulp van een set positieve controles voor het programma. Na het voltooien van deze controles wordt het  percentage  fout-positieven resuultaten duidelijk zichtbaar.
+
+Een overzicht van publiek beschikbare genomen en annotaties in de  soort Lumbricus terrestris
+Hoewel er in de bestaande literatuur slechts een beperkt aantal studies is dat de assemblage en annotatie van het genoom van Lumbricus terrestris behandelt, zijn er wel talrijke beschrijvingen van de genoomannotatie van andere organismen. Voor de soorten C.Elegans en Lubricus Rubellis  is er bijvoorbeeld een volledige annotatie. Voor het eerst wordt een gedetailleerde genoomassemblage van de genen van een soort  Lumbricus terrestris gepubliceerd op 30 oktober [@blaxterGenomeSequenceCommon2023]. Door de innovatieve long-read sequencing methoden van Pacific Biosciences hebben de wetenschappers het genoom  gesequenced en gepubliceerd. Hoewel het gepubliceerde genoom compleet is op sequentieniveau, is de analyse van de annotaties erg fragmentarisch. Deze genoomassemblage is de eerste die voor het publiek beschikbaar is. Het project legt de focus op het verder onderzoeken van de metadata van genoomassemblages. Tot nu toe zijn er in de literatuur geen uitgebreide en systematische studies gedaan over de annotatie van het Lumbricus terrestris genoom.
+
+
+<div class="pd22">
+
+<h4> Bibliography  </h4>
+
+<div id="refs"></div>
+
+</div>
+
+

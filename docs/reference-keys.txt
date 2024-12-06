@@ -18,3 +18,5 @@ creating-r-packages
 genvisr
 introduction-to-dataset
 implementation-genvizr
+parameterized-rmarkdown
+introduction-1

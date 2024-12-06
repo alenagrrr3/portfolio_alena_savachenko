@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Creating R packages | Data science for biology</title>
-  <meta name="description" content="Chapter 9 Creating R packages | Data science for biology" />
+  <title>Chapter 12 Introduction | Data science for biology</title>
+  <meta name="description" content="Chapter 12 Introduction | Data science for biology" />
   <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 9 Creating R packages | Data science for biology" />
+  <meta property="og:title" content="Chapter 12 Introduction | Data science for biology" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Creating R packages | Data science for biology" />
+  <meta name="twitter:title" content="Chapter 12 Introduction | Data science for biology" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="working-with-relational-databases.html"/>
-<link rel="next" href="genvisr.html"/>
+<link rel="prev" href="parameterized-rmarkdown.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -217,80 +217,62 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="creating-r-packages" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">Chapter 9</span> Creating R packages<a href="creating-r-packages.html#creating-r-packages" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction-1" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Introduction<a href="introduction-1.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <h3>
-Creating R packages
+Genome anotatie ab de novo. Introductie
 </h3>
-<h4>
-Create your own package and publish it on Github
-</h4>
-<div class="azure">
-<p>To complete this portfolio assingment you need to perform the following steps:</p>
-<pre><code>From your collection of RMarkdown files, collect 1 or a few that you know contain duplication of code (which should be fixed by writing a function). If there are already functions in your RMarkdown files, you can also select those
-Setup a new RStudio project with an R package (think about a cool name* - cannot included special character and spaces), linked to a github repo in your Github account
-Transfer the RMarkdown files that you selected in step 1 (and all their dependencies like data and scripts) to your new package (put them in the appropriate folders).
-Using what you have learnt so far (and what you can read from https://r-pkgs.org/index.html and https://emilyriederer.netlify.app/post/rmarkdown-driven-development/), transform your RMarkdown files into one R package. Publish the link to this package in your portfolio:</code></pre>
-<p>*When choosing a name for a package, this quote from might help:</p>
-<p>“Side-note, if you are to create an R package, you need a name. It needs to be unique, especially if you plan on getting your package on CRAN. The {available} package can help you evaluate possible names to make sure they do not clash with other names and that they do not mean something rude.”</p>
-<p>We do not appreciate package names including offensive words</p>
-<p>Use this code to check the name you would like to use:</p>
-<p>library(available)
-available(“your_intended_package_name”)</p>
-<p>To pass this assignment, your new package should at least include:</p>
-<pre><code>A properly formatted DESCRIPTION file, with all the fields including relevant information (so change the default values)
-4 different functions that you wrote and with proper documentation, using roxygen2 comments
-A NAMESPACE file, generated with the command devtools::document()
-1 Raw dataset that is documented and cleaned into a clean dataset. This clean dataset should be accessible inside your package. This means that if I install your package from Github, I would be able to call data(&lt;dataset_name&gt;, &lt;package_name&gt;) to load the cleaned dataset of interest in the Global Environment.
-One vignette that is accessible via the command browseVignettes(&lt;package_name&gt;) or vignette(&lt;package_name&gt;)
-The package installs from Github without errors when I run: devtools::install_github(&quot;account_name/package_name&quot;)</code></pre>
-</div>
-<p><a href="https://github.com/alenagrrr3/dscurve">link to package source code :</a></p>
-<p>Install package from github. View dataset</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="creating-r-packages.html#cb118-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;devtools&quot;</span>)</span></code></pre></div>
-<pre><code>## Loading required package: usethis</code></pre>
-<pre><code>## 
-## Attaching package: &#39;devtools&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:remotes&#39;:
-## 
-##     dev_package_deps, install_bioc, install_bitbucket, install_cran,
-##     install_deps, install_dev, install_git, install_github,
-##     install_gitlab, install_local, install_svn, install_url,
-##     install_version, update_packages</code></pre>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="creating-r-packages.html#cb122-1" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;alenagrrr3/dscurve&quot;</span>)</span></code></pre></div>
-<pre><code>## Using GitHub PAT from the git credential store.</code></pre>
-<pre><code>## Skipping install of &#39;dscurve&#39; from a github remote, the SHA1 (b0238546) has not changed since last install.
-##   Use `force = TRUE` to force installation</code></pre>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="creating-r-packages.html#cb125-1" tabindex="-1"></a><span class="fu">library</span>(dscurve)</span>
-<span id="cb125-2"><a href="creating-r-packages.html#cb125-2" tabindex="-1"></a></span>
-<span id="cb125-3"><a href="creating-r-packages.html#cb125-3" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">data</span>(<span class="at">package =</span> <span class="st">&quot;dscurve&quot;</span>), <span class="at">silent =</span> <span class="cn">TRUE</span> )</span>
-<span id="cb125-4"><a href="creating-r-packages.html#cb125-4" tabindex="-1"></a></span>
-<span id="cb125-5"><a href="creating-r-packages.html#cb125-5" tabindex="-1"></a><span class="fu">data</span>(celegance)</span>
-<span id="cb125-6"><a href="creating-r-packages.html#cb125-6" tabindex="-1"></a></span>
-<span id="cb125-7"><a href="creating-r-packages.html#cb125-7" tabindex="-1"></a></span>
-<span id="cb125-8"><a href="creating-r-packages.html#cb125-8" tabindex="-1"></a><span class="fu">head</span>(celegance)</span></code></pre></div>
-<pre><code>## # A tibble: 6 × 34
-##   plateRow plateColumn vialNr dropCode expType    expReplicate expName        
-##   &lt;lgl&gt;    &lt;lgl&gt;        &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;          
-## 1 NA       NA               1 a        experiment            3 CE.LIQ.FLOW.062
-## 2 NA       NA               1 b        experiment            3 CE.LIQ.FLOW.062
-## 3 NA       NA               1 c        experiment            3 CE.LIQ.FLOW.062
-## 4 NA       NA               1 d        experiment            3 CE.LIQ.FLOW.062
-## 5 NA       NA               1 e        experiment            3 CE.LIQ.FLOW.062
-## 6 NA       NA               2 a        experiment            3 CE.LIQ.FLOW.062
-## # ℹ 27 more variables: expDate &lt;dttm&gt;, expResearcher &lt;chr&gt;, expTime &lt;dbl&gt;,
-## #   expUnit &lt;chr&gt;, expVolumeCounted &lt;dbl&gt;, RawData &lt;dbl&gt;, compCASRN &lt;chr&gt;,
-## #   compName &lt;chr&gt;, compConcentration &lt;dbl&gt;, compUnit &lt;chr&gt;,
-## #   compDelivery &lt;chr&gt;, compVehicle &lt;chr&gt;, elegansStrain &lt;chr&gt;,
-## #   elegansInput &lt;dbl&gt;, bacterialStrain &lt;chr&gt;, bacterialTreatment &lt;chr&gt;,
-## #   bacterialOD600 &lt;dbl&gt;, bacterialConcX &lt;dbl&gt;, bacterialVolume &lt;dbl&gt;,
-## #   bacterialVolUnit &lt;chr&gt;, incubationVial &lt;chr&gt;, incubationVolume &lt;dbl&gt;, …</code></pre>
-<object data="assets/about.pdf" type="application/pdf" width="100%" height="750px">
-<embed src="assets/about.pdf">
-</object>
+<p>Relevantie van het onderzoeksonderwerp</p>
+<p>Dit onderzoeksonderwerp is van wezenlijk belang, omdat er in de experimentele wetenschap en de geneeskunde op dit moment wordt gestreefd naar alternatieven voor het gebruik van dieren bij diverse laboratoriumexperimenten. Vanwege de belangrijke rol die diverse wormsoorten spelen als modellen in medisch en biologisch onderzoek, is het essentieel om hun genetisch materiaal te bestuderen. Dit project richt zich specifiek op de analyse van het genetisch materiaal van de soort Lumbricidae <span class="citation">(<em><span>LumbriBASE</span></em>, n.d.)</span>. De soort Lumbricus Terresteris hoort tot de fylogenetische familie Annelida, Clitellata, Oligochaeta, Crassiclitellata, Lumbricina, Lumbricidae <span class="citation">(Erxleben &amp; Grüning, 12:19:56 +0000)</span>. De soort ringwormen (Annelida) zijn de oudste evolutionaire groep. De musculatuur lijkt hier sterk op de dwarsgestreptte musculatuur van dieren. De soorten ringwormen (Annelida) zijn de oudste evolutionaire groep. In dit geval lijkt de musculatuur sterk op dwarsgestreepte spieren bij dieren<span class="citation">(Pilato, n.d.)</span>Daarom is deze soort een van de mensrelevante modellen voor laboratoriumonderzoek.</p>
+<p>Genoomannotatie is het proces dat gericht is op het identificeren van functionele componenten binnen een DNA-sequentie. Dit proces van annotatie biedt inzicht in het genoom door de plaats en functie van genen te specificeren, waaronder genen die eiwitten coderen of andere functies vervullen, evenals de bijbehorende regulerende elementen. De assemblage is altijd gebaseerd op de reads die zijn gegenereerd tijdens het sequentieproces. Het proces van genoomassemblage houdt in dat het originele genoom wordt gereconstrueerd uit kleine stukjes DNA, verkregen door middel van sequenting<span class="citation">(ColauttilLab, n.d.)</span>. Deze reads zorgen ervoor dat het oorspronkelijke genoom meestal meerdere keren wordt gedekt. Bij het analyseren van genomische en metagenomische gegevens, is de gebruikelijke oplossing een verzameling contigs. Een contig is een aaneengeschakelde nucleotidesequentie. Deze contigs kunnen worden samengevoegd tot scaffolds, waarbij scaffolds bestaan uit een reeks contigs met een schatting van de afstanden tussen deze sequenties<span class="citation">(ncbi.nlm.nih.gov, n.d.)</span>De processen van genomassemblage en anatomie zijn geïntegreerd in een groter geheel dat zich richt op de identificatie van het genoom.
+Het annoteren van genoom is nog steeds een proces dat veel tijd kost en verschillende soorten sequentieanalyses samenbrengt. Gezien de grootte en complexiteit van genomen, is de eerste stap naar volledige genoomassemblage meestal het verkrijgen van sequencinggegevens om ruwe assemblage en voorspelling van genmodellen te verkrijgen.</p>
+<p>Het hele annotatieproces bestaat over het algemeen uit de volgende stappen :
+1) Het maskeren van sterk repetitieve elementen in de genoomsequentie
+2) het gebruik van transcripten en eiwitten van dezelfde of verwante soorten om ab initio te voorspellen . De bekende transcripten en eiwitten zijn opgeslagen in genetische databases zoals NCBI en BLAST.
+3) gebruik van genzoekalgoritmen om mogelijke genstructuren te identificeren;
+4) het combineren van deze gegevens om een eerste reeks genmodellen te creëren;
+5) filteren van de resultaten op kwaliteit om de meest waarschijnlijke genmodellen te identificeren die volledige eiwitcoderende regio’s.<span class="citation">(ncbi.nlm.nih.gov, n.d.)</span> . In eerste instantie wordt de kwaliteitsselectie uitgevoerd met behulp van een set positieve controles voor het programma. Na het voltooien van deze controles wordt het percentage fout-positieven resuultaten duidelijk zichtbaar.</p>
+<p>Een overzicht van publiek beschikbare genomen en annotaties in de soort Lumbricus terrestris
+Hoewel er in de bestaande literatuur slechts een beperkt aantal studies is dat de assemblage en annotatie van het genoom van Lumbricus terrestris behandelt, zijn er wel talrijke beschrijvingen van de genoomannotatie van andere organismen. Voor de soorten C.Elegans en Lubricus Rubellis is er bijvoorbeeld een volledige annotatie. Voor het eerst wordt een gedetailleerde genoomassemblage van de genen van een soort Lumbricus terrestris gepubliceerd op 30 oktober <span class="citation">(Blaxter et al., 2023)</span>. Door de innovatieve long-read sequencing methoden van Pacific Biosciences hebben de wetenschappers het genoom gesequenced en gepubliceerd. Hoewel het gepubliceerde genoom compleet is op sequentieniveau, is de analyse van de annotaties erg fragmentarisch. Deze genoomassemblage is de eerste die voor het publiek beschikbaar is. Het project legt de focus op het verder onderzoeken van de metadata van genoomassemblages. Tot nu toe zijn er in de literatuur geen uitgebreide en systematische studies gedaan over de annotatie van het Lumbricus terrestris genoom.</p>
 <div class="pd22">
-<p>Vignettes</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="creating-r-packages.html#cb127-1" tabindex="-1"></a><span class="fu">browseVignettes</span>(<span class="st">&quot;dscurve&quot;</span>)</span></code></pre></div>
+<h4>
+Bibliography
+</h4>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-blaxterGenomeSequenceCommon2023" class="csl-entry">
+Blaxter, M. L., Spurgeon, D., &amp; Kille, P. (2023). The genome sequence of the common earthworm, <span>Lumbricus</span> terrestris (<span>Linnaeus</span>, 1758). <em>Wellcome Open Research</em>, <em>8</em>, 500. <a href="https://doi.org/10.12688/wellcomeopenres.20178.1">https://doi.org/10.12688/wellcomeopenres.20178.1</a>
+</div>
+<div id="ref-Chromosome6Ring" class="csl-entry">
+<em>Chromosome 6 <span>Ring</span> - <span>Symptoms</span>, <span>Causes</span>, <span>Treatment</span> | <span>NORD</span></em>. (n.d.). Retrieved November 16, 2024, from <a href="https://rarediseases.org/rare-diseases/chromosome-6-ring/">https://rarediseases.org/rare-diseases/chromosome-6-ring/</a>
+</div>
+<div id="ref-colauttillabNovoAssemblyTutorial" class="csl-entry">
+ColauttilLab. (n.d.). <em>De <span>Novo Assembly Tutorial</span></em>. Retrieved November 30, 2024, from <a href="https://colauttilab.github.io/NGS/deNovoTutorial.html">https://colauttilab.github.io/NGS/deNovoTutorial.html</a>
+</div>
+<div id="ref-eriksonWholeGenomeSequencingHealthy2016" class="csl-entry">
+Erikson, G. A., Bodian, D. L., Rueda, M., Molparia, B., Scott, E. R., Scott-Van Zeeland, A. A., Topol, S. E., Wineinger, N. E., Niederhuber, J. E., Topol, E. J., &amp; Torkamani, A. (2016). Whole-<span>Genome Sequencing</span> of a <span>Healthy Aging Cohort</span>. <em>Cell</em>, <em>165</em>(4), 1002–1011. <a href="https://doi.org/10.1016/j.cell.2016.03.022">https://doi.org/10.1016/j.cell.2016.03.022</a>
+</div>
+<div id="ref-erxlebenGenomeAnnotation0000" class="csl-entry">
+Erxleben, A., &amp; Grüning, B. (12:19:56 +000012:19:56 +0000). <em>Genome Annotation</em> [Text]. Galaxy Training Network; Galaxy Training Network. <a href="https://translated.turbopages.org/proxy_u/en-ru.ru.dd5ab9ec-67446c58-5ab2c0cb-74722d776562/https/training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/genome-annotation/tutorial.html">https://translated.turbopages.org/proxy_u/en-ru.ru.dd5ab9ec-67446c58-5ab2c0cb-74722d776562/https/training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/genome-annotation/tutorial.html</a>
+</div>
+<div id="ref-GeneBTN1A1ENSG00000124557" class="csl-entry">
+<em>Gene: <span>BTN1A1</span> (<span>ENSG00000124557</span>) - <span>Summary</span> - <span>Homo</span>_sapiens - <span>Ensembl</span> genome browser 113</em>. (n.d.). Retrieved November 16, 2024, from <a href="https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000124557;r=6:26500303-26510425">https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000124557;r=6:26500303-26510425</a>
+</div>
+<div id="ref-LumbriBASE" class="csl-entry">
+<em><span>LumbriBASE</span></em>. (n.d.). Retrieved November 30, 2024, from <a href="http://xyala2.bio.ed.ac.uk/Lumbribase/lumbribase_php/lumbribase.shtml">http://xyala2.bio.ed.ac.uk/Lumbribase/lumbribase_php/lumbribase.shtml</a>
+</div>
+<div id="ref-ncbi.nlm.nih.govNCBIEukaryoticGenome" class="csl-entry">
+ncbi.nlm.nih.gov. (n.d.). <em>The <span>NCBI Eukaryotic Genome Annotation Pipeline</span></em>. Retrieved November 25, 2024, from <a href="https://www.ncbi.nlm.nih.gov/refseq/annotation_euk/process/">https://www.ncbi.nlm.nih.gov/refseq/annotation_euk/process/</a>
+</div>
+<div id="ref-giovannipilatoSignificanceMusculatureOrigin" class="csl-entry">
+Pilato, G. (n.d.). <em>The significance of musculature in the origin of the Annelida</em>. Retrieved November 30, 2024, from <a href="http://ouci.dntb.gov.ua/en/works/ldperODl/">http://ouci.dntb.gov.ua/en/works/ldperODl/</a>
+</div>
+<div id="ref-rietveldGWAS126559Individuals2013" class="csl-entry">
+Rietveld, C. A., Medland, S. E., Derringer, J., Yang, J., Esko, T., Martin, N. W., Westra, H.-J., Shakhbazov, K., Abdellaoui, A., Agrawal, A., Albrecht, E., Alizadeh, B. Z., Amin, N., Barnard, J., Baumeister, S. E., Benke, K. S., Bielak, L. F., Boatman, J. A., Boyle, P. A., … Koellinger, P. D. (2013). <span>GWAS</span> of 126,559 <span>Individuals Identifies Genetic Variants Associated</span> with <span>Educational Attainment</span>. <em>Science</em>, <em>340</em>(6139), 1467–1471. <a href="https://doi.org/10.1126/science.1235488">https://doi.org/10.1126/science.1235488</a>
+</div>
+<div id="ref-WaterfallFunctionIntroduction" class="csl-entry">
+<em>Waterfall: Function introduction</em>. (n.d.). Retrieved November 16, 2024, from <a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/GenVisR/inst/doc/waterfall_introduction.html">https://www.bioconductor.org/packages/devel/bioc/vignettes/GenVisR/inst/doc/waterfall_introduction.html</a>
+</div>
+</div>
 </div>
 
 </div>
@@ -304,8 +286,8 @@ The package installs from Github without errors when I run: devtools::install_gi
           </div>
         </div>
       </div>
-<a href="working-with-relational-databases.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="genvisr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="parameterized-rmarkdown.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Creating R packages | Data science for biology</title>
-  <meta name="description" content="Chapter 9 Creating R packages | Data science for biology" />
+  <title>Chapter 13 Introduction | Data science for biology</title>
+  <meta name="description" content="Chapter 13 Introduction | Data science for biology" />
   <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 9 Creating R packages | Data science for biology" />
+  <meta property="og:title" content="Chapter 13 Introduction | Data science for biology" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Creating R packages | Data science for biology" />
+  <meta name="twitter:title" content="Chapter 13 Introduction | Data science for biology" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="working-with-relational-databases.html"/>
-<link rel="next" href="genvisr.html"/>
+<link rel="prev" href="introduction-1.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -197,6 +197,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="11" data-path="parameterized-rmarkdown.html"><a href="parameterized-rmarkdown.html"><i class="fa fa-check"></i><b>11</b> parameterized RMarkdown</a></li>
 <li class="chapter" data-level="12" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>12</b> Introduction</a></li>
+<li class="chapter" data-level="13" data-path="introduction-2.html"><a href="introduction-2.html"><i class="fa fa-check"></i><b>13</b> Introduction</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/alenagrrr3/portfolio_alena_savachenko" target="blank">Published with bookdown</a></li>
@@ -217,82 +218,49 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="creating-r-packages" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">Chapter 9</span> Creating R packages<a href="creating-r-packages.html#creating-r-packages" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction-2" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">Chapter 13</span> Introduction<a href="introduction-2.html#introduction-2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <h3>
-Creating R packages
+Publishing
 </h3>
-<h4>
-Create your own package and publish it on Github
-</h4>
-<div class="azure">
-<p>To complete this portfolio assingment you need to perform the following steps:</p>
-<pre><code>From your collection of RMarkdown files, collect 1 or a few that you know contain duplication of code (which should be fixed by writing a function). If there are already functions in your RMarkdown files, you can also select those
-Setup a new RStudio project with an R package (think about a cool name* - cannot included special character and spaces), linked to a github repo in your Github account
-Transfer the RMarkdown files that you selected in step 1 (and all their dependencies like data and scripts) to your new package (put them in the appropriate folders).
-Using what you have learnt so far (and what you can read from https://r-pkgs.org/index.html and https://emilyriederer.netlify.app/post/rmarkdown-driven-development/), transform your RMarkdown files into one R package. Publish the link to this package in your portfolio:</code></pre>
-<p>*When choosing a name for a package, this quote from might help:</p>
-<p>“Side-note, if you are to create an R package, you need a name. It needs to be unique, especially if you plan on getting your package on CRAN. The {available} package can help you evaluate possible names to make sure they do not clash with other names and that they do not mean something rude.”</p>
-<p>We do not appreciate package names including offensive words</p>
-<p>Use this code to check the name you would like to use:</p>
-<p>library(available)
-available(“your_intended_package_name”)</p>
-<p>To pass this assignment, your new package should at least include:</p>
-<pre><code>A properly formatted DESCRIPTION file, with all the fields including relevant information (so change the default values)
-4 different functions that you wrote and with proper documentation, using roxygen2 comments
-A NAMESPACE file, generated with the command devtools::document()
-1 Raw dataset that is documented and cleaned into a clean dataset. This clean dataset should be accessible inside your package. This means that if I install your package from Github, I would be able to call data(&lt;dataset_name&gt;, &lt;package_name&gt;) to load the cleaned dataset of interest in the Global Environment.
-One vignette that is accessible via the command browseVignettes(&lt;package_name&gt;) or vignette(&lt;package_name&gt;)
-The package installs from Github without errors when I run: devtools::install_github(&quot;account_name/package_name&quot;)</code></pre>
-</div>
-<p><a href="https://github.com/alenagrrr3/dscurve">link to package source code :</a></p>
-<p>Install package from github. View dataset</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="creating-r-packages.html#cb118-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;devtools&quot;</span>)</span></code></pre></div>
-<pre><code>## Loading required package: usethis</code></pre>
-<pre><code>## 
-## Attaching package: &#39;devtools&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:remotes&#39;:
-## 
-##     dev_package_deps, install_bioc, install_bitbucket, install_cran,
-##     install_deps, install_dev, install_git, install_github,
-##     install_gitlab, install_local, install_svn, install_url,
-##     install_version, update_packages</code></pre>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="creating-r-packages.html#cb122-1" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;alenagrrr3/dscurve&quot;</span>)</span></code></pre></div>
-<pre><code>## Using GitHub PAT from the git credential store.</code></pre>
-<pre><code>## Skipping install of &#39;dscurve&#39; from a github remote, the SHA1 (b0238546) has not changed since last install.
-##   Use `force = TRUE` to force installation</code></pre>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="creating-r-packages.html#cb125-1" tabindex="-1"></a><span class="fu">library</span>(dscurve)</span>
-<span id="cb125-2"><a href="creating-r-packages.html#cb125-2" tabindex="-1"></a></span>
-<span id="cb125-3"><a href="creating-r-packages.html#cb125-3" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">data</span>(<span class="at">package =</span> <span class="st">&quot;dscurve&quot;</span>), <span class="at">silent =</span> <span class="cn">TRUE</span> )</span>
-<span id="cb125-4"><a href="creating-r-packages.html#cb125-4" tabindex="-1"></a></span>
-<span id="cb125-5"><a href="creating-r-packages.html#cb125-5" tabindex="-1"></a><span class="fu">data</span>(celegance)</span>
-<span id="cb125-6"><a href="creating-r-packages.html#cb125-6" tabindex="-1"></a></span>
-<span id="cb125-7"><a href="creating-r-packages.html#cb125-7" tabindex="-1"></a></span>
-<span id="cb125-8"><a href="creating-r-packages.html#cb125-8" tabindex="-1"></a><span class="fu">head</span>(celegance)</span></code></pre></div>
-<pre><code>## # A tibble: 6 × 34
-##   plateRow plateColumn vialNr dropCode expType    expReplicate expName        
-##   &lt;lgl&gt;    &lt;lgl&gt;        &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;          
-## 1 NA       NA               1 a        experiment            3 CE.LIQ.FLOW.062
-## 2 NA       NA               1 b        experiment            3 CE.LIQ.FLOW.062
-## 3 NA       NA               1 c        experiment            3 CE.LIQ.FLOW.062
-## 4 NA       NA               1 d        experiment            3 CE.LIQ.FLOW.062
-## 5 NA       NA               1 e        experiment            3 CE.LIQ.FLOW.062
-## 6 NA       NA               2 a        experiment            3 CE.LIQ.FLOW.062
-## # ℹ 27 more variables: expDate &lt;dttm&gt;, expResearcher &lt;chr&gt;, expTime &lt;dbl&gt;,
-## #   expUnit &lt;chr&gt;, expVolumeCounted &lt;dbl&gt;, RawData &lt;dbl&gt;, compCASRN &lt;chr&gt;,
-## #   compName &lt;chr&gt;, compConcentration &lt;dbl&gt;, compUnit &lt;chr&gt;,
-## #   compDelivery &lt;chr&gt;, compVehicle &lt;chr&gt;, elegansStrain &lt;chr&gt;,
-## #   elegansInput &lt;dbl&gt;, bacterialStrain &lt;chr&gt;, bacterialTreatment &lt;chr&gt;,
-## #   bacterialOD600 &lt;dbl&gt;, bacterialConcX &lt;dbl&gt;, bacterialVolume &lt;dbl&gt;,
-## #   bacterialVolUnit &lt;chr&gt;, incubationVial &lt;chr&gt;, incubationVolume &lt;dbl&gt;, …</code></pre>
-<object data="assets/about.pdf" type="application/pdf" width="100%" height="750px">
-<embed src="assets/about.pdf">
-</object>
-<div class="pd22">
-<p>Vignettes</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="creating-r-packages.html#cb127-1" tabindex="-1"></a><span class="fu">browseVignettes</span>(<span class="st">&quot;dscurve&quot;</span>)</span></code></pre></div>
-</div>
+<p>Introduction</p>
+<p>The present work explores data on the expressed genes in cancer tissues to reflect information about changes in the transcriptome at different stages of cancer development.MSF-7 tumor cell line were sequenced by MinION sequencer at the ILC Research Center <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<p>The aim of the study is to annotate, characterize and structure transcriptome analysis of genes expressed during the development of using RNA/cDNA nanopore sequencing technology (Oxford Nanopore Technologies).Sequencing results were compared with previously obtained results of the Ying Chen from 2021 in the cancer study.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>Five cancer cell types were sequenced and the comparative organization of gene clusters was studied. Transcriptome data from long read and short read sequencers were obtained. Bioinformatic and statistical analysis of the experimental data was performed. The work demonstrated the reproducibility of the results under different experimental conditions.
+<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
+The purpose of this study was to obtain data on the expressed genes of tumor cells, dynamics of their transcription and polymorphism. The aim of the study included the involvement of different proteins in the regulation of proliferation canerogene cells of the MSF-7, Hct116, K562, HepG2 cell lines.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+<p>Studies on cancer biology have been conducted throughout the 21st centuries, including genomic variation, repeat regions, phasing, and transcript isoforms <a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.</p>
+<p>Despite the available research on tumor cell function remains open the question of the mechanisms controlling cell proliferation and “escaping” from apoptotic death. Therefore, the study of molecular-genetic and transcriptional features of development of tumor cell lines is an urgent and highly demanded direction of modern research.</p>
+<p>At the same time, new technologies long-read sequencing technologies are improving the accuracy of genome annotation and detection of new transcripts,
+including long non-coding RNAs (dnRNAs). Therefore, the use of third-generation sequencers to characterization of the transcriptome and the study of structural features of oncogenes is an important task, the solution of which will provide new information on the genetic basis of cancer development.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
+<p>Third-generation sequencing provided information on genes involved in the process of tumor cell development. In addition to the complexity and
+polymorphism of the genes themselves involved in the tumor cell development process, their study is complicated by the genomic
+organization of hybrid genes ( suppelmentory files, media-5.csv ), combines complex genomes, which makes annotation of its genome difficult.</p>
+<p>A key tool for identifying genes, structural variants and characteristics is Oxford .
+high-throughput Nanopore technology <a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
+<p>Nanopore sequencing is a technology that allows you to
+direct analysis of long DNA or RNA fragments in real time.
+in real time, based on the change in electrical current as nucleic acids as nucleic acids pass through protein nanopores. (application). Nanopore sequencing is used to assemble genomes, detect full-length transcripts, searching for nucleotide modifications. Applications are gaining momentum in more specialized applications, such as rapid clinical diagnostics and epidemiologic surveillance. However, in order to obtain reads of significant length, it is necessary to
+optimal sample preparation <a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>.</p>
+<p>A prerequisite for obtaining long
+reads is the availability of high-quality high-molecular-weight DNA. If the start material is highly fragmented and degraded, it is not possible to obtain long reads. The methodology of isolation DNA should be carefully selected for each type of sample. The MinION is the most popular and most compact sequencer.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
+<p>The software decodes the sequences in real time so they can be correlated with different markers. For example, it is possible to identify a gene associated with cancer.</p>
+<p><span class="citation">(<strong>GoekeLabSgnexdata2024?</strong>)</span></p>
 
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p><span class="citation">(<strong>HttpsCanvashunlCourses?</strong>)</span><a href="introduction-2.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><span class="citation">(<strong>chenSystematicBenchmarkNanopore2021b?</strong>)</span><a href="introduction-2.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><span class="citation">(<strong>chenSystematicBenchmarkNanopore2021b?</strong>)</span><a href="introduction-2.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p><span class="citation">(<strong>chenSystematicBenchmarkNanopore2021b?</strong>)</span><a href="introduction-2.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p><span class="citation">(<strong>HttpsAstoryblokcom196663a?</strong>)</span><a href="introduction-2.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p><span class="citation">(<strong>chenSystematicBenchmarkNanopore2021b?</strong>)</span><a href="introduction-2.html#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p><span class="citation">(<strong>luOxfordNanoporeMinION2016?</strong>)</span><a href="introduction-2.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p><span class="citation">(<strong>shanmuganandamLibraryPreparationProtocol2019?</strong>)</span><a href="introduction-2.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p><span class="citation">(<strong>GoekeLabSgnexdata2024?</strong>)</span><a href="introduction-2.html#fnref9" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 <div id="footer">Copyright &copy;  Hogeschool Utrecht   DSFB2  <i class="fa-solid fa-webhook"></i> 2024  		</footer>
 
@@ -304,8 +272,8 @@ The package installs from Github without errors when I run: devtools::install_gi
           </div>
         </div>
       </div>
-<a href="working-with-relational-databases.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="genvisr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introduction-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

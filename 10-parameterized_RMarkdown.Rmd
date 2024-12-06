@@ -1,0 +1,209 @@
+# parameterized RMarkdown
+
+<h3>  Publishing  </h3>
+ 
+<h3>  Covd  report  </h3>
+
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(plotly)
+library(tidyverse)
+library(dplyr)
+library(scales)
+
+```
+
+
+```{r}
+country <-  params$country
+
+print( paste("country : ", country ) )
+
+
+year <-  params$year
+
+period  <-  params$period
+
+selected_dates <- str_split(string = period , pattern = " ") %>% unlist()
+
+print( paste("period form", selected_dates[1], "to", selected_dates[2]) )
+
+
+```
+
+
+
+
+
+```{r}
+
+data1 <-  read.csv("https://raw.githubusercontent.com/alenagrrr3/data_to_viz/main/data_cases.csv", header=T)
+
+print("raw data to vizualize: ")
+head(data1)
+
+
+```
+
+```{r}
+
+```
+
+
+
+```{r}
+state_text <-  str_glue("state of {params$country}")
+
+
+```
+
+
+
+```{r}
+
+# format date 
+
+data1$dateRep <- as.Date(data1$dateRep, format="%d/%m/%Y")
+
+
+```
+
+
+```{r all_labes}
+title_deathes <-  str_glue("Related deathes in {country}")  
+
+
+max(data1$deaths,na.rm = TRUE)
+
+data_fitlered_by_country <-  data1 %>% filter (countriesAndTerritories==country) 
+
+max_deathes <-  max(data_fitlered_by_country$deaths,na.rm = TRUE) 
+year_max_deathes <-  data_fitlered_by_country$year[data_fitlered_by_country$deaths==max_deathes]
+date_max_deathes <-  data_fitlered_by_country$dateRep[data_fitlered_by_country$deaths==max_deathes]
+max_cases <-  max(data_fitlered_by_country$cases,na.rm = TRUE) 
+year_max_cases <-  data_fitlered_by_country$year[data_fitlered_by_country$cases==max_cases]
+date_max_cases <-  data_fitlered_by_country$dateRep[data_fitlered_by_country$cases==max_cases]
+
+```
+
+```{r}
+
+label_cases <-  str_glue("Covid cases reached {max_cases} in {year_max_cases}") 
+label_death <-  str_glue("Death cases reached {max_deathes} in {year_max_deathes}") 
+```
+
+
+
+```{r}
+
+plot_title <- str_glue("Reported Cases and Deaths by country")  
+plot_subtitle <-  str_glue("Related cases in  {country}")
+
+plot_cases <-  data1 %>% filter(countriesAndTerritories==country) %>%
+  ggplot( aes(x=dateRep, y=cases)) +
+  geom_line(color="#98d5f1")+
+  labs(title = plot_title,
+       subtitle = plot_subtitle,
+       x="date",
+       y="number of cases")+
+    annotate(geom="text", x=as.Date(date_max_deathes), y=max_deathes,
+           label=label_death)+
+      annotate(geom="text", x=as.Date(date_max_cases), y=max_cases,
+           label=label_cases)+
+   geom_vline(xintercept = as.Date(date_max_deathes), linetype="dotted", 
+                color = "orange", size=1.2)+
+   geom_vline(xintercept = as.Date(date_max_cases), linetype="dotted", 
+                color = "blue", size=1.2)+
+    scale_x_date(limit=c(as.Date(selected_dates[1]),as.Date(selected_dates[1][2])))
+
+
+
+```
+
+
+
+
+```{r}
+
+plot_cases
+
+
+```
+
+```{r max_death}
+
+
+```
+
+Plot by country in a given   period 
+
+```{r}
+
+
+
+deathes <-  data1 %>% filter(countriesAndTerritories=="Austria") %>%
+  ggplot( aes(x=dateRep, y=deaths)) +
+  geom_line(color="orange")+
+  labs(title = title_deathes,
+       x="date",
+       y="number of cases")+
+  annotate(geom="text", x=as.Date(date_max_deathes), y=120,
+           label=label_death)+
+   geom_vline(xintercept = as.Date(date_max_deathes), linetype="dotted", 
+                color = "blue", size=1.5)
+
+
+
+
+```
+
+
+
+```{r}
+  ggplotly(deathes)
+```
+
+
+Cases in `r year `
+
+
+```{r}
+
+
+cases_by_year <-  data1  %>% filter(year == year)
+
+label_for_cases_by_year <-  str_glue("Cases in {year} per country")
+
+plot_by_year <-  cases_by_year %>%
+  mutate(countriesAndTerritories = fct_reorder(countriesAndTerritories, cases)) %>%
+  ggplot(aes(
+    x = cases,
+    y = countriesAndTerritories
+  )) +
+  geom_col(fill="darkcyan") +
+  scale_x_continuous(labels = comma_format()) +
+  theme(legend.position = "none") +
+  labs(
+    y = NULL,
+    x = label_for_cases_by_year
+  )
+
+
+
+```
+
+
+```{r}
+
+ggplotly(plot_by_year)
+```

@@ -3,7 +3,7 @@ title: "Data science for biology"
 author: "alena savachenko"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-bibliography: [bib/min_seq.bib, bib/genvisr.bib] 
+bibliography: [bib/min_seq.bib, bib/genvisr.bib, bib/celegance.bib] 
 csl: assets/apa.csl
 
 
@@ -18,7 +18,10 @@ output:
           <li class="toc-logo"><a href="./"><img src="assets/img/logo_toc.png"></a></li>
           <li><a href="./">Data science for biology </a></li>
 
-      
+params:
+  country: "Austria"
+  year: "2020"
+  period: "2022-01-01 2022-07-01"      
 ---
 
 # Introduction
